@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="Guet.dao.CourseMapper">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+    <select id="queryCourseByStuID" resultMap="courseInfo">
+      SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit FROM course,tea_course,teacher WHERE
+	course.course_code IN(SELECT course_code FROM tea_course WHERE
+	course_id IN(SELECT course_id FROM stu_course WHERE student_id = #{stuID}))
+	AND course.course_code = tea_course.course_code
+	AND teacher.teacher_id = tea_course.teacher_id;
+   </select>
+
+    <select id="queryNoSelectedCourse" resultMap="courseInfo">
+        SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit, course_date, course_time FROM course,tea_course,teacher WHERE
+	course.course_code IN(SELECT course_code FROM tea_course WHERE course_code = #{courseCode} AND
+	course_id NOT IN(SELECT course_id FROM stu_course WHERE student_id = #{stuID}))
+	AND course.course_code = tea_course.course_code
+	AND teacher.teacher_id = tea_course.teacher_id;
+    </select>
+
+    <select id="queryAllCourse" resultType="Guet.pojo.CourseInfo">
+        SELECT course.* FROM course,student WHERE course_code IN(SELECT course_code FROM tea_course WHERE course_id NOT IN(SELECT course_id FROM stu_course)) AND student.student_id = #{stuID};
+    </select>
+
+
+    <insert id="insertCourseToStuCourse">
+        INSERT INTO stu_course VALUES(#{courseID}, #{stuID}, null);
+    </insert>
+
+    <delete id="dropCourse">
+        DELETE FROM stu_course WHERE course_id = #{courseID} and student_id = #{stuID};
+    </delete>
+
+    <select id="queryStuGrade" resultMap="courseInfo">
+        SELECT course.course_code,stu_course.course_id,course_name,grade,course_credit,course_type FROM course,tea_course,teacher,stu_course
+            WHERE course.course_code IN(SELECT course_code FROM tea_course
+                WHERE course_id IN(SELECT course_id FROM stu_course
+                    WHERE student_id = #{stuID}))
+            AND stu_course.course_id = tea_course.course_id
+            AND course.course_code = tea_course.course_code
+            AND teacher.teacher_id = tea_course.teacher_id;
+    </select>
+
+
+    <resultMap id="courseInfo" type="Guet.pojo.SelectedCourse" autoMapping="true">
+        <id column="course_id" property="courseID"/>
+        <!--association:完成子对象的映射-->
+        <!--property:子对象在父对象中的属性名-->
+        <!--javaType:子对象的java类型-->
+        <!--autoMapping:完成子对象的自动映射，若开启驼峰，则按驼峰匹配-->
+        <association property="courseInfo" javaType="Guet.pojo.CourseInfo" autoMapping="true">
+            <id column="course_code" property="courseCode"/>
+        </association>
+        <association property="teacherInfo" javaType="Guet.pojo.TeacherInfo" autoMapping="true">
+            <id column="teacher_id" property="teacherID"/>
+        </association>
+    </resultMap>
+
+</mapper>
