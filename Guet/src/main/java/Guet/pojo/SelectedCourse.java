@@ -2,6 +2,8 @@ package Guet.pojo;
 
 import Guet.view.CenterView.ViewType;
 
+import java.sql.Date;
+
 public class SelectedCourse {
 
     private int courseID;
@@ -12,6 +14,7 @@ public class SelectedCourse {
     private CourseInfo courseInfo;
     private TeacherInfo teacherInfo;
     private float grade;
+    private Date semester;
 
     public int getCourseID() {
         return courseID;
@@ -126,12 +129,15 @@ public class SelectedCourse {
     @Override
     public String toString() {
         return "SelectedCourse{" +
-                "courseID='" + courseID + '\'' +
+                "courseID=" + courseID +
                 ", studentID='" + studentID + '\'' +
                 ", teacherID='" + teacherID + '\'' +
+                ", courseTime='" + courseTime + '\'' +
+                ", classroom='" + classroom + '\'' +
+                ", courseInfo=" + courseInfo +
+                ", teacherInfo=" + teacherInfo +
                 ", grade=" + grade +
-                ", courseInfo=" + courseInfo.toString() +
-                ", teacherInfo=" + teacherInfo.toString() +
+                ", semester=" + semester +
                 '}';
     }
 }

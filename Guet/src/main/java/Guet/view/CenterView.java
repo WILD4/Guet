@@ -2,21 +2,24 @@ package Guet.view;
 
 import Guet.util.AppConfig;
 import Guet.util.CenterViewManager;
-import Guet.util.ServerSqlSession;
-import Guet.util.StudentManager;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class CenterView extends JFrame {
 
     private JFrame jFrame;
     private JPanel navBarJP;
     private JPanel funcViw;
+    private JPanel mainJPanel;
+    private JPanel selectSemester;
 
     private JLabel funcTitle;
     private JLabel title;
@@ -43,6 +46,8 @@ public class CenterView extends JFrame {
 
     private void init() {
         jFrame = new JFrame();
+        mainJPanel = new JPanel(new BorderLayout());
+        selectSemester = selectSemester();
         CenterViewManager.setCenterView(jFrame);
         FlowLayout flowLayout = new FlowLayout(0,10,10);
         flowLayout.setAlignment(FlowLayout.CENTER);
@@ -73,6 +78,7 @@ public class CenterView extends JFrame {
         for(JButton jButton : jButtons){
             navBarJP.add(jButton);
         }
+
         funcViw.add(funcTitle);
         jFrame.add(navBarJP, BorderLayout.WEST);
         jFrame.add(funcViw, BorderLayout.CENTER);
@@ -132,11 +138,14 @@ public class CenterView extends JFrame {
     private void setJBListener(String title, ViewType vt){
         jTableView = new JTableView();
         if(viewType != vt){
-            while(funcViw.getComponentCount() > 1)
-                funcViw.remove(1);
+            while(mainJPanel.getComponentCount() > 0)
+                mainJPanel.remove(0);
             funcTitle.setText(title);
             try{
-                funcViw.add(jTableView.getViewJP(vt));
+                mainJPanel.add(jTableView.getViewJP(vt), BorderLayout.CENTER);
+                mainJPanel.add(selectSemester, BorderLayout.NORTH);
+                selectSemester.setBorder(BorderFactory.createEmptyBorder(0,0,5,AppConfig.width/2));
+                funcViw.add(mainJPanel);
             }catch (IOException ex){
                 ex.printStackTrace();
             }
@@ -146,9 +155,34 @@ public class CenterView extends JFrame {
         }
     }
 
-    public void refreshJFrame(){
-        jFrame.repaint();
-        jFrame.validate();
+    public JPanel selectSemester(){
+        JPanel jPanel = new JPanel(new FlowLayout());
+        int beginYear = 1997;
+        final JComboBox jComboBox = new JComboBox();
+        Calendar c = Calendar.getInstance();
+        int nowYear = c.get(Calendar.YEAR);
+        String[] semesterList = new String[2 * (nowYear - beginYear)];
+
+        for(int i = 0, year = nowYear; i < semesterList.length; i += 2, year--){
+            semesterList[i] = String.valueOf(year)+ "-" + String.valueOf(year - 1) + "下半学期";
+            semesterList[i + 1] = String.valueOf(year)+ "-" + String.valueOf(year - 1) + "上半学期";
+        }
+
+        jComboBox.setModel(new DefaultComboBoxModel(semesterList));
+        jComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED) {
+                    System.out.println(jComboBox.getSelectedItem().toString());
+                }
+            }
+        });
+        JLabel jLabel = new JLabel("选择学期");
+        jPanel.add(jLabel, BorderLayout.WEST);
+        jLabel.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+        jPanel.add(jComboBox, BorderLayout.CENTER);
+        return jPanel;
     }
+
 
 }
