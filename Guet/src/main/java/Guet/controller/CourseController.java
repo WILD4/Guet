@@ -16,8 +16,8 @@ public class CourseController {
         courseMapper = ServerSqlSession.openSqlSession().getMapper(CourseMapper.class);
     }
 
-    public List<SelectedCourse> getSelectedCourseInfo(String stuID){
-        return courseMapper.queryCourseByStuID(stuID);
+    public List<SelectedCourse> getSelectedCourseInfo(String stuID, String semester){
+        return courseMapper.queryCourseByStuID(stuID, semester);
     }
 
     public List<SelectedCourse> getNoSelectedCourse(String stuID, String courseCode){
@@ -36,8 +36,8 @@ public class CourseController {
         return courseMapper.queryAllCourse(stuID);
     }
 
-    public List<SelectedCourse> getStudentGrade(String stuID){
-        return courseMapper.queryStuGrade(stuID);
+    public List<SelectedCourse> getStudentGrade(String stuID, String semester){
+        return courseMapper.queryStuGrade(stuID, semester);
     }
 
 }

@@ -9,12 +9,13 @@ public class StudentInfo {
     String studentSex;
     Date studentBirthday;
     String password;
+    String status;
 
-    public String getId() {
+    public String getStudentId() {
         return studentID;
     }
 
-    public void setId(String id) {
+    public void setStudentId(String id) {
         this.studentID = id;
     }
 
@@ -48,6 +49,14 @@ public class StudentInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String[] toStrArray(){

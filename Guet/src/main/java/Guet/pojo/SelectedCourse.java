@@ -80,6 +80,14 @@ public class SelectedCourse {
         this.courseTime = courseTime;
     }
 
+    public Date getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Date semester) {
+        this.semester = semester;
+    }
+
     public String[] toStrArray(ViewType typeView){
         String[] content = null;
         switch (typeView){
@@ -117,13 +125,20 @@ public class SelectedCourse {
                         String.valueOf(grade),
                         String.valueOf(courseInfo.getCourseCredit()),
                         courseInfo.getCourseType(),
-                };
+                };break;
+
         }
         return content;
     }
 
     private String convertToDate(int tag){
         return ("周"+courseTime.charAt(tag+1)+"第"+courseTime.substring(tag + 2,tag + 5)+"节 ");
+    }
+
+    public String getCourseList(){
+        return courseInfo.getCourseName() + "\n"+
+                courseInfo.getCourseDate() + "\n"+
+                classroom;
     }
 
     @Override

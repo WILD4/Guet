@@ -1,12 +1,12 @@
 package Guet.view;
 
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+import Guet.controller.LoginController;
+import Guet.util.StudentManager;
+import Guet.util.TableCellTextAreaRenderer;
+import Guet.view.BaseView.FuncView;
 
 import javax.swing.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.Calendar;
-import java.util.Date;
+import java.io.IOException;
 
 public class TestView extends JFrame {
 
@@ -43,10 +43,42 @@ public class TestView extends JFrame {
 //                }
 //            }
 //        });
+        this.add(new FuncView("个人信息", CenterView.ViewType.SELECTED_COURSE));
+        this.setVisible(true);
+        this.setSize(800,600);
     }
 
-    public static void main(String arg[]){
-            new TestView();
+    public static void main(String arg[]) throws IOException {
+        StudentManager.setStudent(new LoginController().getStudentInfo("1700420201"));
+//        new TestView();
+        String courseTime = "/37-8/57-8";
+        char week = courseTime.charAt(1);
+        String lessons = String.valueOf(courseTime.charAt(2)) + courseTime.charAt(4);
+//        System.out.println(week);
+//        System.out.println(lessons);
+//        System.out.println(courseTime.charAt(2));
+//        System.out.println(courseTime.charAt(4));
+
+
+        new C();
     }
 
+
+
+
+}
+class C extends JFrame {
+    public C() {
+        JTable tbl = new JTable(new String[][]{{
+                "JTable 里单元格内容的显示器是 TableCellRenderer。",
+                "默认的显示器（DefaultTableCellRenderer） 继承 JLabel 所以不方便多行显示。",
+                "要多行显示应该继承 JTextArea（参看下面的 TableCellTextAreaRenderer 类）。",
+                "当然，别忘了调用 JTable.setDefaultRenderer() 登记你的显示器。"}},
+                "A B C D".split(" "));
+        tbl.setDefaultRenderer(Object.class, new TableCellTextAreaRenderer());
+        add(new JScrollPane(tbl));
+        setSize(800, 200);
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
 }

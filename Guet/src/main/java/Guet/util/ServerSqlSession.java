@@ -21,8 +21,7 @@ public class ServerSqlSession {
             inputStream = Resources.getResourceAsStream(resource);
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         }
-        sqlSession = sqlSessionFactory.openSession(true);
-        return sqlSession;
+        return sqlSession == null ? sqlSessionFactory.openSession(true) : sqlSession;
     }
 
     public static void closeSqlSession(){

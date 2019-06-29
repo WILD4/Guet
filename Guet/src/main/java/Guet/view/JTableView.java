@@ -28,11 +28,13 @@ public class JTableView extends JPanel{
     CourseController courseController;
     ViewType viewType;
 
-    private void setListContent(){
+    private void setListContent(String semester){
         switch (viewType){
             case DROP_COURSE:
             case SELECTED_COURSE:
-                listContent = courseController.getSelectedCourseInfo(StudentManager.getStudent().getId());
+                listContent = courseController.getSelectedCourseInfo(StudentManager.getStudent().getStudentId(), semester);
+                if(listContent.size() == 0)
+                    return;
                 title = new String[]{"课程序号", "课程代码", "课程名称","教师","选课类型","学分"};
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
@@ -42,7 +44,7 @@ public class JTableView extends JPanel{
             case SELECT_COURSE:
 //                listContent = courseController.getNoSelectedCourse(extra);
 //                title = new String[]{"课程序号", "课程代码", "课程名称","教师","选课类型","学分"};
-                listContent = courseController.getCourseInfo(StudentManager.getStudent().getId());
+                listContent = courseController.getCourseInfo(StudentManager.getStudent().getStudentId());
                 title = new String[]{"课程代码", "课程名称","学分","学时","上课周次","选课类型"};
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
@@ -50,7 +52,7 @@ public class JTableView extends JPanel{
                 }
                 break;
             case NO_SELECT_COURSE:
-                listContent = courseController.getNoSelectedCourse(StudentManager.getStudent().getId(), CourseManager.getCourseInfo().getCourseCode());
+                listContent = courseController.getNoSelectedCourse(StudentManager.getStudent().getStudentId(), CourseManager.getCourseInfo().getCourseCode());
                 title = new String[]{"课程序号","课程名称","教师","学分","上课周次","上课时间"};
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
@@ -58,13 +60,41 @@ public class JTableView extends JPanel{
                 }
                 break;
             case QUERY_GRADE:
-                listContent = courseController.getStudentGrade(StudentManager.getStudent().getId());
+                listContent = courseController.getStudentGrade(StudentManager.getStudent().getStudentId(), semester);
                 title = new String[]{"课程代码","课程序号","课程名称","成绩","学分","选课类型"};
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
                     content[i] = ((SelectedCourse)listContent.get(i)).toStrArray(ViewType.QUERY_GRADE);
                 }
                 break;
+            case COURSE_INFO:
+                listContent = courseController.getSelectedCourseInfo(StudentManager.getStudent().getStudentId(), semester);
+                title = new String[]{"","星期一","星期二","星期三","星期四","星期五","星期六","星期七"};
+                content = new String[5][title.length];
+                for(int i = 0; i < content.length; i++){
+                    content[i][0] = String.valueOf(2 * i + 1) + '\n' + String.valueOf(2 * i + 2);
+                }
+
+                for(int i = 0; i < listContent.size(); i++){
+                    String courseTime = ((SelectedCourse)listContent.get(i)).getCourseTime();
+                    for(int j = 0; j < courseTime.length(); j++){
+                        if(courseTime.charAt(j) == '/'){
+                            int week = courseTime.charAt(j + 1) - '0';
+                            String lessons = String.valueOf(courseTime.charAt(j + 2)) + courseTime.charAt(j + 4);
+                            if(lessons.equals("14")){
+                                content[convertLesson("12")][week] = ((SelectedCourse)listContent.get(i)).getCourseList();
+                                content[convertLesson("34")][week] = ((SelectedCourse)listContent.get(i)).getCourseList();
+                            }else if(lessons.equals("58")){
+                                content[convertLesson("56")][week] = ((SelectedCourse)listContent.get(i)).getCourseList();
+                                content[convertLesson("78")][week] = ((SelectedCourse)listContent.get(i)).getCourseList();
+                            }else if(lessons.equals("36")){
+                                content[convertLesson("34")][week] = ((SelectedCourse)listContent.get(i)).getCourseList();
+                                content[convertLesson("56")][week] = ((SelectedCourse)listContent.get(i)).getCourseList();
+                            }else
+                                content[convertLesson(lessons)][week] = ((SelectedCourse)listContent.get(i)).getCourseList();
+                        }
+                    }
+                }break;
         }
     }
 
@@ -76,7 +106,6 @@ public class JTableView extends JPanel{
         JScrollPane pane = new JScrollPane(tableList);
 //        this.add(tableList.getTableHeader(), BorderLayout.NORTH);
         this.add(pane, BorderLayout.CENTER);
-        this.setBorder(BorderFactory.createEmptyBorder(0, AppConfig.navBarWidth/3,0,AppConfig.navBarWidth/3));
     }
 
     private void JTableInit(){
@@ -85,12 +114,15 @@ public class JTableView extends JPanel{
         sortTable();
         tableList.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tableList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //内容居中
-        DefaultTableCellRenderer defaultTableCellRenderer = new DefaultTableCellRenderer();
-        defaultTableCellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        tableList.setDefaultRenderer(Object.class, defaultTableCellRenderer);
+        if(viewType == ViewType.COURSE_INFO){
+            tableList.setDefaultRenderer(Object.class, new TableCellTextAreaRenderer());    // 内容换行
 
-        FitTableColumns(tableList);
+            //内容适应表格宽度
+        }
+        else{
+            //内容居中
+            setTableColumnCenter(tableList);
+        }
 
         tableList.getTableHeader().setReorderingAllowed(false);
         tableList.setRowHeight(AppConfig.height/30);
@@ -100,8 +132,7 @@ public class JTableView extends JPanel{
 
     }
 
-    public void setTableListListener(){
-        tableList.setBackground(Color.WHITE);
+    private void setTableListListener(){
         tableList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -112,7 +143,7 @@ public class JTableView extends JPanel{
                         case SELECT_COURSE:
 //                            result = JOptionPane.showConfirmDialog(null, "是否选课", "确认", JOptionPane.YES_NO_OPTION);
 //                            if(result == JOptionPane.YES_NO_OPTION)
-//                                courseController.stuSelectCourse(Integer.parseInt(String.valueOf(tableList.getValueAt(tableList.getSelectedRow(),0))), StudentManager.getStudent().getId());break;
+//                                courseController.stuSelectCourse(Integer.parseInt(String.valueOf(tableList.getValueAt(tableList.getSelectedRow(),0))), StudentManager.getStudent().getStudentId());break;
                             CourseManager.getCourseInfo().setCourseCode((String) tableList.getValueAt(tableList.getSelectedRow(),0));
                             try {
                                 new SelectCourseView();
@@ -123,12 +154,13 @@ public class JTableView extends JPanel{
                         case DROP_COURSE:
                             result = JOptionPane.showConfirmDialog(null, "是否退课", "确认", JOptionPane.YES_NO_OPTION);
                             if(result == JOptionPane.YES_NO_OPTION)
-                            courseController.dropCourse(Integer.parseInt(String.valueOf(tableList.getValueAt(selectedRow,0))), StudentManager.getStudent().getId());
+                            courseController.dropCourse(Integer.parseInt(String.valueOf(tableList.getValueAt(selectedRow,0))), StudentManager.getStudent().getStudentId());
                             break;
                         case NO_SELECT_COURSE:
                             result = JOptionPane.showConfirmDialog(null, "是否选课", "确认", JOptionPane.YES_NO_OPTION);
                             if(result == JOptionPane.YES_NO_OPTION)
-                                courseController.stuSelectCourse(Integer.parseInt(String.valueOf(tableList.getValueAt(selectedRow,0))), StudentManager.getStudent().getId());
+                                System.out.println(String.valueOf(tableList.getValueAt(selectedRow,0)));
+                                courseController.stuSelectCourse(Integer.parseInt(String.valueOf(tableList.getValueAt(selectedRow,0))), StudentManager.getStudent().getStudentId());
                             break;
 
                     }
@@ -141,17 +173,17 @@ public class JTableView extends JPanel{
         });
     }
 
-    public JPanel getViewJP(ViewType typeView) throws IOException {
+    public JPanel getViewJP(ViewType typeView, String semester) throws IOException {
         courseController = new CourseController();
         viewType = typeView;
-        setListContent();
+        setListContent(semester);
         JPanelInit();
         setTableListListener();
 
         return this;
     }
     //使JTable列宽适应文本内容
-    public void FitTableColumns(JTable myTable){
+    private void FitTableColumns(JTable myTable){
         JTableHeader header = myTable.getTableHeader();
         int rowCount = myTable.getRowCount();
 
@@ -171,12 +203,41 @@ public class JTableView extends JPanel{
             column.setWidth(width+myTable.getIntercellSpacing().width);
         }
     }
+    public void setTableColumnCenter(JTable table){
+        DefaultTableCellRenderer r = new DefaultTableCellRenderer();
+        r.setHorizontalAlignment(SwingConstants.CENTER);
+        table.setDefaultRenderer(Object.class, r);
+    }
 
     //点击表头排序
-    public void sortTable(){
+    private void sortTable(){
         final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(
                 tableModel);
         tableList.setRowSorter(sorter);
+    }
+
+    public void setContent(String semester){
+        setListContent(semester);
+        if(listContent.size() == 0)
+            tableModel = new DefaultTableModel();
+        else
+            tableModel = new DefaultTableModel(content, title);
+        tableList.setModel(tableModel);
+        tableList.updateUI();
+    }
+
+    private int convertLesson(String lesson){
+        if(lesson.equals("12"))
+            return 0;
+        else if(lesson.equals("34"))
+            return 1;
+        else if(lesson.equals("56"))
+            return 2;
+        else if(lesson.equals("78"))
+            return 3;
+        else if(lesson.equals("90"))
+            return 4;
+        return -1;
     }
 
 }

@@ -1,9 +1,7 @@
 package Guet.view;
 
 import Guet.dao.LoginMapper;
-import Guet.util.StudentManager;
-import Guet.util.AppConfig;
-import Guet.util.ServerSqlSession;
+import Guet.util.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,41 +11,42 @@ import java.io.IOException;
 
 public class LoginView extends JFrame {
 
-    JFrame jFrame;
-    JPanel loginView;
-    JPanel topTitleJP;
-    JPanel usernameJP;
-    JPanel passwordJP;
-    JPanel bottomJP;
+    private JFrame jFrame;
 
-    JLabel topTitle;
-    JLabel usernameJL;
-    JLabel passwordJL;
-    JTextField usernameJT;
-    JTextField passwordJT;
+    private JLabel usernameJL;
+    private JLabel passwordJL;
+    private JTextField usernameJT;
+    private JTextField passwordJT;
 
-    JButton loginJB;
-    JButton clearJB;
+    private JButton loginJB;
+    private JButton clearJB;
 
-    LoginMapper loginMapper;
-    String password;
+    private LoginMapper loginMapper;
+    private String password;
 
     LoginView(){
         init();
         addActionListener();
     }
 
+    public enum USER_STATUS{
+        TEACHER,
+        STUDENT,
+        ADMIN,
+    }
+
     private void init(){
         jFrame = new JFrame();
-        loginView = new JPanel();
+        JPanel loginView = new JPanel();
 
-        topTitleJP = new JPanel();
-        usernameJP = new JPanel();
-        passwordJP = new JPanel();
-        bottomJP = new JPanel();
+        JPanel topTitleJP = new JPanel();
+        JPanel usernameJP = new JPanel();
+        JPanel passwordJP = new JPanel();
+        JPanel bottomJP = new JPanel();
 
 
-        topTitle = new JLabel("学生选课");
+        JLabel topTitle = new JLabel("教务管理系统");
+        topTitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN,50));
         usernameJL = new JLabel("用户名");
         passwordJL = new JLabel("口    令");
         usernameJT = new JTextField(10);
@@ -66,21 +65,22 @@ public class LoginView extends JFrame {
         bottomJP.add(loginJB);
         bottomJP.add(clearJB);
 
-        loginView.setLayout(new GridLayout(5,1));
-        loginView.add(topTitleJP);
+        loginView.setLayout(new GridLayout(4,1));
         loginView.add(usernameJP);
         loginView.add(passwordJP);
         loginView.add(bottomJP);
-        loginView.setBorder(BorderFactory.createEmptyBorder(AppConfig.height/4,AppConfig.width/4,AppConfig.height/4,AppConfig.width/4));
+        loginView.setBorder(BorderFactory.createEmptyBorder(AppConfig.height/8,AppConfig.width/4,AppConfig.height/4,AppConfig.width/4));
+        topTitle.setBorder(BorderFactory.createEmptyBorder(AppConfig.height/6,0,0,0));
 //        loginView.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 
         jFrame.setLayout(new BorderLayout());
         jFrame.setResizable(false);
+        jFrame.add(topTitleJP, BorderLayout.NORTH);
         jFrame.add(loginView, BorderLayout.CENTER);
         jFrame.setSize(AppConfig.width, AppConfig.height);
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        jFrame.setLocationRelativeTo(null);
     }
 
     private void addActionListener(){
@@ -93,18 +93,31 @@ public class LoginView extends JFrame {
                     if(password != null){
                         if(password.equals(passwordJT.getText())){
                             loginMapper.updateLoginInfo();
-                            StudentManager.setStudent(loginMapper.getStudentInfo(usernameJT.getText()));
-                            new CenterView();
+                            if(usernameJT.getText().length() == 10){
+                                StudentManager.setStudent(loginMapper.getStudentInfo(usernameJT.getText()));
+                                CenterViewManager.setCenterView(new CenterView(USER_STATUS.STUDENT));
+                            }else if(usernameJT.getText().length() == 6){
+                                TeacherManager.setTeacher(loginMapper.getTeacherInfo(usernameJT.getText()));
+                                CenterViewManager.setCenterView(new CenterView(USER_STATUS.TEACHER));
+                            }
                             jFrame.dispose();
+                        }else {
+                            JOptionPane.showMessageDialog(null, "不存在该用户");
                         }
-                    }else {
-                        JOptionPane.showMessageDialog(null, "不存在该用户");
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }finally {
                     ServerSqlSession.closeSqlSession();
                 }
+            }
+        });
+
+        clearJB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                usernameJT.setText("");
+                passwordJT.setText("");
             }
         });
 

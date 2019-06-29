@@ -9,7 +9,7 @@ import java.util.List;
 public interface CourseMapper {
 
     //通过学号查找学生已选课程
-    List<SelectedCourse> queryCourseByStuID(@Param("stuID")String stuID);
+    List<SelectedCourse> queryCourseByStuID(@Param("stuID")String stuID, @Param("semester")String semester);
 
     //通过学号查找学生未选的课程
     List<SelectedCourse> queryNoSelectedCourse(@Param("stuID")String stuID, @Param("courseCode")String courseCode);
@@ -21,6 +21,6 @@ public interface CourseMapper {
 
     List<CourseInfo> queryAllCourse(String stuID);
 
-    List<SelectedCourse> queryStuGrade(@Param("stuID")String stuID);
+    List<SelectedCourse> queryStuGrade(@Param("stuID")String stuID, @Param("semester")String semester);
 
 }

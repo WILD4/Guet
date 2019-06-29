@@ -2,6 +2,10 @@ package Guet.view;
 
 import Guet.util.AppConfig;
 import Guet.util.CenterViewManager;
+import Guet.util.StudentManager;
+import Guet.view.BaseView.FuncView;
+import Guet.view.BaseView.NavBarView;
+import Guet.view.LoginView.USER_STATUS;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -16,173 +20,93 @@ import java.util.Calendar;
 public class CenterView extends JFrame {
 
     private JFrame jFrame;
-    private JPanel navBarJP;
     private JPanel funcViw;
-    private JPanel mainJPanel;
-    private JPanel selectSemester;
+    private JPanel userStatusJP;
+    private JLabel userType;
+    private JButton logout;
+    private JButton modPassword;
 
-    private JLabel funcTitle;
-    private JLabel title;
-    private JButton[] jButtons;
-    private String[] jButtonsName;
+    private NavBarView navBarView;
 
-    private JTableView jTableView;
-
-    private ViewType viewType;
-
-    CenterView(){
+    CenterView(USER_STATUS us){
+        userViewInit(us);
         init();
         addActionListener();
     }
 
     public enum ViewType{
+        COURSE_INFO,
         PERSONAL_INFO,
         SELECTED_COURSE,
         SELECT_COURSE,
         DROP_COURSE,
         NO_SELECT_COURSE,
         QUERY_GRADE,
+        TEACHER_INFO,
+        TEACHER_COURSE,
     }
 
     private void init() {
-        jFrame = new JFrame();
-        mainJPanel = new JPanel(new BorderLayout());
-        selectSemester = selectSemester();
-        CenterViewManager.setCenterView(jFrame);
-        FlowLayout flowLayout = new FlowLayout(0,10,10);
-        flowLayout.setAlignment(FlowLayout.CENTER);
-        navBarJP = new JPanel(flowLayout);
-        funcViw = new JPanel(new GridLayout(4,1));
+        this.add(navBarView, BorderLayout.WEST);
+        this.add(userStatusJP, BorderLayout.SOUTH);
 
-        title = new JLabel("主菜单", JLabel.HORIZONTAL);
-        funcTitle = new JLabel("",JLabel.HORIZONTAL);
-        jButtonsName = new String[]{
-                "个人信息",
-                "已选课程",
-                "   选   课   ",
-                "   退   课   ",
-                "查询成绩"
-        };
-        jButtons = new JButton[jButtonsName.length];
-        for(int i = 0; i < jButtonsName.length; i++){
-            jButtons[i] = new JButton(jButtonsName[i]);
+        this.setSize(AppConfig.width, AppConfig.height);
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+
+    }
+
+    private void userViewInit(USER_STATUS userStatus){
+
+        JLabel userID = new JLabel("当前用户：" + StudentManager.getStudent().getStudentId());
+        switch (userStatus){
+            case STUDENT:
+                navBarView = new StudentView();
+                userType = new JLabel("用户类型：学生" );
+                break;
+            case TEACHER:
+                navBarView = new TeacherView();
+                userType = new JLabel("用户类型：教师");
         }
-
-
-        navBarJP.setPreferredSize(new Dimension(AppConfig.navBarWidth, AppConfig.navBarHeight));
-        navBarJP.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-        title.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-        funcTitle.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,50));
-
-        navBarJP.add(title);
-        for(JButton jButton : jButtons){
-            navBarJP.add(jButton);
-        }
-
-        funcViw.add(funcTitle);
-        jFrame.add(navBarJP, BorderLayout.WEST);
-        jFrame.add(funcViw, BorderLayout.CENTER);
-        jFrame.setSize(AppConfig.width, AppConfig.height);
-        jFrame.setVisible(true);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        logout = new JButton("注销");
+        modPassword = new JButton("修改密码");
+        userStatusJP = new JPanel(new FlowLayout(FlowLayout.LEFT));    //布局靠左
+        userStatusJP.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+        userStatusJP.add(userID);
+        userStatusJP.add(userType);
+        userStatusJP.add(modPassword);
+        userStatusJP.add(logout);
     }
 
     private void addActionListener(){
-        //个人信息
-        jButtons[0].addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            if(viewType != ViewType.PERSONAL_INFO){
-                while (funcViw.getComponentCount() > 1)
-                    funcViw.remove(1);
-                funcTitle.setText("个人信息");
-                funcViw.add(new PersonalInfoVIew().getPIView());
-                jFrame.repaint();
-                jFrame.validate();
-                viewType = ViewType.PERSONAL_INFO;
-            }
-            }
-        });
-        //已选课程
-        jButtons[1].addActionListener(new ActionListener() {
+        logout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setJBListener("已选课程", ViewType.SELECTED_COURSE);
-            }
-        });
-        //选课
-        jButtons[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setJBListener("选课", ViewType.SELECT_COURSE);
-            }
-        });
-        //退课
-        jButtons[3].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setJBListener("退课", ViewType.DROP_COURSE);
-            }
-        });
-
-        jButtons[4].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setJBListener("查询成绩", ViewType.QUERY_GRADE);
-            }
-        });
-
-    }
-
-    private void setJBListener(String title, ViewType vt){
-        jTableView = new JTableView();
-        if(viewType != vt){
-            while(mainJPanel.getComponentCount() > 0)
-                mainJPanel.remove(0);
-            funcTitle.setText(title);
-            try{
-                mainJPanel.add(jTableView.getViewJP(vt), BorderLayout.CENTER);
-                mainJPanel.add(selectSemester, BorderLayout.NORTH);
-                selectSemester.setBorder(BorderFactory.createEmptyBorder(0,0,5,AppConfig.width/2));
-                funcViw.add(mainJPanel);
-            }catch (IOException ex){
-                ex.printStackTrace();
-            }
-            jFrame.repaint();
-            jFrame.validate();
-            viewType = vt;
-        }
-    }
-
-    public JPanel selectSemester(){
-        JPanel jPanel = new JPanel(new FlowLayout());
-        int beginYear = 1997;
-        final JComboBox jComboBox = new JComboBox();
-        Calendar c = Calendar.getInstance();
-        int nowYear = c.get(Calendar.YEAR);
-        String[] semesterList = new String[2 * (nowYear - beginYear)];
-
-        for(int i = 0, year = nowYear; i < semesterList.length; i += 2, year--){
-            semesterList[i] = String.valueOf(year)+ "-" + String.valueOf(year - 1) + "下半学期";
-            semesterList[i + 1] = String.valueOf(year)+ "-" + String.valueOf(year - 1) + "上半学期";
-        }
-
-        jComboBox.setModel(new DefaultComboBoxModel(semesterList));
-        jComboBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if(e.getStateChange() == ItemEvent.SELECTED) {
-                    System.out.println(jComboBox.getSelectedItem().toString());
+                int result = JOptionPane.showConfirmDialog(null, "是否注销", "确认", JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_NO_OPTION) {
+                    StudentManager.setStudent(null);
+                    new LoginView();
+                    CenterViewManager.closeCenterView();
                 }
             }
         });
-        JLabel jLabel = new JLabel("选择学期");
-        jPanel.add(jLabel, BorderLayout.WEST);
-        jLabel.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
-        jPanel.add(jComboBox, BorderLayout.CENTER);
-        return jPanel;
+        modPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ChangePasswordView();
+
+            }
+        });
     }
 
+    public void removeFuncView(){
+        if(funcViw != null)
+            this.remove(funcViw);
+    }
 
+    public void setFuncViw(JPanel jPanel){
+        funcViw = jPanel;
+        this.add(funcViw, BorderLayout.CENTER);
+    }
 }

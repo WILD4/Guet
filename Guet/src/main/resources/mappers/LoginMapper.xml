@@ -19,8 +19,16 @@
         update login_info set login_date = now();
     </update>
 
+    <update id="changePassword">
+        update login_info set password = #{password} WHERE uid = #{uid};
+    </update>
+
+    <select id="selectPassword" resultType="String">
+        select password from login_info where uid = #{uid};
+    </select>
+
     <select id="getTeacherInfo" resultType="Guet.pojo.TeacherInfo">
-      select password from login_info where UID = #{uid};
+      select * from teacher where teacher_id = #{uid};
    </select>
 
 </mapper>

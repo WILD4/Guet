@@ -8,9 +8,9 @@
        resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
      -->
     <select id="queryCourseByStuID" resultMap="courseInfo">
-      SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit FROM course,tea_course,teacher WHERE
+      SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit, course_time, classroom, course_date FROM course,tea_course,teacher WHERE
 	course.course_code IN(SELECT course_code FROM tea_course WHERE
-	course_id IN(SELECT course_id FROM stu_course WHERE student_id = #{stuID}))
+	course_id IN(SELECT course_id FROM stu_course WHERE student_id = #{stuID} AND semester = #{semester}))
 	AND course.course_code = tea_course.course_code
 	AND teacher.teacher_id = tea_course.teacher_id;
    </select>
@@ -29,7 +29,7 @@
 
 
     <insert id="insertCourseToStuCourse">
-        INSERT INTO stu_course VALUES(#{courseID}, #{stuID}, null);
+        INSERT INTO stu_course(course_id, student_id) VALUES(#{courseID}, #{stuID});
     </insert>
 
     <delete id="dropCourse">
@@ -40,10 +40,11 @@
         SELECT course.course_code,stu_course.course_id,course_name,grade,course_credit,course_type FROM course,tea_course,teacher,stu_course
             WHERE course.course_code IN(SELECT course_code FROM tea_course
                 WHERE course_id IN(SELECT course_id FROM stu_course
-                    WHERE student_id = #{stuID}))
+                    WHERE student_id = #{stuID} AND semester = #{semester}))
             AND stu_course.course_id = tea_course.course_id
             AND course.course_code = tea_course.course_code
-            AND teacher.teacher_id = tea_course.teacher_id;
+            AND teacher.teacher_id = tea_course.teacher_id
+            AND stu_course.grade IS NOT NULL;
     </select>
 
 

@@ -12,6 +12,11 @@ public interface LoginMapper {
 
     public void updateLoginInfo();
 
+
+    public void changePassword(@Param("uid")String uid, @Param("password")String password);
+
     public TeacherInfo getTeacherInfo(@Param("uid")String uid);
+
+    public String selectPassword(@Param("uid")String uid);
 
 }
