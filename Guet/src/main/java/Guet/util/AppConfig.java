@@ -7,4 +7,7 @@ public class AppConfig {
 
     public static int navBarWidth = width/7;
     public static int navBarHeight = height;
+
+    public static int tableListHeight = 641;
+
 }

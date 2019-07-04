@@ -7,13 +7,21 @@
     <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
        resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
      -->
+<!--查询学生已选课程-->
     <select id="queryCourseByStuID" resultMap="courseInfo">
       SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit, course_time, classroom, course_date FROM course,tea_course,teacher WHERE
-	course.course_code IN(SELECT course_code FROM tea_course WHERE
-	course_id IN(SELECT course_id FROM stu_course WHERE student_id = #{stuID} AND semester = #{semester}))
+	course_id IN(SELECT course_id FROM stu_course WHERE student_id = #{stuID} AND semester = #{semester})
 	AND course.course_code = tea_course.course_code
 	AND teacher.teacher_id = tea_course.teacher_id;
    </select>
+
+    <select id="queryCourseByTeaID" resultMap="courseInfo">
+        SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit, course_time, classroom, course_date FROM course,tea_course,teacher WHERE
+	course.course_code IN(SELECT course_code FROM tea_course WHERE
+	course_id IN(SELECT course_id FROM stu_course WHERE semester = #{semester}))
+	AND course.course_code = tea_course.course_code
+	AND teacher.teacher_id = tea_course.teacher_id AND teacher.teacher_id = #{teaID};
+    </select>
 
     <select id="queryNoSelectedCourse" resultMap="courseInfo">
         SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit, course_date, course_time FROM course,tea_course,teacher WHERE
@@ -47,6 +55,13 @@
             AND stu_course.grade IS NOT NULL;
     </select>
 
+    <select id="queryTeasStuInfo" resultMap="teachersStuInfo">
+        SELECT course_code,course_id,course_name,student.student_id,student_name, grade, course_credit, course_type FROM student, stu_course, course
+            WHERE course_code IN(SELECT course_code FROM tea_course WHERE course_id IN(SELECT course_id FROM tea_course WHERE teacher_id = #{teaID}))
+            AND student.student_id = stu_course.student_id
+            AND stu_course.course_id IN(SELECT course_id FROM tea_course WHERE teacher_id = #{teaID})
+            AND course_id = #{courseID};
+    </select>
 
     <resultMap id="courseInfo" type="Guet.pojo.SelectedCourse" autoMapping="true">
         <id column="course_id" property="courseID"/>
@@ -61,5 +76,17 @@
             <id column="teacher_id" property="teacherID"/>
         </association>
     </resultMap>
+
+    <resultMap id="teachersStuInfo" type="Guet.pojo.TeacherAndStuInfo" autoMapping="true">
+        <id column="student_id" property="studentID"/>
+        <association property="courseInfo" javaType="Guet.pojo.CourseInfo" autoMapping="true">
+            <id column="course_code" property="courseCode"/>
+        </association>
+    </resultMap>
+    
+    <update id="updateStuGrade">
+        UPDATE stu_course SET grade = #{grade} WHERE course_id = #{courseID} AND student_id = #{stuID};
+    </update>
+
 
 </mapper>

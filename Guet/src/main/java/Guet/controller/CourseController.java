@@ -3,6 +3,7 @@ package Guet.controller;
 import Guet.dao.CourseMapper;
 import Guet.pojo.CourseInfo;
 import Guet.pojo.SelectedCourse;
+import Guet.pojo.TeacherAndStuInfo;
 import Guet.util.ServerSqlSession;
 
 import java.io.IOException;
@@ -16,8 +17,11 @@ public class CourseController {
         courseMapper = ServerSqlSession.openSqlSession().getMapper(CourseMapper.class);
     }
 
-    public List<SelectedCourse> getSelectedCourseInfo(String stuID, String semester){
-        return courseMapper.queryCourseByStuID(stuID, semester);
+    public List<SelectedCourse> getSelectedCourseInfo(String UID, String semester){
+        if(UID.length() == 10)
+            return courseMapper.queryCourseByStuID(UID, semester);
+        else
+            return courseMapper.queryCourseByTeaID(UID, semester);
     }
 
     public List<SelectedCourse> getNoSelectedCourse(String stuID, String courseCode){
@@ -38,6 +42,14 @@ public class CourseController {
 
     public List<SelectedCourse> getStudentGrade(String stuID, String semester){
         return courseMapper.queryStuGrade(stuID, semester);
+    }
+
+    public List<TeacherAndStuInfo> getTeasStuInfo(String teaID, String courseID){
+        return courseMapper.queryTeasStuInfo(teaID, courseID);
+    }
+
+    public void updateStuGrade(String courseID, String stuID, float grade){
+        courseMapper.updateStuGrade(courseID, stuID, grade);
     }
 
 }

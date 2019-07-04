@@ -4,12 +4,12 @@ import java.sql.Date;
 
 public class StudentInfo {
 
-    String studentID;
-    String studentName;
-    String studentSex;
-    Date studentBirthday;
-    String password;
-    String status;
+    private String studentID;
+    private String studentName;
+    private String studentSex;
+    private Date studentBirthday;
+    private String password;
+    private String status;
 
     public String getStudentId() {
         return studentID;

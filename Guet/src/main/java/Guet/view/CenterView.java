@@ -1,8 +1,6 @@
 package Guet.view;
 
-import Guet.util.AppConfig;
-import Guet.util.CenterViewManager;
-import Guet.util.StudentManager;
+import Guet.util.*;
 import Guet.view.BaseView.FuncView;
 import Guet.view.BaseView.NavBarView;
 import Guet.view.LoginView.USER_STATUS;
@@ -23,6 +21,7 @@ public class CenterView extends JFrame {
     private JPanel funcViw;
     private JPanel userStatusJP;
     private JLabel userType;
+    private JLabel userID;
     private JButton logout;
     private JButton modPassword;
 
@@ -44,6 +43,7 @@ public class CenterView extends JFrame {
         QUERY_GRADE,
         TEACHER_INFO,
         TEACHER_COURSE,
+        TEACHERS_STU_INFO
     }
 
     private void init() {
@@ -59,15 +59,17 @@ public class CenterView extends JFrame {
 
     private void userViewInit(USER_STATUS userStatus){
 
-        JLabel userID = new JLabel("当前用户：" + StudentManager.getStudent().getStudentId());
         switch (userStatus){
             case STUDENT:
                 navBarView = new StudentView();
+                userID = new JLabel("当前用户：" + StudentManager.getStudent().getStudentId());
                 userType = new JLabel("用户类型：学生" );
                 break;
             case TEACHER:
                 navBarView = new TeacherView();
+                userID = new JLabel("当前用户：" + UserManager.getUserInfo().getUID());
                 userType = new JLabel("用户类型：教师");
+                break;
         }
         logout = new JButton("注销");
         modPassword = new JButton("修改密码");
@@ -108,5 +110,9 @@ public class CenterView extends JFrame {
     public void setFuncViw(JPanel jPanel){
         funcViw = jPanel;
         this.add(funcViw, BorderLayout.CENTER);
+    }
+
+    public int getFuncViewHeight(){
+        return funcViw.getHeight();
     }
 }

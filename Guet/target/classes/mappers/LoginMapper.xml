@@ -16,7 +16,7 @@
    </select>
 
     <update id="updateLoginInfo">
-        update login_info set login_date = now();
+        update login_info set login_date = now() where UID = #{uid};
     </update>
 
     <update id="changePassword">
@@ -27,8 +27,21 @@
         select password from login_info where uid = #{uid};
     </select>
 
-    <select id="getTeacherInfo" resultType="Guet.pojo.TeacherInfo">
-      select * from teacher where teacher_id = #{uid};
+    <select id="getTeacherInfo" resultMap="teacherInfo">
+        select * from teacher where teacher_id = #{uid};
    </select>
+
+    <resultMap id="teacherInfo" type="Guet.pojo.TeacherInfo">
+        <id column="teacher_id" property="teacherID"/>
+        <collection property="courseIDs" ofType="String" select="getTeaCourseID" column="{uid = teacher_id}"/>
+    </resultMap>
+
+    <select id="getTeaCourseID" resultType="String">
+        select course_id from tea_course where teacher_id = #{uid};
+    </select>
+
+<!--    <select id="getTeaCourseID" resultType="String">-->
+<!--        select course_id from tea_course where teacher_id = #{uid};-->
+<!--    </select>-->
 
 </mapper>

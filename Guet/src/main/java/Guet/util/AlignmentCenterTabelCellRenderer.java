@@ -11,15 +11,15 @@ public class AlignmentCenterTabelCellRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value,
                                                    boolean isSelected, boolean hasFocus, int row, int column) {
         // 计算当下行的最佳高度
-//        int maxPreferredHeight = 0;
-//        for (int i = 0; i < table.getColumnCount(); i++) {
-//            setText("  " + table.getValueAt(row, i));
-//            setSize(table.getColumnModel().getColumn(column).getWidth(), 0);
-//            maxPreferredHeight = Math.max(maxPreferredHeight, getPreferredSize().height);
-//        }
-//
-//        if (table.getRowHeight(row) != maxPreferredHeight)
-//            table.setRowHeight(row, maxPreferredHeight);
+        int maxPreferredHeight = 0;
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            setText("  " + table.getValueAt(row, i));
+            setSize(table.getColumnModel().getColumn(column).getWidth(), 0);
+            maxPreferredHeight = Math.max(maxPreferredHeight, getPreferredSize().height);
+        }
+
+        if (table.getRowHeight(row) != maxPreferredHeight)
+            table.setRowHeight(row, maxPreferredHeight);
 
         setFont(new Font("微软雅黑", Font.PLAIN, 15));
         setText(value == null ? "" : value.toString());

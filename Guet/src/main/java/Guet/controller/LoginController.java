@@ -26,10 +26,12 @@ public class LoginController {
     }
 
     public StudentInfo getStudentInfo(String uid){
+        loginMapper.updateLoginInfo(uid);
         return loginMapper.getStudentInfo(uid);
     }
 
     public TeacherInfo getTeacherInfo(String uid){
+        loginMapper.updateLoginInfo(uid);
         return loginMapper.getTeacherInfo(uid);
     }
 }

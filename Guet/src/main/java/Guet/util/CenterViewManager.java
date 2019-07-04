@@ -9,6 +9,8 @@ public class CenterViewManager {
 
     private static CenterView centerViewManager;
 
+    private static JTableList jTableList;
+
     public static CenterView getCenterView(){
 
             return centerViewManager;
@@ -30,4 +32,11 @@ public class CenterViewManager {
         centerViewManager.dispose();
     }
 
+    public static JTableList getjTableList() {
+        return jTableList;
+    }
+
+    public static void setjTableList(JTableList jTableList) {
+        CenterViewManager.jTableList = jTableList;
+    }
 }

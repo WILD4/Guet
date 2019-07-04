@@ -1,5 +1,6 @@
 package Guet.view;
 
+import Guet.controller.LoginController;
 import Guet.dao.LoginMapper;
 import Guet.util.*;
 
@@ -21,7 +22,7 @@ public class LoginView extends JFrame {
     private JButton loginJB;
     private JButton clearJB;
 
-    private LoginMapper loginMapper;
+    private LoginController loginController;
     private String password;
 
     LoginView(){
@@ -51,7 +52,7 @@ public class LoginView extends JFrame {
         passwordJL = new JLabel("口    令");
         usernameJT = new JTextField(10);
         passwordJT = new JTextField(10);
-        usernameJT.setText("1700420201");
+        usernameJT.setText("423859");
         passwordJT.setText("123456");
 
         loginJB = new JButton("登录");
@@ -88,16 +89,15 @@ public class LoginView extends JFrame {
         loginJB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    loginMapper = ServerSqlSession.openSqlSession().getMapper(LoginMapper.class);
-                    password = loginMapper.queryUserById(usernameJT.getText());
+                    loginController = new LoginController();
+                    password = loginController.getUserPassword(usernameJT.getText());
                     if(password != null){
                         if(password.equals(passwordJT.getText())){
-                            loginMapper.updateLoginInfo();
                             if(usernameJT.getText().length() == 10){
-                                StudentManager.setStudent(loginMapper.getStudentInfo(usernameJT.getText()));
+                                StudentManager.setStudent(loginController.getStudentInfo(usernameJT.getText()));
                                 CenterViewManager.setCenterView(new CenterView(USER_STATUS.STUDENT));
                             }else if(usernameJT.getText().length() == 6){
-                                TeacherManager.setTeacher(loginMapper.getTeacherInfo(usernameJT.getText()));
+                                UserManager.setUserInfo(loginController.getTeacherInfo(usernameJT.getText()));
                                 CenterViewManager.setCenterView(new CenterView(USER_STATUS.TEACHER));
                             }
                             jFrame.dispose();
@@ -107,8 +107,6 @@ public class LoginView extends JFrame {
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                }finally {
-                    ServerSqlSession.closeSqlSession();
                 }
             }
         });

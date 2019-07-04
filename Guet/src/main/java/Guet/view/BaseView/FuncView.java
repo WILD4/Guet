@@ -1,7 +1,7 @@
 package Guet.view.BaseView;
 
 import Guet.util.AppConfig;
-import Guet.view.CenterView;
+import Guet.util.TeacherManager;
 import Guet.view.JTableView;
 import Guet.view.LoginView;
 import Guet.view.PersonalInfoVIew;
@@ -18,30 +18,35 @@ public class FuncView extends JPanel {
 
     private JPanel mainJPanel;
     private JPanel tableView;
-    private String semester;
+    private String comboBoxes;
 
     private JComboBox jComboBox;
     private JTableView jTableView;
 
-    private String[] semesterList;
+    private String[] boxList;
+    private ViewType viewType;
 
     public FuncView(String title, ViewType viewType){
-        init(title, viewType);
+        this.viewType = viewType;
+        init(title);
     }
 
-    private void init(String title, ViewType viewType){
-
-        initSemesterList();
+    private void init(String title){
+        //学期初始化
+        int nowYear = Calendar.getInstance().get(Calendar.YEAR);
+        StringBuilder sb = new StringBuilder();
+        comboBoxes = sb.append(nowYear).append('-').append(nowYear-1).append("下半学期").toString();
 
         mainJPanel = new JPanel(new BorderLayout());
         mainJPanel.setBorder(BorderFactory.createEmptyBorder(0, AppConfig.navBarWidth/3,80,AppConfig.navBarWidth/3));
 
+        //功能区标题
         JLabel funcTitle = new JLabel(title, SwingConstants.CENTER);
-        funcTitle.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
+        funcTitle.setBorder(BorderFactory.createEmptyBorder(20,0,15,0));
         funcTitle.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,50));
 
         try {
-            setTableView(viewType);
+            setTableView();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,13 +56,15 @@ public class FuncView extends JPanel {
         this.add(funcTitle, BorderLayout.NORTH);
     }
 
-    private void setTableView(ViewType vt) throws IOException {
+    private void setTableView() throws IOException {
         jTableView = new JTableView();
-        switch (vt){
+        switch (viewType){
+            case TEACHER_COURSE:
             case SELECTED_COURSE:
-                case QUERY_GRADE:
+            case QUERY_GRADE:
+            case COURSE_INFO:
                 JPanel selectSemester = setJComboBox();
-                tableView = jTableView.getViewJP(vt, semester);
+                tableView = jTableView.getViewJP(viewType, comboBoxes);
                 mainJPanel.add(selectSemester, BorderLayout.NORTH);
                 break;
             case PERSONAL_INFO:
@@ -66,51 +73,67 @@ public class FuncView extends JPanel {
             case TEACHER_INFO:
                 tableView = new PersonalInfoVIew(LoginView.USER_STATUS.TEACHER).getPIView();
                 break;
-            case COURSE_INFO:
             case SELECT_COURSE:
                 case DROP_COURSE:
-                tableView = jTableView.getViewJP(vt, semester);
+                    tableView = jTableView.getViewJP(viewType, comboBoxes);
+                break;
+            case TEACHERS_STU_INFO:
+                selectSemester = setJComboBox();
+                tableView = jTableView.getViewJP(viewType, comboBoxes);
+                mainJPanel.add(selectSemester, BorderLayout.NORTH);
                 break;
         }
 
         mainJPanel.add(tableView, BorderLayout.CENTER);
-
     }
 
     private JPanel setJComboBox(){
         final JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         jComboBox = new JComboBox();
+        JLabel jLabel = null;
+        switch (viewType){
+            case TEACHERS_STU_INFO:
+                jLabel = new JLabel("选择课号");
+                System.out.println(TeacherManager.getTeacher().toString());
+                boxList = TeacherManager.getTeacher().getCourseIDs();
+                for(String s : boxList)
+                    System.out.println(s);
+                break;
+            case QUERY_GRADE:
+            case SELECTED_COURSE:
+            case COURSE_INFO:
+            case TEACHER_COURSE:
+                jLabel = new JLabel("选择学期");
+                Calendar c = Calendar.getInstance();
+                int beginYear = 1997;
+                int nowYear = c.get(Calendar.YEAR);
+                boxList = new String[2 * (nowYear - beginYear)];
+                StringBuilder sb = new StringBuilder();
+                for(int i = 0, year = nowYear; i < boxList.length; i += 2, year--){
+                    boxList[i] = sb.append(year).append('-').append(year-1).append("下半学期").toString();
+                    sb.delete(0,sb.length());
+                    boxList[i +1] = sb.append(year).append('-').append(year-1).append("上半学期").toString();
+                    sb.delete(0,sb.length());
+                }
+                break;
+        }
 
-        jComboBox.setModel(new DefaultComboBoxModel(semesterList));
+        comboBoxes = boxList[0];
+        jComboBox.setModel(new DefaultComboBoxModel(boxList));
         jComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange() == ItemEvent.SELECTED) {
-                    semester = (String) jComboBox.getSelectedItem();
-                    jTableView.setContent(semester);
+                    comboBoxes = (String) jComboBox.getSelectedItem();
+                    jTableView.setContent(comboBoxes);
                 }
             }
         });
-        JLabel jLabel = new JLabel("选择学期");
         jPanel.add(jLabel);
         jLabel.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
         jPanel.add(jComboBox);
         jPanel.setVisible(true);
         return jPanel;
     }
-
-    private void initSemesterList(){
-        Calendar c = Calendar.getInstance();
-        int beginYear = 1997;
-        int nowYear = c.get(Calendar.YEAR);
-        semesterList = new String[2 * (nowYear - beginYear)];
-
-        for(int i = 0, year = nowYear; i < semesterList.length; i += 2, year--){
-            semesterList[i] = String.valueOf(year)+ "-" + String.valueOf(year - 1) + "下半学期";
-            semesterList[i + 1] = String.valueOf(year)+ "-" + String.valueOf(year - 1) + "上半学期";
-        }
-        semester = semesterList[0];
-    }
-
 
 }

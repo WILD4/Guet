@@ -3,10 +3,13 @@ package Guet.view;
 import Guet.controller.CourseController;
 import Guet.pojo.CourseInfo;
 import Guet.pojo.SelectedCourse;
+import Guet.pojo.TeacherAndStuInfo;
 import Guet.util.*;
 import Guet.view.CenterView.ViewType;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -17,22 +20,21 @@ import java.util.List;
 
 public class JTableView extends JPanel{
 
+    private JLabel tableStatus;
     private String[][] content;
     private String[] title;
-    private JTableList tableList;
-    private JPanel jPanel;
-    private int courseID;
-    List<?> listContent;
-    int selectedRow;
+    private JTable tableList;
+    private List<?> listContent;
+    private int selectedRow;
     DefaultTableModel tableModel;
     CourseController courseController;
     ViewType viewType;
 
-    private void setListContent(String semester){
+    private void setListContent(String comboBoxes){
         switch (viewType){
             case DROP_COURSE:
             case SELECTED_COURSE:
-                listContent = courseController.getSelectedCourseInfo(StudentManager.getStudent().getStudentId(), semester);
+                listContent = courseController.getSelectedCourseInfo(StudentManager.getStudent().getStudentId(), comboBoxes);
                 if(listContent.size() == 0)
                     return;
                 title = new String[]{"课程序号", "课程代码", "课程名称","教师","选课类型","学分"};
@@ -45,6 +47,8 @@ public class JTableView extends JPanel{
 //                listContent = courseController.getNoSelectedCourse(extra);
 //                title = new String[]{"课程序号", "课程代码", "课程名称","教师","选课类型","学分"};
                 listContent = courseController.getCourseInfo(StudentManager.getStudent().getStudentId());
+                if(listContent.size() == 0)
+                    return;
                 title = new String[]{"课程代码", "课程名称","学分","学时","上课周次","选课类型"};
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
@@ -53,6 +57,8 @@ public class JTableView extends JPanel{
                 break;
             case NO_SELECT_COURSE:
                 listContent = courseController.getNoSelectedCourse(StudentManager.getStudent().getStudentId(), CourseManager.getCourseInfo().getCourseCode());
+                if(listContent.size() == 0)
+                    return;
                 title = new String[]{"课程序号","课程名称","教师","学分","上课周次","上课时间"};
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
@@ -60,21 +66,52 @@ public class JTableView extends JPanel{
                 }
                 break;
             case QUERY_GRADE:
-                listContent = courseController.getStudentGrade(StudentManager.getStudent().getStudentId(), semester);
+                listContent = courseController.getStudentGrade(StudentManager.getStudent().getStudentId(), comboBoxes);
+                if(listContent.size() == 0)
+                    return;
                 title = new String[]{"课程代码","课程序号","课程名称","成绩","学分","选课类型"};
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
                     content[i] = ((SelectedCourse)listContent.get(i)).toStrArray(ViewType.QUERY_GRADE);
                 }
                 break;
+            case TEACHERS_STU_INFO:
+                listContent = courseController.getTeasStuInfo(UserManager.getUserInfo().getUID(), comboBoxes);
+                if(listContent.size() == 0)
+                    return;
+                title = new String[]{"学号","姓名","学分","成绩"};
+                content = new String[listContent.size()][];
+                for(int i = 0; i < listContent.size(); i++){
+                    content[i] = ((TeacherAndStuInfo)listContent.get(i)).toArray();
+                }
+
+                tableStatus.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,14));
+                StringBuilder sb = new StringBuilder();
+                sb.append("<html>");
+                sb.append("课程名称：");
+                sb.append(((TeacherAndStuInfo)listContent.get(0)).getCourseInfo().getCourseName());
+                sb.append("<&emsp&emsp");
+                sb.append("课程代码：");
+                sb.append(((TeacherAndStuInfo)listContent.get(0)).getCourseInfo().getCourseCode());
+                sb.append("<&emsp&emsp");
+                sb.append("学生人数：");
+                sb.append(listContent.size());
+                sb.append("</html>");
+                tableStatus.setText(sb.toString());
+            break;
             case COURSE_INFO:
-                listContent = courseController.getSelectedCourseInfo(StudentManager.getStudent().getStudentId(), semester);
+            case TEACHER_COURSE:
+                if(viewType == ViewType.COURSE_INFO)
+                    listContent = courseController.getSelectedCourseInfo(StudentManager.getStudent().getStudentId(), comboBoxes);
+                else
+                    listContent = courseController.getSelectedCourseInfo(UserManager.getUserInfo().getUID(), comboBoxes);
+                if(listContent.size() == 0)
+                    return;
                 title = new String[]{"","星期一","星期二","星期三","星期四","星期五","星期六","星期七"};
                 content = new String[5][title.length];
                 for(int i = 0; i < content.length; i++){
                     content[i][0] = String.valueOf(2 * i + 1) + '\n' + String.valueOf(2 * i + 2);
                 }
-
                 for(int i = 0; i < listContent.size(); i++){
                     String courseTime = ((SelectedCourse)listContent.get(i)).getCourseTime();
                     for(int j = 0; j < courseTime.length(); j++){
@@ -100,36 +137,37 @@ public class JTableView extends JPanel{
 
     private void JPanelInit(){
         JTableInit();
+
         this.setPreferredSize(new Dimension(tableList.getWidth(), tableList.getHeight()));
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createEmptyBorder());
         JScrollPane pane = new JScrollPane(tableList);
-//        this.add(tableList.getTableHeader(), BorderLayout.NORTH);
         this.add(pane, BorderLayout.CENTER);
+        if(tableStatus != null)
+            this.add(tableStatus, BorderLayout.SOUTH);
     }
 
     private void JTableInit(){
-        tableModel = new DefaultTableModel(content, title);
-        tableList = new JTableList(tableModel);
-        sortTable();
-        tableList.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableModel = new DefaultTableModel(content, title){
+            @Override
+            public boolean isCellEditable(int row, int columnIndex) {
+                if(columnIndex == 3 && viewType == ViewType.TEACHERS_STU_INFO)
+                    return true;
+                return false;
+            }
+        };
+        tableList = new JTable(tableModel);
         tableList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        if(viewType == ViewType.COURSE_INFO){
+        if(viewType == ViewType.COURSE_INFO || viewType == ViewType.TEACHER_COURSE){
             tableList.setDefaultRenderer(Object.class, new TableCellTextAreaRenderer());    // 内容换行
-
-            //内容适应表格宽度
-        }
-        else{
-            //内容居中
+        }else{
+            tableList.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            tableList.setRowHeight(AppConfig.height/30);
+            sortTable();
             setTableColumnCenter(tableList);
+            FitTableColumns(tableList);
+            tableList.getTableHeader().setReorderingAllowed(false);
         }
-
-        tableList.getTableHeader().setReorderingAllowed(false);
-        tableList.setRowHeight(AppConfig.height/30);
-//        tableList.getTableHeader().setBackground(Color.LIGHT_GRAY);
-//        tableList.setEnabled(true);
-//        tableList.setBackground(Color.LIGHT_GRAY);
-
     }
 
     private void setTableListListener(){
@@ -171,12 +209,23 @@ public class JTableView extends JPanel{
                 }
             }
         });
+        tableModel.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if(e.getType() == TableModelEvent.UPDATE){
+                    float grade = Float.parseFloat(String.valueOf(tableModel.getValueAt(e.getLastRow(), e.getColumn())));
+//                    courseController.updateStuGrade();
+                }
+            }
+        });
     }
 
-    public JPanel getViewJP(ViewType typeView, String semester) throws IOException {
+    public JPanel getViewJP(ViewType typeView, String comboBoxes) throws IOException {
         courseController = new CourseController();
         viewType = typeView;
-        setListContent(semester);
+        tableStatus = new JLabel();
+        tableStatus.setHorizontalAlignment(SwingConstants.RIGHT);
+        setListContent(comboBoxes);
         JPanelInit();
         setTableListListener();
 
@@ -195,14 +244,15 @@ public class JTableView extends JPanel{
                     .getTableCellRendererComponent(myTable, column.getIdentifier()
                             , false, false, -1, col).getPreferredSize().getWidth();
             for(int row = 0; row<rowCount; row++){
-                int preferedWidth = (int)myTable.getCellRenderer(row, col).getTableCellRendererComponent(myTable,
+                int preferredWidth = (int)myTable.getCellRenderer(row, col).getTableCellRendererComponent(myTable,
                         myTable.getValueAt(row, col), false, false, row, col).getPreferredSize().getWidth();
-                width = Math.max(width, preferedWidth);
+                width = Math.max(width, preferredWidth);
             }
             header.setResizingColumn(column); // 此行很重要
             column.setWidth(width+myTable.getIntercellSpacing().width);
         }
     }
+    //内容居中
     public void setTableColumnCenter(JTable table){
         DefaultTableCellRenderer r = new DefaultTableCellRenderer();
         r.setHorizontalAlignment(SwingConstants.CENTER);
@@ -211,20 +261,50 @@ public class JTableView extends JPanel{
 
     //点击表头排序
     private void sortTable(){
-        final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(
+        final TableRowSorter<?> sorter = new TableRowSorter<TableModel>(
                 tableModel);
         tableList.setRowSorter(sorter);
     }
 
     public void setContent(String semester){
         setListContent(semester);
-        if(listContent.size() == 0)
+        if(listContent.size() == 0){
             tableModel = new DefaultTableModel();
-        else
-            tableModel = new DefaultTableModel(content, title);
+            tableStatus.setText("");
+        }
+        else{
+            if(viewType == ViewType.TEACHERS_STU_INFO){
+                StringBuilder sb = new StringBuilder();
+                sb.append("<html>").append("课程名称：")
+                        .append(((TeacherAndStuInfo)listContent.get(0)).getCourseInfo().getCourseName())
+                        .append("<&emsp&emsp").append("课程代码：")
+                        .append(((TeacherAndStuInfo)listContent.get(0)).getCourseInfo().getCourseCode())
+                        .append("<&emsp&emsp")
+                        .append("学生人数：")
+                        .append(listContent.size())
+                        .append("</html>");
+                tableStatus.setText(sb.toString());
+            }
+            tableModel = new DefaultTableModel(content, title){
+                @Override
+                public boolean isCellEditable(int row, int columnIndex) {
+                    if(columnIndex == 3 && viewType == ViewType.TEACHERS_STU_INFO)
+                        return true;
+                    return false;
+                }
+            };
+            tableModel.addTableModelListener(new TableModelListener() {
+                @Override
+                public void tableChanged(TableModelEvent e) {
+                    System.out.println(tableModel.getValueAt(e.getLastRow(), e.getColumn()));
+                }
+            });
+        }
         tableList.setModel(tableModel);
         tableList.updateUI();
     }
+
+
 
     private int convertLesson(String lesson){
         if(lesson.equals("12"))

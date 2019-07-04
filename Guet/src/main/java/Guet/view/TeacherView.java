@@ -13,12 +13,19 @@ import java.awt.event.ActionListener;
 public class TeacherView extends NavBarView {
 
     JButton[] jButtons;
+    ButtonStatus status;
+
+    enum ButtonStatus{
+        PERSONAL_INFO,
+        SELECTED_COURSE,
+        QUERY_STU_INFO,
+    }
 
     TeacherView(){
         super(new String[]{
                 "个人信息",
                 "个人课表信息",
-                " 学生成绩查询",
+                " 学生信息查询",
                 " 学生成绩录入",
         });
         init();
@@ -42,14 +49,30 @@ public class TeacherView extends NavBarView {
         jButtons[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CenterViewManager.setFuncViw(new FuncView("个人信息", ViewType.TEACHER_INFO));
+                if(status != ButtonStatus.PERSONAL_INFO){
+                    CenterViewManager.setFuncViw(new FuncView("个人信息", ViewType.TEACHER_INFO));
+                    status = ButtonStatus.PERSONAL_INFO;
+                }
             }
         });
 
         jButtons[1].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CenterViewManager.setFuncViw(new FuncView("课表信息", ViewType.TEACHER_COURSE));
+                if(status != ButtonStatus.SELECTED_COURSE){
+                    CenterViewManager.setFuncViw(new FuncView("课表信息", ViewType.TEACHER_COURSE));
+                    status = ButtonStatus.SELECTED_COURSE;
+                }
+            }
+        });
+
+        jButtons[2].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(status != ButtonStatus.QUERY_STU_INFO){
+                    CenterViewManager.setFuncViw(new FuncView("学生信息", ViewType.TEACHERS_STU_INFO));
+                    status = ButtonStatus.QUERY_STU_INFO;
+                }
             }
         });
 

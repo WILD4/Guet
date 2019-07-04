@@ -1,45 +1,48 @@
 package Guet.pojo;
 
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
 
-public class TeacherInfo {
+public class TeacherInfo extends UserInfo {
 
-    String teacherID;
-    String teacherName;
-    String teacherSex;
-    Date teacherBirthday;
-    String teacherTitle;
+//    private String teacherID;
+//    private String teacherName;
+//    private String teacherSex;
+//    private Date teacherBirthday;
+    private String teacherTitle;
+    private List<String> courseIDs;
 
     public String getTeacherID() {
-        return teacherID;
+        return getUID();
     }
 
     public void setTeacherID(String teacherID) {
-        this.teacherID = teacherID;
+        this.setUID(teacherID);
     }
 
     public String getTeacherName() {
-        return teacherName;
+        return getUserName();
     }
 
     public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+        this.setUserName(teacherName);
     }
 
     public String getTeacherSex() {
-        return teacherSex;
+        return this.getUserSex();
     }
 
     public void setTeacherSex(String teacherSex) {
-        this.teacherSex = teacherSex;
+        setUserSex(teacherSex);
     }
 
     public Date getTeacherBirthday() {
-        return teacherBirthday;
+        return getUserBirthday();
     }
 
     public void setTeacherBirthday(Date teacherBirthday) {
-        this.teacherBirthday = teacherBirthday;
+        setUserBirthday(teacherBirthday);
     }
 
     public String getTeacherTitle() {
@@ -50,14 +53,25 @@ public class TeacherInfo {
         this.teacherTitle = teacherTitle;
     }
 
+
+
+    public String[] getCourseIDs() {
+        String[] arr = new String[courseIDs.size()];
+        for(int i = 0; i < arr.length; i++)
+            arr[i] = courseIDs.get(i);
+        return arr;
+    }
+
+    public void setCourseIDs(List<String> courseIDs) {
+        this.courseIDs = courseIDs;
+    }
+
     @Override
     public String toString() {
         return "TeacherInfo{" +
-                "teacherID='" + teacherID + '\'' +
-                ", teacherName='" + teacherName + '\'' +
-                ", teacherSex='" + teacherSex + '\'' +
-                ", teacherBirthday=" + teacherBirthday +
-                ", teacherTitle='" + teacherTitle + '\'' +
+                super.toString() + '\'' +
+                "teacherTitle='" + teacherTitle + '\'' +
+                ", courseIDs=" + courseIDs +
                 '}';
     }
 }

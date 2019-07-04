@@ -2,8 +2,10 @@ package Guet.view;
 
 import Guet.pojo.StudentInfo;
 import Guet.pojo.TeacherInfo;
+import Guet.pojo.UserInfo;
 import Guet.util.StudentManager;
 import Guet.util.TeacherManager;
+import Guet.util.UserManager;
 import Guet.view.LoginView.USER_STATUS;
 
 import javax.swing.*;
@@ -35,7 +37,7 @@ public class PersonalInfoVIew extends JPanel {
                 };
                 break;
             case TEACHER:
-                TeacherInfo teacherInfo = TeacherManager.getTeacher();
+                UserInfo userManager = UserManager.getUserInfo();
                 title = new String[]{"",""};
                 content = new String[][]{
                         {"学号：",teacherInfo.getTeacherID()},
