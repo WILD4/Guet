@@ -3,40 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="1ae04482-7fca-4acb-a2e0-633dcddc8d84" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/CourseInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/CourseInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/SelectedCourse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/SelectedCourse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/StudentInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/StudentInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherAndStuInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherAndStuInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/util/TableCellTextAreaRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/util/TableCellTextAreaRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/util/TeacherManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/BaseView/FuncView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/BaseView/FuncView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/BaseView/NavBarView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/BaseView/NavBarView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/CenterView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/CenterView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/ChangePasswordView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/ChangePasswordView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/PersonalInfoVIew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/PersonalInfoVIew.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/SelectCourseView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/SelectCourseView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/StudentView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/StudentView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/CourseMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/CourseMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/LoginMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/LoginMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ApplicationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/controller/CourseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/controller/CourseController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/dao/CourseMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/dao/CourseMapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/pojo/CourseInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/pojo/CourseInfo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/pojo/StudentInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/pojo/StudentInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Guet/util/TeacherManager.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/BaseView/NavBarView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/BaseView/NavBarView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/ChangePasswordView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/ChangePasswordView$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/ChangePasswordView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/ChangePasswordView$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/ChangePasswordView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/ChangePasswordView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/LoginView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/LoginView$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/LoginView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/LoginView$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/LoginView$USER_STATUS.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/LoginView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/SelectCourseView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/SelectCourseView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mappers/CourseMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mappers/CourseMapper.xml" afterDir="false" />
@@ -77,7 +53,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="400">
@@ -109,6 +85,15 @@
                 <element signature="e#17006#17190#0" />
                 <element signature="e#17070#17180#1" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/AdminInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -216,7 +201,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/Guet/view/SelectedCourseView.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/dao/SelectedCourse.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/controller/StudentController.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/baseInfo.java" />
@@ -267,6 +251,7 @@
         <option value="$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/AdminInfo.java" />
       </list>
     </option>
   </component>
@@ -558,7 +543,7 @@
       <workItem from="1561949483148" duration="771000" />
       <workItem from="1562121685919" duration="27572000" />
       <workItem from="1562204593263" duration="22332000" />
-      <workItem from="1562290015450" duration="9634000" />
+      <workItem from="1562290015450" duration="10043000" />
     </task>
     <task id="LOCAL-00001" summary="学生课程表等更新">
       <created>1561814827364</created>
@@ -574,7 +559,14 @@
       <option name="project" value="LOCAL" />
       <updated>1562234581575</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="各种用户信息整合到UerInfo&#10;JTable的内容更改由new DefaultModelTable()该为Model.setDataVector()&#10;希望以后能对各个按钮的界面进行预加载&#10;&#10;未解决： 并发问题——连接SqlSession后何时关闭">
+      <created>1562300753309</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1562300753309</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -610,7 +602,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="269227000" />
+    <option name="totallyTimeSpent" value="269636000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -623,7 +615,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49644127" visible="true" weight="0.18923241" />
       <window_info id="Structure" order="1" sideWeight="0.5035587" side_tool="true" weight="0.16791044" />
@@ -635,13 +626,13 @@
       <window_info id="Learn" order="7" weight="0.32995737" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3264642" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.2407809" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.2407809" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3275488" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.329718" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.329718" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32827735" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053304" side_tool="true" weight="0.3261105" />
@@ -697,7 +688,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="学生课程表等更新" />
     <MESSAGE value="大更新" />
-    <option name="LAST_COMMIT_MESSAGE" value="大更新" />
+    <MESSAGE value="各种用户信息整合到UerInfo&#10;JTable的内容更改由new DefaultModelTable()该为Model.setDataVector()&#10;希望以后能对各个按钮的界面进行预加载&#10;&#10;未解决： 并发问题——连接SqlSession后何时关闭" />
+    <option name="LAST_COMMIT_MESSAGE" value="各种用户信息整合到UerInfo&#10;JTable的内容更改由new DefaultModelTable()该为Model.setDataVector()&#10;希望以后能对各个按钮的界面进行预加载&#10;&#10;未解决： 并发问题——连接SqlSession后何时关闭" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -709,13 +701,6 @@
     </SUITE>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://F:/Program Files/Java/jdk1.8.0_211/src.zip!/javax/swing/table/DefaultTableModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.2.8/mybatis-3.2.8.jar!/org/apache/ibatis/binding/MapperProxy.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="741">
@@ -874,13 +859,6 @@
             <element signature="e#440#441#0" expanded="true" />
             <element signature="e#468#469#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/util/AdminManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
@@ -1188,6 +1166,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/util/AdminManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
@@ -1219,6 +1204,13 @@
             <element signature="e#17006#17190#0" />
             <element signature="e#17070#17180#1" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/AdminInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="39" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
         </state>
       </provider>
     </entry>
