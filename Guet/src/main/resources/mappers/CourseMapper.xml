@@ -23,7 +23,7 @@
 	AND teacher.teacher_id = tea_course.teacher_id AND teacher.teacher_id = #{teaID};
     </select>
 
-    <select id="queryNoSelectedCourse" resultMap="courseInfo">
+    <select id="queryNoSelectedCourses" resultMap="courseInfo">
         SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit, course_date, course_time FROM course,tea_course,teacher WHERE
 	course.course_code IN(SELECT course_code FROM tea_course WHERE course_code = #{courseCode} AND
 	course_id NOT IN(SELECT course_id FROM stu_course WHERE student_id = #{stuID}))
@@ -32,7 +32,9 @@
     </select>
 
     <select id="queryAllCourse" resultType="Guet.pojo.CourseInfo">
-        SELECT course.* FROM course,student WHERE course_code IN(SELECT course_code FROM tea_course WHERE course_id NOT IN(SELECT course_id FROM stu_course)) AND student.student_id = #{stuID};
+    select course_code,course_name,course_credit,course_date,course_type from course
+	where course.course_code NOT IN(SELECT DISTINCT course_code FROM tea_course
+		WHERE course_id in(select course_id from stu_course WHERE student_id = #{stuID}));
     </select>
 
 
@@ -45,10 +47,21 @@
     </delete>
 
     <select id="queryStuGrade" resultMap="courseInfo">
-        SELECT course.course_code,stu_course.course_id,course_name,grade,course_credit,course_type FROM course,tea_course,teacher,stu_course
+        SELECT course.course_code,stu_course.course_id,course_name,grade,course_credit,course_type,stu_course.semester FROM course,tea_course,teacher,stu_course
             WHERE course.course_code IN(SELECT course_code FROM tea_course
                 WHERE course_id IN(SELECT course_id FROM stu_course
                     WHERE student_id = #{stuID} AND semester = #{semester}))
+            AND stu_course.course_id = tea_course.course_id
+            AND course.course_code = tea_course.course_code
+            AND teacher.teacher_id = tea_course.teacher_id
+            AND stu_course.grade IS NOT NULL;
+    </select>
+
+    <select id="queryStuAllGrade" resultMap="courseInfo">
+        SELECT course.course_code,stu_course.course_id,course_name,grade,course_credit,course_type,stu_course.semester FROM course,tea_course,teacher,stu_course
+            WHERE course.course_code IN(SELECT course_code FROM tea_course
+                WHERE course_id IN(SELECT course_id FROM stu_course
+                    WHERE student_id = #{stuID}))
             AND stu_course.course_id = tea_course.course_id
             AND course.course_code = tea_course.course_code
             AND teacher.teacher_id = tea_course.teacher_id

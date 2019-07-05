@@ -1,75 +1,67 @@
 package Guet.pojo;
 
+import Guet.util.UserManager;
+
 import java.sql.Date;
 
-public class StudentInfo {
-
-    private String studentID;
-    private String studentName;
-    private String studentSex;
-    private Date studentBirthday;
-    private String password;
-    private String status;
+public class StudentInfo extends UserInfo {
 
     public String getStudentId() {
-        return studentID;
+        return getUID();
     }
 
     public void setStudentId(String id) {
-        this.studentID = id;
+        setUID(id);
     }
 
     public String getStudentName() {
-        return studentName;
+        return getUserName();
     }
 
     public void setStudentName(String studentName) {
-        this.studentName = studentName;
+        setUserName(studentName);
     }
 
     public String getStudentSex() {
-        return studentSex;
+        return getUserSex();
     }
 
     public void setStudentSex(String studentSex) {
-        this.studentSex = studentSex;
+        setUserSex(studentSex);
     }
 
     public Date getStudentBirthday() {
-        return studentBirthday;
+        return getUserBirthday();
     }
 
     public void setStudentBirthday(Date studentBirthday) {
-        this.studentBirthday = studentBirthday;
+        setUserBirthday(studentBirthday);
     }
 
     public String getPassword() {
-        return password;
+        return super.getPassword();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        super.setPassword(password);
     }
 
     public String getStatus() {
-        return status;
+        return super.getStatus();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        super.setStatus(status);
     }
 
-    public String[] toStrArray(){
-        return new String[]{studentID, studentName, studentSex, String.valueOf(studentBirthday)};
-    }
+//    public String[] toStrArray(){
+//        return new String[]{studentID, studentName, studentSex, String.valueOf(studentBirthday)};
+//    }
 
     @Override
     public String toString() {
         return "StudentInfo{" +
-                "id='" + studentID + '\'' +
-                ", studentName='" + studentName + '\'' +
-                ", studentSex='" + studentSex + '\'' +
-                ", studentBirthday=" + studentBirthday +
+                super.toString()+
                 '}';
     }
 }

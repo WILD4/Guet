@@ -1,9 +1,9 @@
 package Guet.view;
 
+import Guet.pojo.UserInfo;
 import Guet.util.*;
 import Guet.view.BaseView.FuncView;
 import Guet.view.BaseView.NavBarView;
-import Guet.view.LoginView.USER_STATUS;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -27,8 +27,8 @@ public class CenterView extends JFrame {
 
     private NavBarView navBarView;
 
-    CenterView(USER_STATUS us){
-        userViewInit(us);
+    CenterView(){
+        userViewInit();
         init();
         addActionListener();
     }
@@ -41,6 +41,7 @@ public class CenterView extends JFrame {
         DROP_COURSE,
         NO_SELECT_COURSE,
         QUERY_GRADE,
+        QUERY_GRADE_POINT,
         TEACHER_INFO,
         TEACHER_COURSE,
         TEACHERS_STU_INFO
@@ -57,20 +58,11 @@ public class CenterView extends JFrame {
 
     }
 
-    private void userViewInit(USER_STATUS userStatus){
+    private void userViewInit(){
 
-        switch (userStatus){
-            case STUDENT:
-                navBarView = new StudentView();
-                userID = new JLabel("当前用户：" + StudentManager.getStudent().getStudentId());
-                userType = new JLabel("用户类型：学生" );
-                break;
-            case TEACHER:
-                navBarView = new TeacherView();
-                userID = new JLabel("当前用户：" + UserManager.getUserInfo().getUID());
-                userType = new JLabel("用户类型：教师");
-                break;
-        }
+        userID = new JLabel("当前用户：" + UserManager.getUserInfo().getUID());
+        userType = new JLabel("用户类型：" + UserManager.getUserInfo().getStatus());
+
         logout = new JButton("注销");
         modPassword = new JButton("修改密码");
         userStatusJP = new JPanel(new FlowLayout(FlowLayout.LEFT));    //布局靠左
@@ -79,6 +71,11 @@ public class CenterView extends JFrame {
         userStatusJP.add(userType);
         userStatusJP.add(modPassword);
         userStatusJP.add(logout);
+
+        if(UserManager.getUserInfo().getStatus().equals("学生"))
+            navBarView = new StudentView();
+        else if(UserManager.getUserInfo().getStatus().equals("教师"))
+            navBarView = new TeacherView();
     }
 
     private void addActionListener(){
@@ -87,7 +84,7 @@ public class CenterView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int result = JOptionPane.showConfirmDialog(null, "是否注销", "确认", JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.YES_NO_OPTION) {
-                    StudentManager.setStudent(null);
+                    UserManager.setUserInfo(null);
                     new LoginView();
                     CenterViewManager.closeCenterView();
                 }

@@ -12,9 +12,7 @@ import java.awt.event.ActionListener;
 
 public class StudentView extends NavBarView {
 
-    private JButton[] jButtons;
     private ButtonStatus status;
-    private JPanel[] views;
 
     enum ButtonStatus{
         PERSONAL_INFO,
@@ -36,24 +34,7 @@ public class StudentView extends NavBarView {
                 "总学分查询",
                 "课表信息",
         });
-        init();
         addActionListener();
-    }
-
-    private void init(){
-
-        JLabel title = new JLabel("主菜单", SwingConstants.CENTER);
-        this.add(title);
-
-        jButtons = getJButtons();
-
-        for(JButton jButton : jButtons){
-            this.add(jButton);
-        }
-
-        views = new JPanel[jButtons.length];
-
-        title.setBorder(new EtchedBorder(EtchedBorder.RAISED));
     }
 
 //    private void setActionListener(JButton jButton, ButtonStatus buttonStatus, ViewType viewType, String title){
@@ -81,77 +62,59 @@ public class StudentView extends NavBarView {
             }
         });
         //已选课程
-        jButtons[ButtonStatus.SELECTED_COURSE.ordinal()].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int n = ButtonStatus.SELECTED_COURSE.ordinal();
-                if(status != ButtonStatus.SELECTED_COURSE){
-                    if(views[n] == null)
-                        views[n] = new FuncView("已选课程", ViewType.SELECTED_COURSE);
-                    CenterViewManager.setFuncViw(views[n]);
-                    status = ButtonStatus.SELECTED_COURSE;
-                }
+        jButtons[ButtonStatus.SELECTED_COURSE.ordinal()].addActionListener(e -> {
+            int n = ButtonStatus.SELECTED_COURSE.ordinal();
+            if(status != ButtonStatus.SELECTED_COURSE){
+//                if(views[n] == null)
+                    views[n] = new FuncView("已选课程", ViewType.SELECTED_COURSE);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.SELECTED_COURSE;
             }
         });
         //选课
-        jButtons[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int n = ButtonStatus.SELECT_COURSE.ordinal();
-                if(status != ButtonStatus.SELECT_COURSE){
-                    if(views[n] == null)
-                        views[n] = new FuncView("选课", ViewType.SELECT_COURSE);
-                    CenterViewManager.setFuncViw(views[n]);
-                    status = ButtonStatus.SELECT_COURSE;
-                }
+        jButtons[2].addActionListener(e -> {
+            int n = ButtonStatus.SELECT_COURSE.ordinal();
+            if(status != ButtonStatus.SELECT_COURSE){
+//                if(views[n] == null)
+                    views[n] = new FuncView("选课", ViewType.SELECT_COURSE);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.SELECT_COURSE;
             }
         });
         //退课
-        jButtons[3].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int n = ButtonStatus.DROP_COURSE.ordinal();
-                if(status != ButtonStatus.DROP_COURSE){
-                    if(views[n] == null)
-                        views[n] = new FuncView("退课", ViewType.DROP_COURSE);
-                    CenterViewManager.setFuncViw(views[n]);
-                    status = ButtonStatus.DROP_COURSE;
-                }
+        jButtons[3].addActionListener(e -> {
+            int n = ButtonStatus.DROP_COURSE.ordinal();
+            if(status != ButtonStatus.DROP_COURSE){
+//                if(views[n] == null)
+                    views[n] = new FuncView("退课", ViewType.DROP_COURSE);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.DROP_COURSE;
             }
         });
 
-        jButtons[4].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int n = ButtonStatus.QUERY_GRADE.ordinal();
-                if(status != ButtonStatus.QUERY_GRADE){
-                    if(views[n] == null)
-                        views[n] = new FuncView("查询成绩", ViewType.QUERY_GRADE);
-                    CenterViewManager.setFuncViw(views[n]);
-                    status = ButtonStatus.QUERY_GRADE;
-                }
+        jButtons[4].addActionListener(e -> {
+            int n = ButtonStatus.QUERY_GRADE.ordinal();
+            if(status != ButtonStatus.QUERY_GRADE){
+//                if(views[n] == null)
+                    views[n] = new FuncView("查询成绩", ViewType.QUERY_GRADE);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.QUERY_GRADE;
             }
         });
 
-        jButtons[5].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(status != ButtonStatus.QUERY_GRADE_POINT){
-                    CenterViewManager.setFuncViw(new FuncView("总学分查询", CenterView.ViewType.QUERY_GRADE));
-                    status = ButtonStatus.QUERY_GRADE_POINT;
-                }
+        jButtons[5].addActionListener(e -> {
+            if(status != ButtonStatus.QUERY_GRADE_POINT){
+                CenterViewManager.setFuncViw(new FuncView("总学分查询", ViewType.QUERY_GRADE_POINT));
+                status = ButtonStatus.QUERY_GRADE_POINT;
             }
         });
-        jButtons[6].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int n = ButtonStatus.COURSE_INFO.ordinal();
-                if(status != ButtonStatus.COURSE_INFO){
-                    if(views[n] == null)
-                        views[n] = new FuncView("课表信息", ViewType.COURSE_INFO);
-                    CenterViewManager.setFuncViw(views[n]);
-                    status = ButtonStatus.COURSE_INFO;
-                }
+        jButtons[6].addActionListener(e -> {
+            int n = ButtonStatus.COURSE_INFO.ordinal();
+            if(status != ButtonStatus.COURSE_INFO){
+//                if(views[n] == null)
+                    views[n] = new FuncView("课表信息", ViewType.COURSE_INFO);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.COURSE_INFO;
             }
         });
 

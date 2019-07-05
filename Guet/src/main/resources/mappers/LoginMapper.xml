@@ -12,7 +12,7 @@
    </select>
 
     <select id="getStudentInfo" resultType="Guet.pojo.StudentInfo">
-      select * from student where student_id = #{uid};
+      select student.*,status from student,login_info where student_id = #{uid} and student.student_id = login_info.UID;
    </select>
 
     <update id="updateLoginInfo">
@@ -28,7 +28,7 @@
     </select>
 
     <select id="getTeacherInfo" resultMap="teacherInfo">
-        select * from teacher where teacher_id = #{uid};
+        select teacher.*,status from teacher,login_info where teacher_id = #{uid} and teacher.teacher_id = login_info.UID;
    </select>
 
     <resultMap id="teacherInfo" type="Guet.pojo.TeacherInfo">

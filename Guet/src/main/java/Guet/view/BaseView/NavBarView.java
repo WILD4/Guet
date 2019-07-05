@@ -8,7 +8,8 @@ import java.awt.*;
 
 public class NavBarView extends JPanel {
 
-    private  JButton[] jButtons;
+    protected  JButton[] jButtons;
+    protected  JPanel[] views;
 
     public NavBarView(String[] jButtonsName){
         init(jButtonsName);
@@ -25,12 +26,20 @@ public class NavBarView extends JPanel {
         for(int i = 0; i < jButtonsName.length; i++) {
             jButtons[i] = new JButton(jButtonsName[i]);
         }
+
+        JLabel title = new JLabel("主菜单", SwingConstants.CENTER);
+        this.add(title);
+
+        for(JButton jButton : jButtons)
+            this.add(jButton);
+
+        views = new JPanel[jButtons.length];
+
+        title.setBorder(new EtchedBorder(EtchedBorder.RAISED));
     }
 
-    public JButton[] getJButtons(){
-        return jButtons;
-    }
+    private void addActionListener(){
 
-    private void addActionListener(){}
+    }
 
 }

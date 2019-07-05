@@ -7,6 +7,7 @@ import Guet.pojo.TeacherAndStuInfo;
 import Guet.util.ServerSqlSession;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseController {
@@ -25,7 +26,7 @@ public class CourseController {
     }
 
     public List<SelectedCourse> getNoSelectedCourse(String stuID, String courseCode){
-        return courseMapper.queryNoSelectedCourse(stuID, courseCode);
+        return courseMapper.queryNoSelectedCourses(stuID, courseCode);
     }
 
     public void stuSelectCourse(int courseID, String stuID){
@@ -41,6 +42,8 @@ public class CourseController {
     }
 
     public List<SelectedCourse> getStudentGrade(String stuID, String semester){
+        if(semester.equals("all"))
+            return courseMapper.queryStuAllGrade(stuID);
         return courseMapper.queryStuGrade(stuID, semester);
     }
 
@@ -48,7 +51,7 @@ public class CourseController {
         return courseMapper.queryTeasStuInfo(teaID, courseID);
     }
 
-    public void updateStuGrade(String courseID, String stuID, float grade){
+    public void updateStuGrade(String courseID, String stuID, String grade){
         courseMapper.updateStuGrade(courseID, stuID, grade);
     }
 

@@ -60,7 +60,7 @@ public class ApplicationTest {
 //        logger.info(loginMapper.getTeacherInfo("423859").toString());
 
 //        courseMapper.updateStuGrade("1820252","1700420201",81);
-        UserManager.setUserInfo(new LoginController().getTeacherInfo("423859"));
+        UserManager.setUserInfo(new LoginController().getStudentInfo("1700420201"));
         logger.info(UserManager.getUserInfo().toString());
     }
 

@@ -8,7 +8,7 @@ public class TeacherAndStuInfo {
     private String studentName;
     private int courseID;
     private CourseInfo courseInfo;
-    private float grade;
+    private String grade;
     private Date semester;
 
     public String getStudentID() {
@@ -43,11 +43,11 @@ public class TeacherAndStuInfo {
         this.courseInfo = courseInfo;
     }
 
-    public float getGrade() {
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(float grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 
@@ -64,7 +64,7 @@ public class TeacherAndStuInfo {
                 studentID,
                 studentName,
                 String.valueOf(courseInfo.getCourseCredit()),
-                String.valueOf(grade),
+                grade,
         };
     }
 }

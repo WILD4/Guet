@@ -5,15 +5,9 @@ import Guet.view.BaseView.FuncView;
 import Guet.view.BaseView.NavBarView;
 import Guet.view.CenterView.ViewType;
 
-import javax.swing.*;
-import javax.swing.border.EtchedBorder;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+class TeacherView extends NavBarView {
 
-public class TeacherView extends NavBarView {
-
-    JButton[] jButtons;
-    ButtonStatus status;
+    private ButtonStatus status;
 
     enum ButtonStatus{
         PERSONAL_INFO,
@@ -28,51 +22,38 @@ public class TeacherView extends NavBarView {
                 " 学生信息查询",
                 " 学生成绩录入",
         });
-        init();
         addActionListener();
-    }
-
-    private void init(){
-
-        JLabel title = new JLabel("主菜单", SwingConstants.CENTER);
-        this.add(title);
-        jButtons = getJButtons();
-        for(JButton jButton : getJButtons())
-            this.add(jButton);
-
-        title.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-
     }
 
     private void addActionListener(){
 
-        jButtons[0].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(status != ButtonStatus.PERSONAL_INFO){
-                    CenterViewManager.setFuncViw(new FuncView("个人信息", ViewType.TEACHER_INFO));
-                    status = ButtonStatus.PERSONAL_INFO;
-                }
+        jButtons[0].addActionListener(e -> {
+            int n = ButtonStatus.PERSONAL_INFO.ordinal();
+            if(status != ButtonStatus.PERSONAL_INFO){
+                if(views[n] == null)
+                    views[n] = new FuncView("个人信息", ViewType.PERSONAL_INFO);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.PERSONAL_INFO;
             }
         });
 
-        jButtons[1].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(status != ButtonStatus.SELECTED_COURSE){
-                    CenterViewManager.setFuncViw(new FuncView("课表信息", ViewType.TEACHER_COURSE));
-                    status = ButtonStatus.SELECTED_COURSE;
-                }
+        jButtons[1].addActionListener(e -> {
+            int n = ButtonStatus.SELECTED_COURSE.ordinal();
+            if(status != ButtonStatus.SELECTED_COURSE){
+                if(views[n] == null)
+                    views[n] = new FuncView("个人课表信息", ViewType.TEACHER_COURSE);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.SELECTED_COURSE;
             }
         });
 
-        jButtons[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(status != ButtonStatus.QUERY_STU_INFO){
-                    CenterViewManager.setFuncViw(new FuncView("学生信息", ViewType.TEACHERS_STU_INFO));
-                    status = ButtonStatus.QUERY_STU_INFO;
-                }
+        jButtons[2].addActionListener(e-> {
+            int n = ButtonStatus.QUERY_STU_INFO.ordinal();
+            if(status != ButtonStatus.QUERY_STU_INFO){
+                if(views[n] == null)
+                    views[n] = new FuncView("学生选课情况", ViewType.TEACHERS_STU_INFO);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.QUERY_STU_INFO;
             }
         });
 

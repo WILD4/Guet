@@ -4,49 +4,46 @@ import Guet.pojo.StudentInfo;
 import Guet.pojo.TeacherInfo;
 import Guet.pojo.UserInfo;
 import Guet.util.StudentManager;
-import Guet.util.TeacherManager;
 import Guet.util.UserManager;
-import Guet.view.LoginView.USER_STATUS;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PersonalInfoVIew extends JPanel {
 
-    JTable jTable;
-    String[] title;
-    String[][] content;
+    private JTable jTable;
+    private String[] title;
+    private String[][] content;
 
-    public PersonalInfoVIew(USER_STATUS userStatus) {
-        init(userStatus);
+    public PersonalInfoVIew() {
+        init();
     }
 
-    private void init(USER_STATUS userStatus){
+    private void init(){
 
-        switch (userStatus){
-            case STUDENT:
-                StudentInfo student = StudentManager.getStudent();
-                title = new String[]{"",""};
-                content = new String[][]{
-                        {"学号：",student.getStudentId()},
-                        {"姓名：",student.getStudentName()},
-                        {"班级：",student.getStudentId().substring(0,8)},
-                        {"年级：","20"+student.getStudentId().substring(0,2)},
-                        {"性别：",student.getStudentSex()},
-                        {"生日：",student.getStudentBirthday().toString()}
-                };
-                break;
-            case TEACHER:
-                UserInfo userManager = UserManager.getUserInfo();
-                title = new String[]{"",""};
-                content = new String[][]{
-                        {"学号：",teacherInfo.getTeacherID()},
-                        {"姓名：",teacherInfo.getTeacherName()},
-                        {"性别：",teacherInfo.getTeacherSex()},
-                        {"生日：",teacherInfo.getTeacherBirthday().toString()},
-                        {"职称：",teacherInfo.getTeacherTitle()}
-                };
-                break;
+        UserInfo userInfo = UserManager.getUserInfo();
+        if(userInfo.getStatus().equals("学生")){
+            StudentInfo studentInfo = (StudentInfo)userInfo;
+            title = new String[]{"",""};
+            content = new String[][]{
+                    {"学号：",studentInfo.getStudentId()},
+                    {"姓名：",studentInfo.getStudentName()},
+                    {"班级：",studentInfo.getStudentId().substring(0,8)},
+                    {"年级：","20"+studentInfo.getStudentId().substring(0,2)},
+                    {"性别：",studentInfo.getStudentSex()},
+                    {"生日：",studentInfo.getStudentBirthday().toString()}
+            };
+        }
+        if(userInfo.getStatus().equals("教师")){
+            TeacherInfo teacherInfo = (TeacherInfo)userInfo;
+            title = new String[]{"",""};
+            content = new String[][]{
+                    {"学号：",teacherInfo.getTeacherID()},
+                    {"姓名：",teacherInfo.getTeacherName()},
+                    {"性别：",teacherInfo.getTeacherSex()},
+                    {"生日：",teacherInfo.getTeacherBirthday().toString()},
+                    {"职称：",teacherInfo.getTeacherTitle()}
+            };
         }
 
         jTable = new JTable(content, title);
@@ -61,10 +58,6 @@ public class PersonalInfoVIew extends JPanel {
         this.add(jTable, BorderLayout.WEST);
 
     }
-
-
-
-
     public JPanel getPIView(){
         return this;
     }

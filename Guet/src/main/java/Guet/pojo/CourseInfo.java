@@ -61,10 +61,9 @@ public class CourseInfo{
         return new String[]{
                 courseCode,
                 courseName,
-                String.valueOf(courseClass),
                 String.valueOf(courseCredit),
-                courseDate,
                 courseType,
+                courseDate,
         };
     }
 

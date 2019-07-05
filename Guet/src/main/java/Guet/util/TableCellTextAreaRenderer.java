@@ -26,8 +26,9 @@ public class TableCellTextAreaRenderer extends JTextArea implements TableCellRen
 
 //        }
 //
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         int maxHeight = 78;
+
+        table.getTableHeader().setResizingColumn(table.getColumnModel().getColumn(column));
 
         if (table.getRowHeight(row) != maxHeight) // 少了这行则处理器瞎忙
         {
@@ -36,9 +37,9 @@ public class TableCellTextAreaRenderer extends JTextArea implements TableCellRen
 
         table.setRowHeight(row, maxHeight);
 
-        table.getTableHeader().setResizingColumn(table.getColumnModel().getColumn(column));
         if(column == 0)
             table.getColumnModel().getColumn(column).setWidth(20 + table.getIntercellSpacing().width);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 //        setFont(new Font("微软雅黑", Font.PLAIN, 12));
 //        setText(value == null ? "" : value.toString());
 //        if(row%2 == 0){

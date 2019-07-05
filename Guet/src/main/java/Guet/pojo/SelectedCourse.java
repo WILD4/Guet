@@ -14,7 +14,7 @@ public class SelectedCourse {
     private CourseInfo courseInfo;
     private TeacherInfo teacherInfo;
     private float grade;
-    private Date semester;
+    private String semester;
 
     public int getCourseID() {
         return courseID;
@@ -80,11 +80,11 @@ public class SelectedCourse {
         this.courseTime = courseTime;
     }
 
-    public Date getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(Date semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 
@@ -126,7 +126,17 @@ public class SelectedCourse {
                         String.valueOf(courseInfo.getCourseCredit()),
                         courseInfo.getCourseType(),
                 };break;
-
+            case QUERY_GRADE_POINT:
+                content = new String[]{
+                        null,
+                        courseInfo.getCourseCode(),
+                        courseInfo.getCourseName(),
+                        String.valueOf(grade),
+                        String.valueOf(courseInfo.getCourseCredit()),
+                        String.valueOf(semester),
+                        grade >= 60 ? "1" : "0",
+                        courseInfo.getCourseType(),
+                };
         }
         return content;
     }

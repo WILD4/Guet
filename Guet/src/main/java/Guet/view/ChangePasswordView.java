@@ -2,6 +2,7 @@ package Guet.view;
 
 import Guet.controller.LoginController;
 import Guet.util.StudentManager;
+import Guet.util.UserManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,11 +75,11 @@ public class ChangePasswordView extends JFrame {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                if(!oldPasswordJT.getText().equals(loginController.getUserPassword(StudentManager.getStudent().getStudentId())))
+                if(!oldPasswordJT.getText().equals(loginController.getUserPassword(UserManager.getUserInfo().getUID())))
                     JOptionPane.showMessageDialog(jFrame, "密码不正确", "确认", JOptionPane.INFORMATION_MESSAGE);
                 else {
                     if(newPasswordJT1.getText().equals(newPasswordJT2.getText())){
-                        loginController.changePassword(StudentManager.getStudent().getStudentId(), newPasswordJT1.getText());
+                        loginController.changePassword(UserManager.getUserInfo().getUID(), newPasswordJT1.getText());
                         JOptionPane.showMessageDialog(jFrame, "修改成功", "确认", JOptionPane.INFORMATION_MESSAGE);
                         jFrame.dispose();
                     }else {

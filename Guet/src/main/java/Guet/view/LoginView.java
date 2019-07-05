@@ -30,12 +30,6 @@ public class LoginView extends JFrame {
         addActionListener();
     }
 
-    public enum USER_STATUS{
-        TEACHER,
-        STUDENT,
-        ADMIN,
-    }
-
     private void init(){
         jFrame = new JFrame();
         JPanel loginView = new JPanel();
@@ -52,7 +46,7 @@ public class LoginView extends JFrame {
         passwordJL = new JLabel("口    令");
         usernameJT = new JTextField(10);
         passwordJT = new JTextField(10);
-        usernameJT.setText("423859");
+        usernameJT.setText("1700420201");   //423859
         passwordJT.setText("123456");
 
         loginJB = new JButton("登录");
@@ -93,13 +87,11 @@ public class LoginView extends JFrame {
                     password = loginController.getUserPassword(usernameJT.getText());
                     if(password != null){
                         if(password.equals(passwordJT.getText())){
-                            if(usernameJT.getText().length() == 10){
-                                StudentManager.setStudent(loginController.getStudentInfo(usernameJT.getText()));
-                                CenterViewManager.setCenterView(new CenterView(USER_STATUS.STUDENT));
-                            }else if(usernameJT.getText().length() == 6){
+                            if(usernameJT.getText().length() == 6)
                                 UserManager.setUserInfo(loginController.getTeacherInfo(usernameJT.getText()));
-                                CenterViewManager.setCenterView(new CenterView(USER_STATUS.TEACHER));
-                            }
+                            else if(usernameJT.getText().length() == 10)
+                                UserManager.setUserInfo(loginController.getStudentInfo(usernameJT.getText()));
+                            CenterViewManager.setCenterView(new CenterView());
                             jFrame.dispose();
                         }else {
                             JOptionPane.showMessageDialog(null, "不存在该用户");
@@ -118,7 +110,6 @@ public class LoginView extends JFrame {
                 passwordJT.setText("");
             }
         });
-
     }
 
     public static void main(String args[]){
