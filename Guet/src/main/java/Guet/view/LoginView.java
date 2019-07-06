@@ -18,7 +18,7 @@ public class LoginView extends JFrame {
     private JLabel usernameJL;
     private JLabel passwordJL;
     private JTextField usernameJT;
-    private JTextField passwordJT;
+    private JPasswordField passwordJT;
 
     private JButton loginJB;
     private JButton clearJB;
@@ -46,7 +46,7 @@ public class LoginView extends JFrame {
         usernameJL = new JLabel("用户名");
         passwordJL = new JLabel("口    令");
         usernameJT = new JTextField(10);
-        passwordJT = new JTextField(10);
+        passwordJT = new JPasswordField(10);
         usernameJT.setText("59424856");   //423859
         passwordJT.setText("123456");
 

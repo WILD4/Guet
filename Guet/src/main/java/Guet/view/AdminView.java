@@ -17,6 +17,7 @@ public class AdminView extends NavBarView {
         STUDENT_MANAGER,
         TEACHER_MANAGER,
         COURSE_MANAGER,
+        NO_SELECTED_COURSE
     }
 
     AdminView(){
@@ -48,15 +49,23 @@ public class AdminView extends NavBarView {
                 status = ButtonStatus.TEACHER_MANAGER;
             }
         });
-        jButtons[2].addActionListener(e -> {
 
-        });
-        jButtons[3].addActionListener(e->{
+        jButtons[2].addActionListener(e -> {
             int n = ButtonStatus.COURSE_MANAGER.ordinal();
             if(status != ButtonStatus.COURSE_MANAGER){
-                views[n] = new FuncView("未被选修课程", ViewType.NO_STU_SELECTE_COURSE);
+//                if(views[n] == null)
+                views[n] = new FuncView("课程信息管理", ViewType.COURSE_MANAGER);
                 CenterViewManager.setFuncViw(views[n]);
                 status = ButtonStatus.COURSE_MANAGER;
+            }
+        });
+
+        jButtons[3].addActionListener(e->{
+            int n = ButtonStatus.NO_SELECTED_COURSE.ordinal();
+            if(status != ButtonStatus.NO_SELECTED_COURSE){
+                views[n] = new FuncView("未被选修课程", ViewType.NO_STU_SELECTE_COURSE);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.NO_SELECTED_COURSE;
             }
         });
     }

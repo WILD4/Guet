@@ -65,7 +65,7 @@ public class TeacherInfo extends UserInfo {
     }
 
     public String[] toArray(){
-        return new String[]{getUID(), getUserName(), getUserSex(), String.valueOf(getUserBirthday()), getBirthPlace(), teacherTitle};
+        return new String[]{"",getUID(), getUserName(), getUserSex(), String.valueOf(getUserBirthday()), getBirthPlace(), teacherTitle};
     }
 
     @Override

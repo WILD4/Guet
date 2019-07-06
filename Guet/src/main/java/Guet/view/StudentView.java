@@ -34,7 +34,6 @@ public class StudentView extends NavBarView {
                 "查询成绩",
                 "学分查询",
                 "课表信息",
-                "未选修课程"
         });
         addActionListener();
     }

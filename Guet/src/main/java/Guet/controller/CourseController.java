@@ -37,8 +37,12 @@ public class CourseController {
         courseMapper.dropCourse(courseID, stuID);
     }
 
-    public List<CourseInfo> getCourseInfo(String stuID){
-        return courseMapper.queryAllCourse(stuID);
+    public List<CourseInfo> getAllCourseByStuID(String stuID){
+        return courseMapper.queryAllCourseByStuID(stuID);
+    }
+
+    public List<CourseInfo> getAllCourseInfo(){
+        return courseMapper.queryAllCourse();
     }
 
     public List<SelectedCourse> getStudentGrade(String stuID, String semester){
@@ -55,8 +59,8 @@ public class CourseController {
         courseMapper.updateStuGrade(courseID, stuID, grade);
     }
 
-    public List<CourseInfo> getNoStuSelectCourse(){
-        return courseMapper.queryNoStuSelectCourse();
+    public List<CourseInfo> getNoStuSelectCourse(String termYear){
+        return courseMapper.queryNoStuSelectCourse(termYear+'%');
     }
 
 }

@@ -35,12 +35,12 @@ public class FuncView extends JPanel {
         StringBuilder sb = new StringBuilder();
 
         mainJPanel = new JPanel(new BorderLayout());
-        mainJPanel.setBorder(BorderFactory.createEmptyBorder(0, AppConfig.navBarWidth/3,80,AppConfig.navBarWidth/3));
+        mainJPanel.setBorder(BorderFactory.createEmptyBorder(0, AppConfig.navBarWidth/3,40,AppConfig.navBarWidth/3));
 
         //功能区标题
         JLabel funcTitle = new JLabel(title, SwingConstants.CENTER);
-        funcTitle.setBorder(BorderFactory.createEmptyBorder(20,0,15,0));
-        funcTitle.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,50));
+        funcTitle.setBorder(BorderFactory.createEmptyBorder(20,0,5,0));
+        funcTitle.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,42));
 
         try {
             setTableView();

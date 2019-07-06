@@ -15,6 +15,10 @@
       DELETE FROM teacher WHERE teacher_id = #{uid};
    </delete>
 
+    <delete id="removeCourseInfo" parameterType="String">
+      DELETE FROM course WHERE course_id = #{cid};
+   </delete>
+
     <update id="updateLoginInfo">
         update login_info set login_date = now() where UID = #{uid};
     </update>
@@ -56,12 +60,54 @@
                 <if test="item.userBirthday != null"> student_birthday = VALUES(student_birthday), </if>
                 <if test="item.birthPlace != null"> birthplace = VALUES(birthplace) </if>
             </trim>
+    </insert>
 
---             student_id = VALUES(student_id),
---             student_name = VALUES(student_name),
---             student_sex = VALUES(student_sex),
---             student_birthday = VALUES(student_birthday),
---             birthplace = VALUES(birthplace)
+    <insert id="updateOrInsertTeaInfo" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into teacher
+        (teacher_id, teacher_name, teacher_sex, teacher_birthday,teacher_title,birthplace)
+        values
+        <foreach collection="teaInfoList" item="item" index="index" separator=",">
+            (
+            #{item.UID},
+            #{item.userName},
+            #{item.userSex},
+            #{item.userBirthday},
+            #{item.teacherTitle},
+            #{item.birthPlace}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        <trim suffixOverrides=",">
+            <if test="item.UID != null"> teacher_id = VALUES(teacher_id), </if>
+            <if test="item.userName != null"> teacher_name = VALUES(teacher_name), </if>
+            <if test="item.userSex != null"> teacher_sex = VALUES(teacher_sex), </if>
+            <if test="item.userBirthday != null"> teacher_birthday = VALUES(teacher_birthday), </if>
+            <if test="item.teacherTitle != null"> teacher_title = VALUES(teacher_title), </if>
+            <if test="item.birthPlace != null"> birthplace = VALUES(birthplace) </if>
+        </trim>
+    </insert>
+
+    <insert id="updateOrInsertCourseInfo" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into course
+        (course_code, course_name, course_credit, course_date,course_type)
+        values
+        <foreach collection="couInfoList" item="item" index="index" separator=",">
+            (
+            #{item.courseCode},
+            #{item.courseName},
+            #{item.courseCredit},
+            #{item.courseType},
+            #{item.courseDate}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        <trim suffixOverrides=",">
+            <if test="item.courseCode != null"> course_code = VALUES(course_code), </if>
+            <if test="item.courseName != null"> course_name = VALUES(course_name), </if>
+            <if test="item.courseCredit != null"> course_credit = VALUES(course_credit), </if>
+            <if test="item.courseType != null"> course_date = VALUES(course_date), </if>
+            <if test="item.courseDate != null"> course_type = VALUES(course_type), </if>
+        </trim>
     </insert>
 
     <select id="queryAllStu" resultType="Guet.pojo.StudentInfo">
@@ -72,10 +118,28 @@
         SELECT * FROM teacher;
     </select>
 
+
+    <select id="queryAllCourse" resultMap="courseInfo">
+        SELECT * FROM course_manage_view;
+    </select>
+
     <resultMap id="teacherInfo" type="Guet.pojo.TeacherInfo">
         <id column="teacher_id" property="teacherID"/>
         <collection property="courseIDs" ofType="String" select="getTeaCourseID" column="{uid = teacher_id}"/>
     </resultMap>
 
+    <resultMap id="courseInfo" type="Guet.pojo.SelectedCourse" autoMapping="true">
+        <id column="course_id" property="courseID"/>
+        <!--association:完成子对象的映射-->
+        <!--property:子对象在父对象中的属性名-->
+        <!--javaType:子对象的java类型-->
+        <!--autoMapping:完成子对象的自动映射，若开启驼峰，则按驼峰匹配-->
+        <association property="courseInfo" javaType="Guet.pojo.CourseInfo" autoMapping="true">
+            <id column="course_code" property="courseCode"/>
+        </association>
+        <association property="teacherInfo" javaType="Guet.pojo.TeacherInfo" autoMapping="true">
+            <id column="teacher_id" property="teacherID"/>
+        </association>
+    </resultMap>
 
 </mapper>

@@ -30,6 +30,7 @@ public class CenterViewManager {
 
     public static void closeCenterView(){
         centerViewManager.dispose();
+        ServerSqlSession.closeSqlSession();
     }
 
     public static JTableList getjTableList() {

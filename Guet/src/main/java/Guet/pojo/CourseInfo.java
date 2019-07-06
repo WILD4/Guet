@@ -4,7 +4,6 @@ public class CourseInfo{
 
     private String courseCode;
     private String courseName;
-    private int courseClass;
     private float courseCredit;
     private String courseType;
     private String courseDate;
@@ -23,14 +22,6 @@ public class CourseInfo{
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
-    }
-
-    public int getCourseClass() {
-        return courseClass;
-    }
-
-    public void setCourseClass(int courseClass) {
-        this.courseClass = courseClass;
     }
 
     public float getCourseCredit() {
@@ -59,6 +50,7 @@ public class CourseInfo{
 
     public String[] toArray(){
         return new String[]{
+                null,
                 courseCode,
                 courseName,
                 String.valueOf(courseCredit),
@@ -72,7 +64,6 @@ public class CourseInfo{
         return "CourseInfo{" +
                 "courseCode='" + courseCode + '\'' +
                 ", courseName='" + courseName + '\'' +
-                ", courseClass=" + courseClass +
                 ", courseCredit=" + courseCredit +
                 ", courseType='" + courseType + '\'' +
                 ", courseDate='" + courseDate + '\'' +

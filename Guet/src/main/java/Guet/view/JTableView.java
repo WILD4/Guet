@@ -14,9 +14,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.*;
 import javax.swing.text.Document;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.*;
@@ -44,7 +42,6 @@ public class JTableView extends JPanel{
     private static String[] comboBoxes;
 
     private Map<Integer ,List<Integer>> changeListRow;
-    private List<Integer> changeListColumn;
 
     private AdminController adminController;
 
@@ -54,7 +51,7 @@ public class JTableView extends JPanel{
                 if(jComboBoxJP == null)
                     jComboBoxJP = setJComboBoxJP();
             case DROP_COURSE:
-                listContent = courseController.getSelectedCourseInfo(userID, comboBox);
+                listContent = courseController.getSelectedCourseInfo(userID, switchTerm(comboBox));
                 title = new String[]{"课程序号", "课程代码", "课程名称","教师","选课类型","学分"};
                 if(listContent.size() == 0)
                     return;
@@ -65,16 +62,25 @@ public class JTableView extends JPanel{
                 break;
             case SELECT_COURSE:
             case NO_STU_SELECTE_COURSE:
+            case COURSE_MANAGER:
                 if(viewType == ViewType.SELECT_COURSE)
-                    listContent = courseController.getCourseInfo(userID);
-                else
-                    listContent = courseController.getNoStuSelectCourse();
-                title = new String[]{"课程代码", "课程名称","选课类型","学分","上课周次"};
+                    listContent = courseController.getAllCourseByStuID(userID);
+                else if(viewType == ViewType.NO_STU_SELECTE_COURSE){
+                    if(jComboBoxJP == null)
+                        jComboBoxJP = setJComboBoxJP();
+                    listContent = courseController.getNoStuSelectCourse(comboBox.substring(2,4));
+                }
+                else {
+                    jtvJP.add(setTableStatusJP(), BorderLayout.SOUTH);
+                    listContent = courseController.getAllCourseInfo();
+                }
+                title = new String[]{"序号","课程代码", "课程名称","学分","选课类型","上课周次"};
                 if(listContent.size() == 0)
                     return;
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
                     content[i] = ((CourseInfo)listContent.get(i)).toArray();
+                    content[i][0] = String.valueOf(i+1);
                 }
                 break;
             case NO_SELECT_COURSE:
@@ -90,7 +96,7 @@ public class JTableView extends JPanel{
             case QUERY_GRADE:
                 if(jComboBoxJP == null)
                     jComboBoxJP = setJComboBoxJP();
-                listContent = courseController.getStudentGrade(userID, comboBox);
+                listContent = courseController.getStudentGrade(userID, switchTerm(comboBox));
                 title = new String[]{"课程代码","课程序号","课程名称","成绩","学分","选课类型"};
                 if(listContent.size() == 0)
                     return;
@@ -102,7 +108,7 @@ public class JTableView extends JPanel{
             case QUERY_GRADE_POINT:
                 if(jComboBoxJP == null)
                     jComboBoxJP = setJComboBoxJP();
-                listContent = courseController.getStudentGrade(userID, comboBox);
+                listContent = courseController.getStudentGrade(userID, switchTerm(comboBox));
                 title = new String[]{"序号","课程代码","课程名称","成绩","学分","计划学期","计划学分","选课类型"};
                 if(listContent.size() == 0)
                     return;
@@ -116,9 +122,12 @@ public class JTableView extends JPanel{
                 setTableStatus();
                 break;
             case TEACHERS_STU_INFO:
+            case UPDATE_STU_GRADE:
                 if(jComboBoxJP == null)
                     jComboBoxJP = setJComboBoxJP();
-                listContent = courseController.getTeasStuInfo(UserManager.getUserInfo().getUID(), comboBox);
+                if(viewType == ViewType.UPDATE_STU_GRADE)
+                    jtvJP.add(setTableStatusJP(), BorderLayout.SOUTH);
+                listContent = courseController.getTeasStuInfo(UserManager.getUserInfo().getUID(), switchTerm(comboBox));
                 title = new String[]{"学号","姓名","学分","成绩"};
                 if(listContent.size() == 0)
                     return;
@@ -129,16 +138,15 @@ public class JTableView extends JPanel{
                 if(listContent.size() > 0){
                     setTableStatus();
                 }
-
             break;
             case COURSE_INFO:
             case TEACHER_COURSE:
                 if(jComboBoxJP == null)
                     jComboBoxJP = setJComboBoxJP();
                 if(viewType == ViewType.COURSE_INFO)
-                    listContent = courseController.getSelectedCourseInfo(userID, comboBox);
+                    listContent = courseController.getSelectedCourseInfo(userID, switchTerm(comboBox));
                 else
-                    listContent = courseController.getSelectedCourseInfo(UserManager.getUserInfo().getUID(), comboBox);
+                    listContent = courseController.getSelectedCourseInfo(UserManager.getUserInfo().getUID(), switchTerm(comboBox));
                 title = new String[]{"","星期一","星期二","星期三","星期四","星期五","星期六","星期七"};
                 if(listContent.size() == 0)
                     return;
@@ -178,25 +186,43 @@ public class JTableView extends JPanel{
                 jComboBoxJP.add(setJComboBoxJP());
                 jtvJP.add(setTableStatusJP(), BorderLayout.SOUTH);
                 listContent = new AdminController().getAllStuInfo();
-                title = new String[]{"学号","姓名","性别","出生年月","籍贯"};
+                title = new String[]{"","学号","姓名","性别","出生年月","籍贯"};
                 if(listContent.size() == 0)
                     return;
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
                     content[i] = ((StudentInfo)listContent.get(i)).toArray();
+                    content[i][0] = String.valueOf(i+1);
                 }
+                break;
             case TEACHER_MANAGER:
                 jComboBoxJP = new JPanel(new FlowLayout());
                 jComboBoxJP.add(setJComboBoxJP());
                 jtvJP.add(setTableStatusJP(), BorderLayout.SOUTH);
                 listContent = new AdminController().getAllTeaInfo();
-                title = new String[]{"工号","姓名","性别","出生年月","籍贯","职务"};
+                title = new String[]{"序号","工号","姓名","性别","出生年月","籍贯","职务"};
                 if(listContent.size() == 0)
                     return;
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
                     content[i] = ((TeacherInfo)listContent.get(i)).toArray();
+                    content[i][0] = String.valueOf(i+1);
                 }
+                break;
+//            case COURSE_MANAGER:
+//                jComboBoxJP = new JPanel(new FlowLayout());
+//                jComboBoxJP.add(setJComboBoxJP());
+//                jtvJP.add(setTableStatusJP(), BorderLayout.SOUTH);
+//                listContent = new AdminController().queryAllCourse();
+//                title = new String[]{"序号","课程序号","课程代码","课程名称","学分","上课周次","上课时间","课程类型","教师","教师职务"};
+//                if(listContent.size() == 0)
+//                    return;
+//                content = new String[listContent.size()][];
+//                for(int i = 0; i < listContent.size(); i++){
+//                    content[i] = ((SelectedCourse)listContent.get(i)).toStrArray(ViewType.COURSE_MANAGER);
+//                    content[i][0] = String.valueOf(i+1);
+//                }
+//                break;
         }
     }
 
@@ -210,29 +236,14 @@ public class JTableView extends JPanel{
     }
 
     private void JTableInit(){
-        tableModel = new DefaultTableModel(content, title);
-        tableModel.addTableModelListener(e->{
-            try{
-                if(e.getType() == TableModelEvent.UPDATE){
-//                    if(userInfoList != null){
-//                        if(e.getColumn() != 0){
-//                            String uid = String.valueOf(tableModel.getValueAt(e.getLastRow(), e.getColumn()));
-//                            if(!userInfoList.containsKey(uid)){
-//                                userInfoList.put(uid, new UserInfo());
-//
-//                            }
-//                        }
-//                    }
-                    if(e.getLastRow() < 0 || e.getLastRow() > tableModel.getRowCount())
-                        return;
-                    if(!changeListRow.containsKey(e.getLastRow()))
-                        changeListRow.put(e.getLastRow(),new ArrayList<>());
-                    changeListRow.get(e.getLastRow()).add(e.getColumn());
-                }
-            }catch (ArrayIndexOutOfBoundsException e1){
-                e1.printStackTrace();
+        tableModel = new DefaultTableModel(content, title){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if(viewType == ViewType.STUDENT_MANAGER || viewType == ViewType.TEACHER_MANAGER ||viewType == ViewType.COURSE_MANAGER)
+                    return column != 1;
+                else return viewType == ViewType.UPDATE_STU_GRADE && column == 3;
             }
-        });
+        };
         tableList = new JTable();
         tableList.setModel(tableModel);
         tableList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -292,6 +303,50 @@ public class JTableView extends JPanel{
                 }
             }
         });
+//        tableList.addKeyListener(new KeyAdapter() {
+//            public void keyReleased(KeyEvent e) {
+//                if (e.getKeyChar() == '\n') {
+//                    if (tableList.getSelectedColumn() >= tableList.getColumnCount() - 1
+//                            && tableList.getSelectedRow() >= tableList.getRowCount() - 1) {
+//                        tableList.editCellAt(tableList.getSelectedRow(), tableList.getSelectedColumn());
+//                        ((DefaultTableModel) tableList.getModel()).addRow(new Object[tableList.getColumnCount()]);
+//                        tableList.editCellAt(tableList.getRowCount() - 1, 0);
+//                    }else {
+//                        tableList.editCellAt(tableList.getSelectedRow(), tableList.getSelectedColumn());
+//                    }
+//                }
+//            }
+//        });
+        if(viewType == ViewType.STUDENT_MANAGER || viewType == ViewType.TEACHER_MANAGER || viewType == ViewType.UPDATE_STU_GRADE || viewType == ViewType.COURSE_MANAGER){
+            tableModel.addTableModelListener(e->{
+                try{
+                    if(e.getType() == TableModelEvent.UPDATE){
+                        if(e.getLastRow() < 0 || e.getLastRow() > tableModel.getRowCount())
+                            return;
+                        if(!changeListRow.containsKey(e.getLastRow()))
+                            changeListRow.put(e.getLastRow(),new ArrayList<>());
+                        changeListRow.get(e.getLastRow()).add(e.getColumn());
+                    }
+                }catch (ArrayIndexOutOfBoundsException e1){
+                    e1.printStackTrace();
+                }
+            });
+        }
+//        if(viewType == ViewType.TEACHERS_STU_INFO){
+//            tableModel.addTableModelListener(new TableModelListener() {
+//                @Override
+//                public void tableChanged(TableModelEvent e) {
+//                    if(e.getLastRow() >= tableModel.getRowCount() && e.getLastRow() < 0)
+//                        return;
+//                    float grade = Float.parseFloat(String.valueOf(tableModel.getValueAt(e.getLastRow(), e.getColumn())));
+//                    if(grade <= 100 && grade >= 0){
+//                        courseController.updateStuGrade(comboBox, String.valueOf(tableModel.getValueAt(e.getLastRow(), 0)), String.valueOf(grade));
+//                    }else {
+//                        JOptionPane.showMessageDialog(null, "输入范围有误","确认",JOptionPane.INFORMATION_MESSAGE);
+//                    }
+//                }
+//            });
+//        }
     }
 
     public JPanel getViewJP(ViewType typeView) throws IOException {
@@ -356,7 +411,7 @@ public class JTableView extends JPanel{
             tableModel.setDataVector(content, title);
         }
         tableModel.fireTableDataChanged();
-        System.out.println(tableModel.getRowCount());
+        FitTableColumns(tableList);
     }
 
     private int convertLesson(String lesson){
@@ -378,6 +433,7 @@ public class JTableView extends JPanel{
     private JPanel setTableStatusJP(){
         JPanel tableStatusJP = new JPanel(new BorderLayout(), true);
         JPanel buttonJP = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel jTextJP = new JPanel(new FlowLayout());
         tableStatusJP.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         String[] jButtonNames = new String[]{
                 "添加",
@@ -392,10 +448,10 @@ public class JTableView extends JPanel{
         }
         JTextField searchJTF = new JTextField();
         searchJTF.setHorizontalAlignment(SwingConstants.CENTER);
+        searchJTF.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
         tableStatusJP.add(buttonJP, BorderLayout.CENTER);
-        tableStatusJP.add(searchJTF,BorderLayout.NORTH);
+        tableStatusJP.add(jTextJP.add(searchJTF),BorderLayout.NORTH);
         changeListRow = new HashMap<>();
-        changeListColumn = new ArrayList<>();
         adminController = new AdminController();
 
         searchJTF.getDocument().addDocumentListener(new DocumentListener() {
@@ -423,58 +479,144 @@ public class JTableView extends JPanel{
                 changeFilter(e);
             }
         });
-
         jButtons[0].addActionListener(e->{
             tableModel.addRow(new Object[]{});
         });
         jButtons[1].addActionListener(e->{
-            adminController.removeStuInfo((String) tableModel.getValueAt(tableList.getSelectedRow(), 0));
+            if(viewType == ViewType.STUDENT_MANAGER)
+                adminController.removeStuInfo((String) tableModel.getValueAt(tableList.getSelectedRow(), 1));
+            else if(viewType == ViewType.COURSE_MANAGER)
+                adminController.removeCourseInfo((String) tableModel.getValueAt(tableList.getSelectedRow(), 1));
+            else
+                adminController.removeTeaInfo((String) tableModel.getValueAt(tableList.getSelectedRow(), 1));
+
             tableModel.removeRow(tableList.getSelectedRow());
         });
         jButtons[2].addActionListener(e->{
             if(changeListRow.size() == 0)
                 return;
             Iterator iter = changeListRow.entrySet().iterator();
-            List<StudentInfo> list = new ArrayList<>();
+            List<StudentInfo> userInfos = new ArrayList<>();
+            List<TeacherInfo> teacherInfos = new ArrayList<>();
+            List<CourseInfo> courseInfos = new ArrayList<>();
+            UserInfo userInfo = null;
             while (iter.hasNext()){
                 int key = Integer.parseInt(String.valueOf(((Map.Entry)iter.next()).getKey()));
                 if(key < -1)
                     return;
-                StudentInfo studentInfo = new StudentInfo();
-                for(int i = 0; i < changeListRow.get(key).size(); i++){
-                    String v = null;
-                    try{
-                        v = (String) tableModel.getValueAt(Integer.parseInt(String.valueOf(key)), changeListRow.get(key).get(i));
-                    }catch (ArrayIndexOutOfBoundsException e1){
-                        e1.printStackTrace();
-                    }
-                    switch (changeListRow.get(key).get(i)){
-                        case 0:studentInfo.setUID(v);break;
-                        case 1:studentInfo.setUserName(v);break;
-                        case 2:studentInfo.setUserSex(v);break;
-                        case 3:try{
-                            studentInfo.setUserBirthday(Date.valueOf(v));
-                        }catch (IllegalArgumentException e1){
-                            e1.printStackTrace();
-                            studentInfo.setUserBirthday(null);
-                        };break;
-                        case 4:studentInfo.setBirthPlace(v);break;
-                    }
+                System.out.println("x");
+                switch (viewType){
+                    case STUDENT_MANAGER:
+                        userInfos = new ArrayList<>();
+                        userInfo = new StudentInfo();
+                        for(int i = 0; i < changeListRow.get(key).size(); i++){
+                            String v = null;
+                            try{
+                                v = (String) tableModel.getValueAt(Integer.parseInt(String.valueOf(key)), changeListRow.get(key).get(i));
+                            }catch (ArrayIndexOutOfBoundsException e1){
+                                e1.printStackTrace();
+                            }
+                            switch (changeListRow.get(key).get(i)){
+                                case 1:userInfo.setUID(v);break;
+                                case 2:userInfo.setUserName(v);break;
+                                case 3:userInfo.setUserSex(v);break;
+                                case 4:try{
+                                    userInfo.setUserBirthday(Date.valueOf(v));
+                                }catch (IllegalArgumentException e1){
+                                    e1.printStackTrace();
+                                    userInfo.setUserBirthday(null);
+                                };break;
+                                case 5:userInfo.setBirthPlace(v);break;
+                            }
+                        }
+                        if(userInfo.getUID() == null)
+                            userInfo.setUID((String) tableModel.getValueAt(key, 1));
+                        userInfos.add((StudentInfo) userInfo);
+                        break;
+                    case TEACHER_MANAGER:
+                        userInfo = new TeacherInfo();
+                        for(int i = 0; i < changeListRow.get(key).size(); i++){
+                            String v = null;
+                            try{
+                                v = (String) tableModel.getValueAt(Integer.parseInt(String.valueOf(key)), changeListRow.get(key).get(i));
+                            }catch (ArrayIndexOutOfBoundsException e1){
+                                e1.printStackTrace();
+                            }
+                            switch (changeListRow.get(key).get(i)){
+                                case 1:userInfo.setUID(v);break;
+                                case 2:userInfo.setUserName(v);break;
+                                case 3:userInfo.setUserSex(v);break;
+                                case 4:try{
+                                    userInfo.setUserBirthday(Date.valueOf(v));
+                                }catch (IllegalArgumentException e1){
+                                    e1.printStackTrace();
+                                    userInfo.setUserBirthday(null);
+                                };break;
+                                case 5:userInfo.setBirthPlace(v);break;
+                                case 6:((TeacherInfo)userInfo).setTeacherTitle(v);break;
+                            }
+                        }
+                        if(userInfo.getUID() == null)
+                        userInfo.setUID((String) tableModel.getValueAt(key, 1));
+                        teacherInfos.add((TeacherInfo) userInfo);
+                        break;
+                    case COURSE_MANAGER:
+                        CourseInfo courseInfo = new CourseInfo();
+                        for(int i = 0; i < changeListRow.get(key).size(); i++){
+                            String v = null;
+                            try{
+                                v = (String) tableModel.getValueAt(Integer.parseInt(String.valueOf(key)), changeListRow.get(key).get(i));
+                            }catch (ArrayIndexOutOfBoundsException e1){
+                                e1.printStackTrace();
+                            }
+                            switch (changeListRow.get(key).get(i)){
+                                case 1:courseInfo.setCourseCode(v);break;
+                                case 2:courseInfo.setCourseName(v);break;
+                                case 3:courseInfo.setCourseCredit(Float.parseFloat(v));break;
+                                case 4:courseInfo.setCourseType(v);break;
+                                case 5:courseInfo.setCourseDate(v);break;
+                            }
+                        }
+                        if(courseInfo.getCourseCode() == null)
+                            courseInfo.setCourseCode((String) tableModel.getValueAt(key, 1));
+                        courseInfos.add(courseInfo);
+                        break;
+                    case UPDATE_STU_GRADE:
+                        courseController.updateStuGrade(switchTerm(comboBox), String.valueOf(tableModel.getValueAt(key,0)), String.valueOf(tableModel.getValueAt(key, 3)));
+                        break;
                 }
-                if(studentInfo.getUID() == null)
-                    studentInfo.setUID((String) tableModel.getValueAt(key, 0));
-                list.add(studentInfo);
             }
-            adminController.updateOrInsertStuInfo(list);
+
+            if(viewType == ViewType.STUDENT_MANAGER)
+                adminController.updateOrInsertStuInfo(userInfos);
+            else if(viewType == ViewType.TEACHER_MANAGER)
+                adminController.updateOrInsertTeaInfo(teacherInfos);
+            else if(viewType == ViewType.COURSE_MANAGER)
+                adminController.updateOrInsertCourseInfo(courseInfos);
         });
         jButtons[3].addActionListener(e->{
             setContent();
         });
 
+        searchJTF.setText("输入相关信息查找");
+
+        searchJTF.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                searchJTF.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                searchJTF.setText("输入相关信息查找");
+            }
+        });
         return tableStatusJP;
     }
 
     private void setSearchResultTable(String text){
+        if(text.equals("输入相关信息查找"))
+            return;
         if(text == null){
             tableModel.setDataVector(content, title);
             tableModel.fireTableStructureChanged();
@@ -490,6 +632,7 @@ public class JTableView extends JPanel{
         }
         tableModel.setDataVector(resultData, title);
         tableModel.fireTableStructureChanged();
+        FitTableColumns(tableList);
     }
 
     private void setTableStatus(){
@@ -556,8 +699,21 @@ public class JTableView extends JPanel{
         String title;
         switch (viewType){
             case TEACHERS_STU_INFO:
+            case UPDATE_STU_GRADE:
                 title = "选择课号";
                 boxList = ((TeacherInfo)UserManager.getUserInfo()).getCourseIDs();
+                jPanel.add(setJComboBox(title, boxList));
+                break;
+            case NO_STU_SELECTE_COURSE:
+                title = "选择学年";
+                Calendar c = Calendar.getInstance();
+                int beginYear = 1997,i = 0;
+                int nowYear = c.get(Calendar.YEAR);
+
+                boxList = new String[2 * (nowYear - beginYear)];
+                for(int year = nowYear; i < boxList.length; i++, year--){
+                    boxList[i] = String.valueOf(year);
+                }
                 jPanel.add(setJComboBox(title, boxList));
                 break;
             case QUERY_GRADE:
@@ -566,9 +722,10 @@ public class JTableView extends JPanel{
             case TEACHER_COURSE:
             case QUERY_GRADE_POINT:
                 title = "选择学期";
-                Calendar c = Calendar.getInstance();
-                int beginYear = 1997,i = 0;
-                int nowYear = c.get(Calendar.YEAR);
+                c = Calendar.getInstance();
+                beginYear = 1997;
+                i = 0;
+                nowYear = c.get(Calendar.YEAR);
                 StringBuilder sb = new StringBuilder();
                 if(viewType == ViewType.QUERY_GRADE_POINT){
                     boxList = new String[2 * (nowYear - beginYear) + 1];
@@ -597,5 +754,18 @@ public class JTableView extends JPanel{
         }
         return jPanel;
     }
+
+    private String switchTerm(String term){
+        if(term.equals("all"))
+            return term;
+        StringBuilder sb = new StringBuilder();
+        sb.append(term.substring(7,9));
+        if(term.substring(9,10).equals("上"))
+            sb.append(1);
+        else
+            sb.append(2);
+        return sb.toString();
+    }
+
 
 }

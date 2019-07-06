@@ -2,6 +2,8 @@ package Guet.controller;
 
 import Guet.dao.ManagerMapper;
 import Guet.dao.StudentMapper;
+import Guet.pojo.CourseInfo;
+import Guet.pojo.SelectedCourse;
 import Guet.pojo.StudentInfo;
 import Guet.pojo.TeacherInfo;
 import Guet.util.ServerSqlSession;
@@ -30,6 +32,10 @@ public class AdminController {
         return managerMapper.queryAllTea();
     }
 
+    public List<SelectedCourse> queryAllCourse(){
+        return managerMapper.queryAllCourse();
+    }
+
     public void updateStuInfo(String uid, StudentInfo studentInfo){
         managerMapper.updateStuInfo(uid, studentInfo);
     }
@@ -42,7 +48,21 @@ public class AdminController {
         managerMapper.updateOrInsertTeaInfo(teacherInfos);
     }
 
+    public void updateOrInsertCourseInfo(List<CourseInfo> teacherInfos){
+        managerMapper.updateOrInsertCourseInfo(teacherInfos);
+    }
+
     public void removeStuInfo(String stuID){
         managerMapper.removeStuInfo(stuID);
     }
+
+    public void removeTeaInfo(String stuID){
+        managerMapper.removeTeaInfo(stuID);
+    }
+
+    public void removeCourseInfo(String CID){
+        managerMapper.removeCourseInfo(CID);
+    }
+
+
 }

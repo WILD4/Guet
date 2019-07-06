@@ -13,6 +13,7 @@ class TeacherView extends NavBarView {
         PERSONAL_INFO,
         SELECTED_COURSE,
         QUERY_STU_INFO,
+        UPDATE_STU_GRADE,
     }
 
     TeacherView(){
@@ -40,7 +41,7 @@ class TeacherView extends NavBarView {
         jButtons[1].addActionListener(e -> {
             int n = ButtonStatus.SELECTED_COURSE.ordinal();
             if(status != ButtonStatus.SELECTED_COURSE){
-                if(views[n] == null)
+//                if(views[n] == null)
                     views[n] = new FuncView("个人课表信息", ViewType.TEACHER_COURSE);
                 CenterViewManager.setFuncViw(views[n]);
                 status = ButtonStatus.SELECTED_COURSE;
@@ -50,10 +51,20 @@ class TeacherView extends NavBarView {
         jButtons[2].addActionListener(e-> {
             int n = ButtonStatus.QUERY_STU_INFO.ordinal();
             if(status != ButtonStatus.QUERY_STU_INFO){
-                if(views[n] == null)
-                    views[n] = new FuncView("学生选课情况", ViewType.TEACHERS_STU_INFO);
+//                if(views[n] == null)
+                    views[n] = new FuncView("查询学生信息", ViewType.TEACHERS_STU_INFO);
                 CenterViewManager.setFuncViw(views[n]);
                 status = ButtonStatus.QUERY_STU_INFO;
+            }
+        });
+
+        jButtons[3].addActionListener(e->{
+            int n = ButtonStatus.UPDATE_STU_GRADE.ordinal();
+            if(status != ButtonStatus.UPDATE_STU_GRADE){
+                if(views[n] == null)
+                    views[n] = new FuncView("查询学生成绩", ViewType.UPDATE_STU_GRADE);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.UPDATE_STU_GRADE;
             }
         });
 

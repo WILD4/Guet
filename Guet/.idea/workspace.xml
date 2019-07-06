@@ -1,41 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ae04482-7fca-4acb-a2e0-633dcddc8d84" name="Default Changelist" comment="添加管理员功能&#10;&#10;在jtable实现了数据的大量的添加、删除、修改，删除功能&#10;&#10;发现问题：当defaultmodeltable setdata后 会出现越界的情况&#10;解决办法——通过判断变化行不小于0，不大于最大行数即可&#10;&#10;mapper里学会使用if来判断值是否存在而决定是否做出修改">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Guet/controller/AdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Guet/dao/ManagerMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Guet/util/MyDefaultTableModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Guet/view/AdminView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mappers/ManagerMapper.xml" afterDir="false" />
+    <list default="true" id="1ae04482-7fca-4acb-a2e0-633dcddc8d84" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/controller/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/dao/LoginMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/dao/LoginMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/AdminInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/AdminInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/dao/ManagerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/dao/ManagerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/CourseInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/CourseInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/SelectedCourse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/SelectedCourse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/StudentInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/StudentInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/pojo/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/pojo/UserInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/util/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/util/UserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/util/CenterViewManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/util/CenterViewManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/AdminView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/AdminView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/BaseView/FuncView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/BaseView/FuncView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/CenterView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/CenterView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/PersonalInfoVIew.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/PersonalInfoVIew.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/StudentView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/StudentView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/CourseMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/CourseMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ApplicationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Guet/controller/CourseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/controller/CourseController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Guet/dao/CourseMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/dao/CourseMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Guet/dao/LoginMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/dao/LoginMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Guet/pojo/StudentInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/pojo/StudentInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/LoginView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/LoginView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/LoginView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/LoginView$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Guet/view/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Guet/view/LoginView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mappers/CourseMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mappers/CourseMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis-config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/ApplicationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/ApplicationTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ManagerMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ManagerMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -70,134 +55,250 @@
     <favorites_list name="Guet" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="246">
-                  <caret line="316" column="55" lean-forward="true" selection-start-line="316" selection-start-column="55" selection-end-line="316" selection-end-column="55" />
-                  <folding>
-                    <element signature="method#JPanelInit#0;class#JTableView#0" />
-                    <element signature="method#convertLesson#0;class#JTableView#0" />
-                    <element signature="e#18250#20009#0" />
-                    <element signature="method#setJComboBox#0;class#JTableView#0" />
-                    <element signature="method#setJComboBoxJP#0;class#JTableView#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Guet/controller/AdminController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="398">
-                  <caret line="41" column="58" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#676#677#0" expanded="true" />
-                    <element signature="e#726#727#0" expanded="true" />
-                    <element signature="e#699#700#0" expanded="true" />
-                    <element signature="e#760#761#0" expanded="true" />
-                    <element signature="e#947#948#0" expanded="true" />
-                    <element signature="e#1011#1012#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/StudentInfo.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="441">
-                  <caret line="70" column="33" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="76">
-                  <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/AdminView.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="394">
-                  <caret line="52" column="11" selection-start-line="52" selection-start-column="11" selection-end-line="52" selection-end-column="11" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Guet/dao/ManagerMapper.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="246">
-                  <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/UserInfo.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-414">
-                  <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/resources/mappers/ManagerMapper.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherInfo.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="380">
-                  <caret line="58" column="38" selection-start-line="58" selection-start-column="38" selection-end-line="58" selection-end-column="38" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#973#974#0" expanded="true" />
-                    <element signature="e#1021#1022#0" expanded="true" />
-                    <element signature="e#1060#1061#0" expanded="true" />
-                    <element signature="e#1095#1096#0" expanded="true" />
-                    <element signature="e#1151#1152#0" expanded="true" />
-                    <element signature="e#1199#1200#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="399" column="17" selection-start-line="399" selection-start-column="17" selection-end-line="399" selection-end-column="17" />
+              <folding>
+                <element signature="e#1865#1992#1" />
+                <element signature="e#2577#2673#1" />
+                <element signature="e#3130#3258#1" />
+                <element signature="e#3754#3877#1" />
+                <element signature="e#4391#4682#1" />
+                <element signature="e#5227#5330#1" />
+                <element signature="e#5373#5430#1" />
+                <element signature="e#6158#6275#1" />
+                <element signature="e#6321#7977#1" />
+                <element signature="e#6467#7959#1" />
+                <element signature="e#6526#7937#1" />
+                <element signature="e#6758#7911#0" />
+                <element signature="e#8542#8696#1" />
+                <element signature="e#9268#9422#1" />
+                <element signature="e#9524#9558#0" />
+                <element signature="method#JPanelInit#0;class#JTableView#0" />
+                <element signature="e#11942#12053#1" />
+                <element signature="e#12057#12376#1" />
+                <element signature="e#12460#15095#0" expanded="true" />
+                <element signature="e#12782#12898#0" />
+                <element signature="e#13303#13390#0" />
+                <element signature="e#13414#13499#0" />
+                <element signature="e#14359#14548#1" />
+                <element signature="e#15094#15095#0" expanded="true" />
+                <element signature="e#14444#14497#0" />
+                <element signature="e#15455#16116#1" />
+                <element signature="e#15502#16104#0" />
+                <element signature="e#15526#15988#0" />
+                <element signature="e#15589#15970#1" />
+                <element signature="e#16029#16090#0" />
+                <element signature="e#16063#16116#0" />
+                <element signature="method#getViewJP#0;class#JTableView#0" />
+                <element signature="method#FitTableColumns#0;class#JTableView#0" />
+                <element signature="e#16785#17653#1" />
+                <element signature="e#17220#17516#1" />
+                <element signature="method#setTableColumnCenter#0;class#JTableView#0" />
+                <element signature="method#sortTable#0;class#JTableView#0" />
+                <element signature="method#convertLesson#0;class#JTableView#0" />
+                <element signature="e#18676#18932#0" />
+                <element signature="e#19526#19632#1" />
+                <element signature="class#20082:20868" />
+                <element signature="method#changeFilter#0;class#20082:20868" />
+                <element signature="e#20241#20383#0" />
+                <element signature="e#20405#20466#0" />
+                <element signature="e#20919#20980#0" />
+                <element signature="e#21021#21203#0" />
+                <element signature="e#22211#26296#0" />
+                <element signature="e#22827#23969#1" />
+                <element signature="e#22897#23058#0" />
+                <element signature="e#23099#23176#0" />
+                <element signature="e#23239#23947#0" />
+                <element signature="e#23471#23577#0" />
+                <element signature="e#23612#23761#0" />
+                <element signature="e#24462#25684#1" />
+                <element signature="e#24540#24709#0" />
+                <element signature="e#24750#24835#0" />
+                <element signature="e#24902#25658#0" />
+                <element signature="e#25150#25264#0" />
+                <element signature="e#25299#25460#0" />
+                <element signature="e#27459#27628#0" />
+                <element signature="e#27669#27754#0" />
+                <element signature="class#23174:23449" />
+                <element signature="method#setSearchResultTable#0;class#JTableView#0" />
+                <element signature="e#23200#23317#1" />
+                <element signature="e#23420#23552#1" />
+                <element signature="e#23668#23726#1" />
+                <element signature="method#setTableStatus#0;class#JTableView#0" />
+                <element signature="e#23901#24152#1" />
+                <element signature="e#24226#25332#0" />
+                <element signature="method#setJComboBox#0;class#JTableView#0" />
+                <element signature="e#25640#25755#1" />
+                <element signature="e#25857#26041#0" />
+                <element signature="e#25921#26031#1" />
+                <element signature="method#setJComboBoxJP#0;class#JTableView#0" />
+                <element signature="e#26387#28177#0" />
+                <element signature="e#31864#32216#1" />
+                <element signature="e#27079#27238#1" />
+                <element signature="e#27387#27787#1" />
+                <element signature="e#27903#27934#0" />
+                <element signature="method#switchTerm#0;class#JTableView#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/StudentView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="456">
+              <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Guet/controller/AdminController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="233">
+              <caret line="51" column="39" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1437#1438#0" expanded="true" />
+                <element signature="e#1487#1488#0" expanded="true" />
+                <element signature="e#1537#1538#0" expanded="true" />
+                <element signature="e#1587#1588#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="567">
+              <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Guet/dao/ManagerMapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+              <folding>
+                <element signature="method#CourseController#0;class#CourseController#0" />
+                <element signature="method#getSelectedCourseInfo#0;class#CourseController#0" />
+                <element signature="method#getNoSelectedCourse#0;class#CourseController#0" />
+                <element signature="n#!!block;n#stuSelectCourse#0;n#CourseController#0" />
+                <element signature="n#!!block;n#dropCourse#0;n#CourseController#0" />
+                <element signature="e#1338#1339#0" expanded="true" />
+                <element signature="e#1391#1392#0" expanded="true" />
+                <element signature="method#updateStuGrade#0;class#CourseController#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="20" column="77" selection-start-line="20" selection-start-column="77" selection-end-line="20" selection-end-column="77" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mappers/CourseMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="741">
+              <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+              <folding>
+                <element signature="e#261#369#0" />
+                <element signature="n#select#0;n#mapper#0;n#!!top" />
+                <element signature="e#7#367#1" />
+                <element signature="e#182#269#0" />
+                <element signature="n#select#1;n#mapper#0;n#!!top" />
+                <element signature="e#9#442#1" />
+                <element signature="e#193#310#0" />
+                <element signature="e#248#309#0" />
+                <element signature="n#select#2;n#mapper#0;n#!!top" />
+                <element signature="e#2#628#1" />
+                <element signature="e#163#315#0" />
+                <element signature="e#248#314#0" />
+                <element signature="e#357#516#0" />
+                <element signature="e#455#515#0" />
+                <element signature="n#insert#0;n#mapper#0;n#!!top" />
+                <element signature="e#9#84#0" />
+                <element signature="e#55#84#0" />
+                <element signature="n#delete#0;n#mapper#0;n#!!top" />
+                <element signature="e#9#87#0" />
+                <element signature="n#select#4;n#mapper#0;n#!!top" />
+                <element signature="e#9#643#1" />
+                <element signature="e#202#380#0" />
+                <element signature="e#272#379#0" />
+                <element signature="n#select#5;n#mapper#0;n#!!top" />
+                <element signature="e#9#578#1" />
+                <element signature="e#202#353#0" />
+                <element signature="e#272#352#0" />
+                <element signature="n#select#6;n#mapper#0;n#!!top" />
+                <element signature="e#9#500#1" />
+                <element signature="e#183#298#0" />
+                <element signature="e#237#297#0" />
+                <element signature="e#399#459#0" />
+                <element signature="n#resultMap#0;n#mapper#0;n#!!top" />
+                <element signature="n#association#0;n#resultMap#0;n#mapper#0;n#!!top" />
+                <element signature="n#association#1;n#resultMap#0;n#mapper#0;n#!!top" />
+                <element signature="n#resultMap#1;n#mapper#0;n#!!top" />
+                <element signature="n#association#0;n#resultMap#1;n#mapper#0;n#!!top" />
+                <element signature="n#update#0;n#mapper#0;n#!!top" />
+                <element signature="e#9#103#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/mappers/ManagerMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="98" column="31" lean-forward="true" selection-start-line="98" selection-start-column="31" selection-end-line="98" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/CourseInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -247,7 +348,6 @@
         <option value="$PROJECT_DIR$/src/main/java/Guet/view/TableCellTextAreaRenderer.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/util/AlignmentCenterTabelCellRenderer.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/util/AppConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/util/CenterViewManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/view/TestView.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/controller/LoginController.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/util/AdminManager.java" />
@@ -257,32 +357,33 @@
         <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherAndStuInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/view/BaseView/NavBarView.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/view/SelectCourseView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/CourseInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/util/TableCellTextAreaRenderer.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/dao/LoginMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/AdminInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/view/LoginView.java" />
         <option value="$PROJECT_DIR$/src/test/java/ApplicationTest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/view/StudentView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/view/CenterView.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/view/PersonalInfoVIew.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/view/BaseView/FuncView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/SelectedCourse.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mappers/CourseMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/StudentInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/UserInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/util/UserManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/util/MyDefaultTableModel.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mappers/ManagerMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/dao/ManagerMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Guet/controller/AdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/view/BaseView/FuncView.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/StudentInfo.java" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/view/AdminView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/SelectedCourse.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/view/CenterView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/util/CenterViewManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mappers/CourseMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/view/LoginView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/controller/AdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/pojo/CourseInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/dao/ManagerMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mappers/ManagerMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/view/StudentView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java" />
       </list>
     </option>
   </component>
@@ -293,11 +394,21 @@
       </MavenImportingSettings>
     </option>
   </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="guet" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="976" />
-    <option name="height" value="1056" />
+    <option name="x" value="953" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -307,7 +418,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -429,6 +539,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -436,7 +547,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/IntelliJ_spacework/javasystem" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -576,7 +687,8 @@
       <workItem from="1562204593263" duration="22332000" />
       <workItem from="1562290015450" duration="40469000" />
       <workItem from="1562376890835" duration="252000" />
-      <workItem from="1562377162088" duration="14604000" />
+      <workItem from="1562377162088" duration="17061000" />
+      <workItem from="1562395840341" duration="22553000" />
     </task>
     <task id="LOCAL-00001" summary="学生课程表等更新">
       <created>1561814827364</created>
@@ -606,7 +718,14 @@
       <option name="project" value="LOCAL" />
       <updated>1562300967367</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="添加管理员功能&#10;&#10;在jtable实现了数据的大量的添加、删除、修改，删除功能&#10;&#10;发现问题：当defaultmodeltable setdata后 会出现越界的情况&#10;解决办法——通过判断变化行不小于0，不大于最大行数即可&#10;&#10;mapper里学会使用if来判断值是否存在而决定是否做出修改">
+      <created>1562393490916</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1562393490916</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -642,7 +761,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="314918000" />
+    <option name="totallyTimeSpent" value="339928000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -657,41 +776,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49644127" visible="true" weight="0.18869936" />
-      <window_info id="Structure" order="1" sideWeight="0.5035587" side_tool="true" weight="0.16791044" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" sideWeight="0.5016129" side_tool="true" weight="0.1663113" />
-      <window_info id="Learn" order="7" weight="0.32995737" />
-      <window_info anchor="bottom" id="FindBugs-IDEA" weight="0.329718" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3264642" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.24295011" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3275488" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.329718" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32827735" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053304" side_tool="true" weight="0.3261105" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" sideWeight="0.49946696" visible="true" weight="0.3253796" />
-      <window_info anchor="bottom" id="Spring" order="13" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Database" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Maven" order="6" />
-      <window_info anchor="right" id="Capture Analysis" order="7" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-    </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49644127" visible="true" weight="0.18710022" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49644127" visible="true" weight="0.17590618" />
       <window_info id="Structure" order="1" sideWeight="0.5035587" side_tool="true" weight="0.16791044" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -701,7 +786,7 @@
       <window_info id="Learn" order="7" weight="0.32995737" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3264642" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.2407809" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.2451193" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -713,13 +798,48 @@
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053304" side_tool="true" weight="0.3261105" />
       <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.49946696" weight="0.3253796" />
       <window_info anchor="bottom" id="Spring" order="13" />
+      <window_info anchor="bottom" id="FindBugs-IDEA" order="14" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32995737" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Maven" order="6" />
+      <window_info anchor="right" id="Maven" order="6" weight="0.32995737" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49644127" visible="true" weight="0.17590618" />
+      <window_info id="Structure" order="1" sideWeight="0.5035587" side_tool="true" weight="0.16791044" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" sideWeight="0.5016129" side_tool="true" weight="0.1663113" />
+      <window_info id="Learn" order="7" weight="0.32995737" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3264642" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.2451193" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3275488" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.329718" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32827735" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053304" side_tool="true" weight="0.3261105" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.49946696" weight="0.3253796" />
+      <window_info anchor="bottom" id="Spring" order="13" />
+      <window_info anchor="bottom" id="FindBugs-IDEA" order="14" weight="0.329718" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32995737" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Maven" order="6" weight="0.32995737" />
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout-to-restore>
@@ -745,13 +865,6 @@
     </SUITE>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://F:/Program Files/Java/jdk1.8.0_211/src.zip!/javax/swing/JTextArea.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="616" column="21" selection-start-line="616" selection-start-column="21" selection-end-line="616" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Guet/util/TableListCellRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="381">
@@ -869,25 +982,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/UserView.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherAndStuInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="66" column="22" lean-forward="true" selection-start-line="66" selection-start-column="22" selection-end-line="66" selection-end-column="22" />
-          <folding>
-            <element signature="e#286#287#0" expanded="true" />
-            <element signature="e#318#319#0" expanded="true" />
-            <element signature="e#368#369#0" expanded="true" />
-            <element signature="e#410#411#0" expanded="true" />
-            <element signature="e#448#449#0" expanded="true" />
-            <element signature="e#482#483#0" expanded="true" />
-            <element signature="e#536#537#0" expanded="true" />
-            <element signature="e#582#583#0" expanded="true" />
-            <element signature="e#771#772#0" expanded="true" />
-            <element signature="e#804#805#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://F:/Program Files/Java/jdk1.8.0_211/src.zip!/java/awt/event/ActionListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="494">
@@ -967,124 +1061,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/SelectCourseView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="71" selection-start-line="15" selection-start-column="71" selection-end-line="15" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/CourseInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding>
-            <element signature="e#266#267#0" expanded="true" />
-            <element signature="e#299#300#0" expanded="true" />
-            <element signature="e#432#433#0" expanded="true" />
-            <element signature="e#465#466#0" expanded="true" />
-            <element signature="e#940#941#0" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/SelectedCourse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="124" column="7" selection-start-line="124" selection-start-column="7" selection-end-line="124" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1895#1896#0" expanded="true" />
-            <element signature="e#1926#1927#0" expanded="true" />
-            <element signature="e#1971#1972#0" expanded="true" />
-            <element signature="e#2011#2012#0" expanded="true" />
-            <element signature="e#2070#2071#0" expanded="true" />
-            <element signature="e#2104#2105#0" expanded="true" />
-            <element signature="e#2155#2156#0" expanded="true" />
-            <element signature="e#2201#2202#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/StudentView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="49" column="15" lean-forward="true" selection-start-line="49" selection-start-column="15" selection-end-line="49" selection-end-column="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/util/CenterViewManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="25" column="31" lean-forward="true" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#759#760#0" expanded="true" />
-            <element signature="e#792#793#0" expanded="true" />
-            <element signature="e#855#856#0" expanded="true" />
-            <element signature="e#912#913#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/CenterView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="70" column="42" lean-forward="true" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
-          <folding>
-            <element signature="method#CenterView#0;class#CenterView#0" />
-            <element signature="method#addActionListener#0;class#CenterView#0" />
-            <element signature="n#!!block;n#getFuncViewHeight#0;n#CenterView#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/BaseView/FuncView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
-          <folding>
-            <element signature="e#1278#1317#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mappers/CourseMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1520">
-          <caret line="80" column="38" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="817">
-          <caret line="58" column="48" selection-start-line="58" selection-start-column="48" selection-end-line="58" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
-            <element signature="e#1042#1043#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Guet/util/UserManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -1105,16 +1081,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/LoginView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="49" column="50" lean-forward="true" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/BaseView/NavBarView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-76">
@@ -1125,53 +1091,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mappers/ManagerMapper.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/BaseView/FuncView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+        <state relative-caret-position="456">
+          <caret line="37" column="89" selection-start-line="37" selection-start-column="89" selection-end-line="37" selection-end-column="89" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/controller/AdminController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/UserInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="41" column="58" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#676#677#0" expanded="true" />
-            <element signature="e#726#727#0" expanded="true" />
-            <element signature="e#699#700#0" expanded="true" />
-            <element signature="e#760#761#0" expanded="true" />
-            <element signature="e#947#948#0" expanded="true" />
-            <element signature="e#1011#1012#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1083">
+          <caret line="85" column="38" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/StudentInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="70" column="33" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
+        <state relative-caret-position="365">
+          <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherAndStuInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
-          <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://F:/Program Files/Java/jdk1.8.0_211/src.zip!/javax/swing/table/DefaultTableModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="632" column="19" selection-start-line="632" selection-start-column="19" selection-end-line="632" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#22324#22325#0" expanded="true" />
+            <element signature="e#22351#22352#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/TeacherInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="58" column="38" selection-start-line="58" selection-start-column="38" selection-end-line="58" selection-end-column="38" />
+        <state relative-caret-position="665">
+          <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#973#974#0" expanded="true" />
@@ -1186,42 +1151,288 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/AdminView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="52" column="11" selection-start-line="52" selection-start-column="11" selection-end-line="52" selection-end-column="11" />
+        <state relative-caret-position="434">
+          <caret line="67" column="57" lean-forward="true" selection-start-line="67" selection-start-column="57" selection-end-line="67" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/SelectCourseView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="316" column="55" lean-forward="true" selection-start-line="316" selection-start-column="55" selection-end-line="316" selection-end-column="55" />
+        <state relative-caret-position="285">
+          <caret line="15" column="71" selection-start-line="15" selection-start-column="71" selection-end-line="15" selection-end-column="71" />
           <folding>
-            <element signature="method#JPanelInit#0;class#JTableView#0" />
-            <element signature="method#convertLesson#0;class#JTableView#0" />
-            <element signature="e#18250#20009#0" />
-            <element signature="method#setJComboBox#0;class#JTableView#0" />
-            <element signature="method#setJComboBoxJP#0;class#JTableView#0" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/CenterView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
+          <folding>
+            <element signature="method#CenterView#0;class#CenterView#0" />
+            <element signature="n#!!block;n#getFuncViewHeight#0;n#CenterView#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/util/CenterViewManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="32" column="43" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#759#760#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#855#856#0" expanded="true" />
+            <element signature="e#912#913#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/SelectedCourse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/LoginView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="741">
+          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/dao/CourseMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="20" column="77" selection-start-line="20" selection-start-column="77" selection-end-line="20" selection-end-column="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mappers/CourseMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="741">
+          <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+          <folding>
+            <element signature="e#261#369#0" />
+            <element signature="n#select#0;n#mapper#0;n#!!top" />
+            <element signature="e#7#367#1" />
+            <element signature="e#182#269#0" />
+            <element signature="n#select#1;n#mapper#0;n#!!top" />
+            <element signature="e#9#442#1" />
+            <element signature="e#193#310#0" />
+            <element signature="e#248#309#0" />
+            <element signature="n#select#2;n#mapper#0;n#!!top" />
+            <element signature="e#2#628#1" />
+            <element signature="e#163#315#0" />
+            <element signature="e#248#314#0" />
+            <element signature="e#357#516#0" />
+            <element signature="e#455#515#0" />
+            <element signature="n#insert#0;n#mapper#0;n#!!top" />
+            <element signature="e#9#84#0" />
+            <element signature="e#55#84#0" />
+            <element signature="n#delete#0;n#mapper#0;n#!!top" />
+            <element signature="e#9#87#0" />
+            <element signature="n#select#4;n#mapper#0;n#!!top" />
+            <element signature="e#9#643#1" />
+            <element signature="e#202#380#0" />
+            <element signature="e#272#379#0" />
+            <element signature="n#select#5;n#mapper#0;n#!!top" />
+            <element signature="e#9#578#1" />
+            <element signature="e#202#353#0" />
+            <element signature="e#272#352#0" />
+            <element signature="n#select#6;n#mapper#0;n#!!top" />
+            <element signature="e#9#500#1" />
+            <element signature="e#183#298#0" />
+            <element signature="e#237#297#0" />
+            <element signature="e#399#459#0" />
+            <element signature="n#resultMap#0;n#mapper#0;n#!!top" />
+            <element signature="n#association#0;n#resultMap#0;n#mapper#0;n#!!top" />
+            <element signature="n#association#1;n#resultMap#0;n#mapper#0;n#!!top" />
+            <element signature="n#resultMap#1;n#mapper#0;n#!!top" />
+            <element signature="n#association#0;n#resultMap#1;n#mapper#0;n#!!top" />
+            <element signature="n#update#0;n#mapper#0;n#!!top" />
+            <element signature="e#9#103#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/CourseInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="27" lean-forward="true" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/controller/AdminController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="51" column="39" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1437#1438#0" expanded="true" />
+            <element signature="e#1487#1488#0" expanded="true" />
+            <element signature="e#1537#1538#0" expanded="true" />
+            <element signature="e#1587#1588#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Guet/dao/ManagerMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="320">
+          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/pojo/UserInfo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mappers/ManagerMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-414">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+        <state relative-caret-position="320">
+          <caret line="98" column="31" lean-forward="true" selection-start-line="98" selection-start-column="31" selection-end-line="98" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/controller/CourseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="method#CourseController#0;class#CourseController#0" />
+            <element signature="method#getSelectedCourseInfo#0;class#CourseController#0" />
+            <element signature="method#getNoSelectedCourse#0;class#CourseController#0" />
+            <element signature="n#!!block;n#stuSelectCourse#0;n#CourseController#0" />
+            <element signature="n#!!block;n#dropCourse#0;n#CourseController#0" />
+            <element signature="e#1338#1339#0" expanded="true" />
+            <element signature="e#1391#1392#0" expanded="true" />
+            <element signature="method#updateStuGrade#0;class#CourseController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/JTableView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="399" column="17" selection-start-line="399" selection-start-column="17" selection-end-line="399" selection-end-column="17" />
+          <folding>
+            <element signature="e#1865#1992#1" />
+            <element signature="e#2577#2673#1" />
+            <element signature="e#3130#3258#1" />
+            <element signature="e#3754#3877#1" />
+            <element signature="e#4391#4682#1" />
+            <element signature="e#5227#5330#1" />
+            <element signature="e#5373#5430#1" />
+            <element signature="e#6158#6275#1" />
+            <element signature="e#6321#7977#1" />
+            <element signature="e#6467#7959#1" />
+            <element signature="e#6526#7937#1" />
+            <element signature="e#6758#7911#0" />
+            <element signature="e#8542#8696#1" />
+            <element signature="e#9268#9422#1" />
+            <element signature="e#9524#9558#0" />
+            <element signature="method#JPanelInit#0;class#JTableView#0" />
+            <element signature="e#11942#12053#1" />
+            <element signature="e#12057#12376#1" />
+            <element signature="e#12460#15095#0" expanded="true" />
+            <element signature="e#12782#12898#0" />
+            <element signature="e#13303#13390#0" />
+            <element signature="e#13414#13499#0" />
+            <element signature="e#14359#14548#1" />
+            <element signature="e#15094#15095#0" expanded="true" />
+            <element signature="e#14444#14497#0" />
+            <element signature="e#15455#16116#1" />
+            <element signature="e#15502#16104#0" />
+            <element signature="e#15526#15988#0" />
+            <element signature="e#15589#15970#1" />
+            <element signature="e#16029#16090#0" />
+            <element signature="e#16063#16116#0" />
+            <element signature="method#getViewJP#0;class#JTableView#0" />
+            <element signature="method#FitTableColumns#0;class#JTableView#0" />
+            <element signature="e#16785#17653#1" />
+            <element signature="e#17220#17516#1" />
+            <element signature="method#setTableColumnCenter#0;class#JTableView#0" />
+            <element signature="method#sortTable#0;class#JTableView#0" />
+            <element signature="method#convertLesson#0;class#JTableView#0" />
+            <element signature="e#18676#18932#0" />
+            <element signature="e#19526#19632#1" />
+            <element signature="class#20082:20868" />
+            <element signature="method#changeFilter#0;class#20082:20868" />
+            <element signature="e#20241#20383#0" />
+            <element signature="e#20405#20466#0" />
+            <element signature="e#20919#20980#0" />
+            <element signature="e#21021#21203#0" />
+            <element signature="e#22211#26296#0" />
+            <element signature="e#22827#23969#1" />
+            <element signature="e#22897#23058#0" />
+            <element signature="e#23099#23176#0" />
+            <element signature="e#23239#23947#0" />
+            <element signature="e#23471#23577#0" />
+            <element signature="e#23612#23761#0" />
+            <element signature="e#24462#25684#1" />
+            <element signature="e#24540#24709#0" />
+            <element signature="e#24750#24835#0" />
+            <element signature="e#24902#25658#0" />
+            <element signature="e#25150#25264#0" />
+            <element signature="e#25299#25460#0" />
+            <element signature="e#27459#27628#0" />
+            <element signature="e#27669#27754#0" />
+            <element signature="class#23174:23449" />
+            <element signature="method#setSearchResultTable#0;class#JTableView#0" />
+            <element signature="e#23200#23317#1" />
+            <element signature="e#23420#23552#1" />
+            <element signature="e#23668#23726#1" />
+            <element signature="method#setTableStatus#0;class#JTableView#0" />
+            <element signature="e#23901#24152#1" />
+            <element signature="e#24226#25332#0" />
+            <element signature="method#setJComboBox#0;class#JTableView#0" />
+            <element signature="e#25640#25755#1" />
+            <element signature="e#25857#26041#0" />
+            <element signature="e#25921#26031#1" />
+            <element signature="method#setJComboBoxJP#0;class#JTableView#0" />
+            <element signature="e#26387#28177#0" />
+            <element signature="e#31864#32216#1" />
+            <element signature="e#27079#27238#1" />
+            <element signature="e#27387#27787#1" />
+            <element signature="e#27903#27934#0" />
+            <element signature="method#switchTerm#0;class#JTableView#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/StudentView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Guet/view/TeacherView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

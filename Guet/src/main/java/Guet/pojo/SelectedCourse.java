@@ -4,7 +4,7 @@ import Guet.view.CenterView.ViewType;
 
 import java.sql.Date;
 
-public class SelectedCourse {
+public class SelectedCourse{
 
     private int courseID;
     private String studentID;
@@ -156,6 +156,21 @@ public class SelectedCourse {
                         String.valueOf(semester),
                         grade >= 60 ? "1" : "0",
                         courseInfo.getCourseType(),
+                };
+                break;
+            case COURSE_MANAGER:
+                content = new String[]{
+                        null,
+                        String.valueOf(courseID),
+                        courseInfo.getCourseCode(),
+                        courseInfo.getCourseName(),
+                        String.valueOf(courseInfo.getCourseCredit()),
+                        courseInfo.getCourseDate(),
+                        courseTime,
+                        courseInfo.getCourseType(),
+                        teacherInfo.getTeacherName(),
+                        teacherInfo.getTeacherTitle(),
+
                 };
         }
         return content;

@@ -18,7 +18,7 @@ public interface CourseMapper {
     List<SelectedCourse> queryNoSelectedCourses(@Param("stuID")String stuID, @Param("courseCode")String courseCode);
 
     //没有被学生选修的课程
-    List<CourseInfo> queryNoStuSelectCourse();
+    List<CourseInfo> queryNoStuSelectCourse(@Param("termYear")String termYear);
 
     //学生选课
     void insertCourseToStuCourse(@Param("courseID")int courseID, @Param("stuID")String stuID);
@@ -26,7 +26,7 @@ public interface CourseMapper {
     //学生退课
     void dropCourse(@Param("courseID")int courseID, @Param("stuID")String stuID);
     //查询学生所有可选课程
-    List<CourseInfo> queryAllCourse(String stuID);
+    List<CourseInfo> queryAllCourseByStuID(String stuID);
     //查询成绩
     List<SelectedCourse> queryStuGrade(@Param("stuID")String stuID, @Param("semester")String semester);
     //查询所有成绩
@@ -35,4 +35,7 @@ public interface CourseMapper {
     List<TeacherAndStuInfo> queryTeasStuInfo(@Param("teaID")String teaID, @Param("courseID")String courseID);
 
     void updateStuGrade(@Param("courseID")String courseID, @Param("stuID")String stuID, @Param("grade")String grade);
+
+    //获取所有基础课程
+    List<CourseInfo> queryAllCourse();
 }
