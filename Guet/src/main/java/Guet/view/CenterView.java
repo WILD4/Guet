@@ -44,7 +44,11 @@ public class CenterView extends JFrame {
         QUERY_GRADE_POINT,
         TEACHER_INFO,
         TEACHER_COURSE,
-        TEACHERS_STU_INFO
+        TEACHERS_STU_INFO,
+        STUDENT_MANAGER,
+        TEACHER_MANAGER,
+        COURSE_MANAGER,
+        NO_STU_SELECTE_COURSE,
     }
 
     private void init() {
@@ -76,6 +80,8 @@ public class CenterView extends JFrame {
             navBarView = new StudentView();
         else if(UserManager.getUserInfo().getStatus().equals("教师"))
             navBarView = new TeacherView();
+        else if(UserManager.getUserInfo().getStatus().equals("管理员"))
+            navBarView = new AdminView();
     }
 
     private void addActionListener(){

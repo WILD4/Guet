@@ -31,7 +31,7 @@ public class PersonalInfoVIew extends JPanel {
                     {"班级：",studentInfo.getStudentId().substring(0,8)},
                     {"年级：","20"+studentInfo.getStudentId().substring(0,2)},
                     {"性别：",studentInfo.getStudentSex()},
-                    {"生日：",studentInfo.getStudentBirthday().toString()}
+                    {"生日：",studentInfo.getStudentBirthday() != null ? studentInfo.getStudentBirthday().toString() : null}
             };
         }
         if(userInfo.getStatus().equals("教师")){

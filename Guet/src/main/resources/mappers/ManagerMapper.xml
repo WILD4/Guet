@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="Guet.dao.ManagerMapper">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+    <delete id="removeStuInfo" parameterType="String">
+      DELETE FROM student WHERE student_id = #{uid};
+   </delete>
+
+    <delete id="removeTeaInfo" parameterType="String">
+      DELETE FROM teacher WHERE teacher_id = #{uid};
+   </delete>
+
+    <update id="updateLoginInfo">
+        update login_info set login_date = now() where UID = #{uid};
+    </update>
+
+    <update id="changePassword">
+        update login_info set password = #{password} WHERE uid = #{uid};
+    </update>
+
+    <update id="updateStuInfo" parameterType="Guet.pojo.StudentInfo">
+        update student
+        <trim prefix="set" suffixOverrides=",">
+            <if test="studentInfo.UID != null"> student_id = #{studentInfo.UID}, </if>
+            <if test="studentInfo.userName != null"> student_name = #{studentInfo.userName}, </if>
+            <if test="studentInfo.userSex != null"> student_sex = #{studentInfo.userSex}, </if>
+            <if test="studentInfo.userBirthday != null"> student_birthday = #{studentInfo.userBirthday}, </if>
+            <if test="studentInfo.birthPlace != null"> birthplace = #{studentInfo.birthPlace}, </if>
+        </trim>
+        where student_id = #{uid};
+    </update>
+
+    <insert id="updateOrInsertStuInfo" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into student
+        (student_id, student_name, student_sex, student_birthday, birthplace)
+        values
+        <foreach collection="stuInfoList" item="item" index="index" separator=",">
+            (
+                #{item.UID},
+                #{item.userName},
+                #{item.userSex},
+                #{item.userBirthday},
+                #{item.birthPlace}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+            <trim suffixOverrides=",">
+                <if test="item.UID != null"> student_id = VALUES(student_id), </if>
+                <if test="item.userName != null"> student_name = VALUES(student_name), </if>
+                <if test="item.userSex != null"> student_sex = VALUES(student_sex), </if>
+                <if test="item.userBirthday != null"> student_birthday = VALUES(student_birthday), </if>
+                <if test="item.birthPlace != null"> birthplace = VALUES(birthplace) </if>
+            </trim>
+
+--             student_id = VALUES(student_id),
+--             student_name = VALUES(student_name),
+--             student_sex = VALUES(student_sex),
+--             student_birthday = VALUES(student_birthday),
+--             birthplace = VALUES(birthplace)
+    </insert>
+
+    <select id="queryAllStu" resultType="Guet.pojo.StudentInfo">
+        SELECT * FROM student;
+    </select>
+
+    <select id="queryAllTea" resultType="Guet.pojo.TeacherInfo">
+        SELECT * FROM teacher;
+    </select>
+
+    <resultMap id="teacherInfo" type="Guet.pojo.TeacherInfo">
+        <id column="teacher_id" property="teacherID"/>
+        <collection property="courseIDs" ofType="String" select="getTeaCourseID" column="{uid = teacher_id}"/>
+    </resultMap>
+
+
+</mapper>

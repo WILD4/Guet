@@ -17,6 +17,9 @@ public interface CourseMapper {
     //通过学号查找学生未选的课程
     List<SelectedCourse> queryNoSelectedCourses(@Param("stuID")String stuID, @Param("courseCode")String courseCode);
 
+    //没有被学生选修的课程
+    List<CourseInfo> queryNoStuSelectCourse();
+
     //学生选课
     void insertCourseToStuCourse(@Param("courseID")int courseID, @Param("stuID")String stuID);
 

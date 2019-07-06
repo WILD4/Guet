@@ -1,5 +1,6 @@
 package Guet.dao;
 
+import Guet.pojo.AdminInfo;
 import Guet.pojo.StudentInfo;
 import Guet.pojo.TeacherInfo;
 import org.apache.ibatis.annotations.Param;
@@ -17,6 +18,8 @@ public interface LoginMapper {
     public void changePassword(@Param("uid")String uid, @Param("password")String password);
 
     public TeacherInfo getTeacherInfo(@Param("uid")String uid);
+
+    public AdminInfo getAdminInfo(@Param("uid")String uid);
 
     public String selectPassword(@Param("uid")String uid);
 

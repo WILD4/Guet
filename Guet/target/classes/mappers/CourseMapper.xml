@@ -24,11 +24,12 @@
     </select>
 
     <select id="queryNoSelectedCourses" resultMap="courseInfo">
-        SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit, course_date, course_time FROM course,tea_course,teacher WHERE
-	course.course_code IN(SELECT course_code FROM tea_course WHERE course_code = #{courseCode} AND
-	course_id NOT IN(SELECT course_id FROM stu_course WHERE student_id = #{stuID}))
-	AND course.course_code = tea_course.course_code
-	AND teacher.teacher_id = tea_course.teacher_id;
+	SELECT course_id,course.course_code,course_name,teacher_name,course_type,course_credit, course_date, course_time, capacity,A.* FROM course,tea_course,teacher,(
+	SELECT COUNT(course_id)AS rem_capacity FROM stu_course WHERE stu_course.course_id IN(SELECT course_id FROM tea_course WHERE course_code = #{courseCode}))AS A WHERE
+        course.course_code IN(SELECT course_code FROM tea_course WHERE course_code = #{courseCode} AND
+        course_id NOT IN(SELECT course_id FROM stu_course WHERE student_id = #{stuID}))
+        AND course.course_code = tea_course.course_code
+        AND teacher.teacher_id = tea_course.teacher_id;
     </select>
 
     <select id="queryAllCourse" resultType="Guet.pojo.CourseInfo">
@@ -54,6 +55,7 @@
             AND stu_course.course_id = tea_course.course_id
             AND course.course_code = tea_course.course_code
             AND teacher.teacher_id = tea_course.teacher_id
+            AND student_id = #{stuID}
             AND stu_course.grade IS NOT NULL;
     </select>
 
@@ -74,6 +76,12 @@
             AND student.student_id = stu_course.student_id
             AND stu_course.course_id IN(SELECT course_id FROM tea_course WHERE teacher_id = #{teaID})
             AND course_id = #{courseID};
+    </select>
+
+    <select id="queryNoStuSelectCourse" resultType="Guet.pojo.CourseInfo">
+        SELECT course_code,course_name,course_type,course_credit,course_date FROM course
+            WHERE course.course_code NOT IN(SELECT DISTINCT course_code FROM tea_course
+                WHERE course_id in(select course_id from stu_course));
     </select>
 
     <resultMap id="courseInfo" type="Guet.pojo.SelectedCourse" autoMapping="true">

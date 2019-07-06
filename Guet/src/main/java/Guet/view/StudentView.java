@@ -22,6 +22,7 @@ public class StudentView extends NavBarView {
         QUERY_GRADE,
         QUERY_GRADE_POINT,
         COURSE_INFO,
+        NO_SELECTED_COURSE,
     }
 
     StudentView(){
@@ -31,8 +32,9 @@ public class StudentView extends NavBarView {
                 "   选   课   ",
                 "   退   课   ",
                 "查询成绩",
-                "总学分查询",
+                "学分查询",
                 "课表信息",
+                "未选修课程"
         });
         addActionListener();
     }

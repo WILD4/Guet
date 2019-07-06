@@ -55,4 +55,8 @@ public class CourseController {
         courseMapper.updateStuGrade(courseID, stuID, grade);
     }
 
+    public List<CourseInfo> getNoStuSelectCourse(){
+        return courseMapper.queryNoStuSelectCourse();
+    }
+
 }

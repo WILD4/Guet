@@ -1,31 +1,32 @@
 package Guet.view;
 
+import Guet.controller.AdminController;
 import Guet.controller.CourseController;
-import Guet.pojo.CourseInfo;
-import Guet.pojo.SelectedCourse;
-import Guet.pojo.TeacherAndStuInfo;
-import Guet.pojo.TeacherInfo;
+import Guet.pojo.*;
 import Guet.util.*;
 import Guet.view.CenterView.ViewType;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
+import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Enumeration;
+import java.sql.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Vector;
 
 public class JTableView extends JPanel{
 
+    private JPanel jtvJP;
     private JLabel tableStatus;
+    private JPanel tableStatusJP;
     private String[][] content;
     private String[] title;
     private JTable tableList;
@@ -34,18 +35,24 @@ public class JTableView extends JPanel{
     private DefaultTableModel tableModel;
     private CourseController courseController;
     private ViewType viewType;
-    private JComboBox jComboBox;
+    private JComboBox<String> jComboBox;
     private JPanel jComboBoxJP;
     private String[] boxList;
 
     private static String userID;
     private static String comboBox;
+    private static String[] comboBoxes;
+
+    private Map<Integer ,List<Integer>> changeListRow;
+    private List<Integer> changeListColumn;
+
+    private AdminController adminController;
 
     private void setListContent(){
         switch (viewType){
             case SELECTED_COURSE:
                 if(jComboBoxJP == null)
-                    jComboBoxJP = setJComboBox();
+                    jComboBoxJP = setJComboBoxJP();
             case DROP_COURSE:
                 listContent = courseController.getSelectedCourseInfo(userID, comboBox);
                 title = new String[]{"课程序号", "课程代码", "课程名称","教师","选课类型","学分"};
@@ -57,7 +64,11 @@ public class JTableView extends JPanel{
                 }
                 break;
             case SELECT_COURSE:
-                listContent = courseController.getCourseInfo(userID);
+            case NO_STU_SELECTE_COURSE:
+                if(viewType == ViewType.SELECT_COURSE)
+                    listContent = courseController.getCourseInfo(userID);
+                else
+                    listContent = courseController.getNoStuSelectCourse();
                 title = new String[]{"课程代码", "课程名称","选课类型","学分","上课周次"};
                 if(listContent.size() == 0)
                     return;
@@ -68,7 +79,7 @@ public class JTableView extends JPanel{
                 break;
             case NO_SELECT_COURSE:
                 listContent = courseController.getNoSelectedCourse(userID, CourseManager.getCourseInfo().getCourseCode());
-                title = new String[]{"课程序号","课程名称","教师","学分","上课周次","上课时间"};
+                title = new String[]{"课程序号","课程名称","教师","学分","上课周次","上课时间","选课容量"};
                 if(listContent.size() == 0)
                     return;
                 content = new String[listContent.size()][];
@@ -78,7 +89,7 @@ public class JTableView extends JPanel{
                 break;
             case QUERY_GRADE:
                 if(jComboBoxJP == null)
-                    jComboBoxJP = setJComboBox();
+                    jComboBoxJP = setJComboBoxJP();
                 listContent = courseController.getStudentGrade(userID, comboBox);
                 title = new String[]{"课程代码","课程序号","课程名称","成绩","学分","选课类型"};
                 if(listContent.size() == 0)
@@ -90,7 +101,7 @@ public class JTableView extends JPanel{
                 break;
             case QUERY_GRADE_POINT:
                 if(jComboBoxJP == null)
-                    jComboBoxJP = setJComboBox();
+                    jComboBoxJP = setJComboBoxJP();
                 listContent = courseController.getStudentGrade(userID, comboBox);
                 title = new String[]{"序号","课程代码","课程名称","成绩","学分","计划学期","计划学分","选课类型"};
                 if(listContent.size() == 0)
@@ -106,7 +117,7 @@ public class JTableView extends JPanel{
                 break;
             case TEACHERS_STU_INFO:
                 if(jComboBoxJP == null)
-                    jComboBoxJP = setJComboBox();
+                    jComboBoxJP = setJComboBoxJP();
                 listContent = courseController.getTeasStuInfo(UserManager.getUserInfo().getUID(), comboBox);
                 title = new String[]{"学号","姓名","学分","成绩"};
                 if(listContent.size() == 0)
@@ -123,7 +134,7 @@ public class JTableView extends JPanel{
             case COURSE_INFO:
             case TEACHER_COURSE:
                 if(jComboBoxJP == null)
-                    jComboBoxJP = setJComboBox();
+                    jComboBoxJP = setJComboBoxJP();
                 if(viewType == ViewType.COURSE_INFO)
                     listContent = courseController.getSelectedCourseInfo(userID, comboBox);
                 else
@@ -162,32 +173,66 @@ public class JTableView extends JPanel{
                     }
                 }
                 break;
+            case STUDENT_MANAGER:
+                jComboBoxJP = new JPanel(new FlowLayout());
+                jComboBoxJP.add(setJComboBoxJP());
+                jtvJP.add(setTableStatusJP(), BorderLayout.SOUTH);
+                listContent = new AdminController().getAllStuInfo();
+                title = new String[]{"学号","姓名","性别","出生年月","籍贯"};
+                if(listContent.size() == 0)
+                    return;
+                content = new String[listContent.size()][];
+                for(int i = 0; i < listContent.size(); i++){
+                    content[i] = ((StudentInfo)listContent.get(i)).toArray();
+                }
+            case TEACHER_MANAGER:
+                jComboBoxJP = new JPanel(new FlowLayout());
+                jComboBoxJP.add(setJComboBoxJP());
+                jtvJP.add(setTableStatusJP(), BorderLayout.SOUTH);
+                listContent = new AdminController().getAllTeaInfo();
+                title = new String[]{"工号","姓名","性别","出生年月","籍贯","职务"};
+                if(listContent.size() == 0)
+                    return;
+                content = new String[listContent.size()][];
+                for(int i = 0; i < listContent.size(); i++){
+                    content[i] = ((TeacherInfo)listContent.get(i)).toArray();
+                }
         }
     }
 
     private void JPanelInit(){
         JTableInit();
-
-        this.setPreferredSize(new Dimension(tableList.getWidth(), tableList.getHeight()));
-        this.setLayout(new BorderLayout());
+        jtvJP.setPreferredSize(new Dimension(tableList.getWidth(), tableList.getHeight()));
         JScrollPane pane = new JScrollPane(tableList);
         if(jComboBoxJP != null)
-            this.add(jComboBoxJP, BorderLayout.NORTH);
-        this.add(pane, BorderLayout.CENTER);
-        tableStatus.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,14));
-        if(tableStatus != null)
-            this.add(tableStatus, BorderLayout.SOUTH);
+            jtvJP.add(jComboBoxJP, BorderLayout.NORTH);
+        jtvJP.add(pane, BorderLayout.CENTER);
     }
 
     private void JTableInit(){
-        tableModel = new DefaultTableModel(content, title){
-            @Override
-            public boolean isCellEditable(int row, int columnIndex) {
-                if(columnIndex == 3 && viewType == ViewType.TEACHERS_STU_INFO)
-                    return true;
-                return false;
+        tableModel = new DefaultTableModel(content, title);
+        tableModel.addTableModelListener(e->{
+            try{
+                if(e.getType() == TableModelEvent.UPDATE){
+//                    if(userInfoList != null){
+//                        if(e.getColumn() != 0){
+//                            String uid = String.valueOf(tableModel.getValueAt(e.getLastRow(), e.getColumn()));
+//                            if(!userInfoList.containsKey(uid)){
+//                                userInfoList.put(uid, new UserInfo());
+//
+//                            }
+//                        }
+//                    }
+                    if(e.getLastRow() < 0 || e.getLastRow() > tableModel.getRowCount())
+                        return;
+                    if(!changeListRow.containsKey(e.getLastRow()))
+                        changeListRow.put(e.getLastRow(),new ArrayList<>());
+                    changeListRow.get(e.getLastRow()).add(e.getColumn());
+                }
+            }catch (ArrayIndexOutOfBoundsException e1){
+                e1.printStackTrace();
             }
-        };
+        });
         tableList = new JTable();
         tableList.setModel(tableModel);
         tableList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -225,12 +270,19 @@ public class JTableView extends JPanel{
                         case DROP_COURSE:
                             result = JOptionPane.showConfirmDialog(null, "是否退课", "确认", JOptionPane.YES_NO_OPTION);
                             if(result == JOptionPane.YES_NO_OPTION)
-                            courseController.dropCourse(Integer.parseInt(String.valueOf(tableList.getValueAt(selectedRow,0))), userID);
+                                courseController.dropCourse(Integer.parseInt(String.valueOf(tableList.getValueAt(selectedRow,0))), userID);
                             break;
                         case NO_SELECT_COURSE:
+                            String capacity = tableList.getValueAt(selectedRow,6).toString();
+                            boolean isFull;
+                            int indexOf = capacity.indexOf('/');
+                            isFull = capacity.substring(0, indexOf).compareTo(capacity.substring(indexOf + 1, capacity.length())) >= 0;
+                            if(isFull){
+                                JOptionPane.showMessageDialog(null, "选课容量已满", "确认", JOptionPane.INFORMATION_MESSAGE);
+                                return;
+                            }
                             result = JOptionPane.showConfirmDialog(null, "是否选课", "确认", JOptionPane.YES_NO_OPTION);
                             if(result == JOptionPane.YES_NO_OPTION)
-                                System.out.println(String.valueOf(tableList.getValueAt(selectedRow,0)));
                                 courseController.stuSelectCourse(Integer.parseInt(String.valueOf(tableList.getValueAt(selectedRow,0))), userID);
                             break;
 
@@ -249,22 +301,20 @@ public class JTableView extends JPanel{
         userID = UserManager.getUserInfo().getUID();
         courseController = new CourseController();
         viewType = typeView;
-        tableStatus = new JLabel();
-        tableStatus.setHorizontalAlignment(SwingConstants.RIGHT);
+        jtvJP = new JPanel(new BorderLayout());
         setListContent();
         JPanelInit();
         setTableListListener();
-
-        return this;
+        return jtvJP;
     }
     //使JTable列宽适应文本内容
     private void FitTableColumns(JTable myTable){
         JTableHeader header = myTable.getTableHeader();
         int rowCount = myTable.getRowCount();
 
-        Enumeration columns = myTable.getColumnModel().getColumns();
+        Enumeration<TableColumn> columns = myTable.getColumnModel().getColumns();
         while(columns.hasMoreElements()){
-            TableColumn column = (TableColumn)columns.nextElement();
+            TableColumn column = columns.nextElement();
             int col = header.getColumnModel().getColumnIndex(column.getIdentifier());
             int width = (int)myTable.getTableHeader().getDefaultRenderer()
                     .getTableCellRendererComponent(myTable, column.getIdentifier()
@@ -296,7 +346,8 @@ public class JTableView extends JPanel{
         setListContent();
         if(listContent.size() == 0){
             tableModel.setRowCount(0);
-            tableStatus.setText("");
+            if(tableStatus != null)
+                tableStatus.setText("");
         }
         else{
             if(viewType == ViewType.TEACHERS_STU_INFO){
@@ -305,7 +356,7 @@ public class JTableView extends JPanel{
             tableModel.setDataVector(content, title);
         }
         tableModel.fireTableDataChanged();
-        tableModel.fireTableStructureChanged();
+        System.out.println(tableModel.getRowCount());
     }
 
     private int convertLesson(String lesson){
@@ -324,7 +375,130 @@ public class JTableView extends JPanel{
         return -1;
     }
 
+    private JPanel setTableStatusJP(){
+        JPanel tableStatusJP = new JPanel(new BorderLayout(), true);
+        JPanel buttonJP = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        tableStatusJP.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+        String[] jButtonNames = new String[]{
+                "添加",
+                "删除",
+                "确认",
+                "刷新",
+        };
+        JButton[] jButtons = new JButton[jButtonNames.length];
+        for(int i = 0; i < jButtonNames.length; i++){
+            jButtons[i] = new JButton(jButtonNames[i]);
+            buttonJP.add(jButtons[i]);
+        }
+        JTextField searchJTF = new JTextField();
+        searchJTF.setHorizontalAlignment(SwingConstants.CENTER);
+        tableStatusJP.add(buttonJP, BorderLayout.CENTER);
+        tableStatusJP.add(searchJTF,BorderLayout.NORTH);
+        changeListRow = new HashMap<>();
+        changeListColumn = new ArrayList<>();
+        adminController = new AdminController();
+
+        searchJTF.getDocument().addDocumentListener(new DocumentListener() {
+            private void changeFilter(DocumentEvent event) {
+                Document document = event.getDocument();
+                try {
+                    String text=document.getText(0, document.getLength());
+                    setSearchResultTable(text);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changeFilter(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changeFilter(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                changeFilter(e);
+            }
+        });
+
+        jButtons[0].addActionListener(e->{
+            tableModel.addRow(new Object[]{});
+        });
+        jButtons[1].addActionListener(e->{
+            adminController.removeStuInfo((String) tableModel.getValueAt(tableList.getSelectedRow(), 0));
+            tableModel.removeRow(tableList.getSelectedRow());
+        });
+        jButtons[2].addActionListener(e->{
+            if(changeListRow.size() == 0)
+                return;
+            Iterator iter = changeListRow.entrySet().iterator();
+            List<StudentInfo> list = new ArrayList<>();
+            while (iter.hasNext()){
+                int key = Integer.parseInt(String.valueOf(((Map.Entry)iter.next()).getKey()));
+                if(key < -1)
+                    return;
+                StudentInfo studentInfo = new StudentInfo();
+                for(int i = 0; i < changeListRow.get(key).size(); i++){
+                    String v = null;
+                    try{
+                        v = (String) tableModel.getValueAt(Integer.parseInt(String.valueOf(key)), changeListRow.get(key).get(i));
+                    }catch (ArrayIndexOutOfBoundsException e1){
+                        e1.printStackTrace();
+                    }
+                    switch (changeListRow.get(key).get(i)){
+                        case 0:studentInfo.setUID(v);break;
+                        case 1:studentInfo.setUserName(v);break;
+                        case 2:studentInfo.setUserSex(v);break;
+                        case 3:try{
+                            studentInfo.setUserBirthday(Date.valueOf(v));
+                        }catch (IllegalArgumentException e1){
+                            e1.printStackTrace();
+                            studentInfo.setUserBirthday(null);
+                        };break;
+                        case 4:studentInfo.setBirthPlace(v);break;
+                    }
+                }
+                if(studentInfo.getUID() == null)
+                    studentInfo.setUID((String) tableModel.getValueAt(key, 0));
+                list.add(studentInfo);
+            }
+            adminController.updateOrInsertStuInfo(list);
+        });
+        jButtons[3].addActionListener(e->{
+            setContent();
+        });
+
+        return tableStatusJP;
+    }
+
+    private void setSearchResultTable(String text){
+        if(text == null){
+            tableModel.setDataVector(content, title);
+            tableModel.fireTableStructureChanged();
+        }
+        List<String[]> resultList = new ArrayList<>();
+        for(int i = 0; i < content.length; i++){
+            if(content[i][0].contains(text) || content[i][1].contains(text))
+                resultList.add(content[i]);
+        }
+        String[][] resultData = new String[resultList.size()][];
+        for(int i = 0; i < resultData.length; i++){
+            resultData[i] = resultList.get(i);
+        }
+        tableModel.setDataVector(resultData, title);
+        tableModel.fireTableStructureChanged();
+    }
+
     private void setTableStatus(){
+        if(tableStatus == null){
+            tableStatus = new JLabel();
+            jtvJP.add(tableStatus, BorderLayout.SOUTH);
+            tableStatus.setHorizontalAlignment(SwingConstants.RIGHT);
+            tableStatus.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,14));
+        }
         StringBuilder sb = new StringBuilder();
         switch (viewType){
             case TEACHERS_STU_INFO:
@@ -336,6 +510,7 @@ public class JTableView extends JPanel{
                         .append("学生人数：")
                         .append(listContent.size())
                         .append("</html>");
+                break;
             case QUERY_GRADE_POINT:
                 float countCredit = 0f;
                 for(int i = 0; i < content.length; i++)
@@ -346,25 +521,51 @@ public class JTableView extends JPanel{
                         .append("课程数：")
                         .append(listContent.size())
                         .append("</html>");
+                break;
+                default:
         }
         tableStatus.setText(sb.toString());
     }
 
-    private JPanel setJComboBox(){
+    private JPanel setJComboBox(String title, String[] boxList){
         final JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        jComboBox = new JComboBox();
-        JLabel jLabel = null;
+        jComboBox = new JComboBox<String>();
+        JLabel jLabel = new JLabel(title);
+
+        if(boxList != null){
+            comboBox = boxList[0];
+            jComboBox.setModel(new DefaultComboBoxModel<>(boxList));
+        }else
+            jComboBox.setModel(new DefaultComboBoxModel<>());
+
+        jComboBox.addItemListener(e -> {
+            if(e.getStateChange() == ItemEvent.SELECTED) {
+                comboBox = (String) jComboBox.getSelectedItem();
+                setContent();
+            }
+        });
+        jPanel.add(jLabel);
+        jLabel.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+        jPanel.add(jComboBox);
+        jPanel.setVisible(true);
+        return jPanel;
+    }
+
+    private JPanel setJComboBoxJP(){
+        JPanel jPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        String title;
         switch (viewType){
             case TEACHERS_STU_INFO:
-                jLabel = new JLabel("选择课号");
+                title = "选择课号";
                 boxList = ((TeacherInfo)UserManager.getUserInfo()).getCourseIDs();
+                jPanel.add(setJComboBox(title, boxList));
                 break;
             case QUERY_GRADE:
             case SELECTED_COURSE:
             case COURSE_INFO:
             case TEACHER_COURSE:
             case QUERY_GRADE_POINT:
-                jLabel = new JLabel("选择学期");
+                title = "选择学期";
                 Calendar c = Calendar.getInstance();
                 int beginYear = 1997,i = 0;
                 int nowYear = c.get(Calendar.YEAR);
@@ -383,22 +584,18 @@ public class JTableView extends JPanel{
                     boxList[i + 1] = sb.append(year).append('-').append(year-1).append("上半学期").toString();
                     sb.delete(0,sb.length());
                 }
-
+                jPanel.add(setJComboBox(title, boxList));
                 break;
-        }
+            case STUDENT_MANAGER:
+//                title = "学院";
+//                jPanel.add(setJComboBox(title,null));
+//                title = "专业";
+//                jPanel.add(setJComboBox(title,null));
+//                title = "班级";
+//                jPanel.add(setJComboBox(title,null));
 
-        comboBox = boxList[0];
-        jComboBox.setModel(new DefaultComboBoxModel(boxList));
-        jComboBox.addItemListener(e -> {
-            if(e.getStateChange() == ItemEvent.SELECTED) {
-                comboBox = (String) jComboBox.getSelectedItem();
-                setContent();
-            }
-        });
-        jPanel.add(jLabel);
-        jLabel.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
-        jPanel.add(jComboBox);
-        jPanel.setVisible(true);
+        }
         return jPanel;
     }
+
 }

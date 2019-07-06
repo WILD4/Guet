@@ -56,20 +56,12 @@ public class FuncView extends JPanel {
     private void setTableView() throws IOException {
         jTableView = new JTableView();
         switch (viewType){
-            case TEACHER_COURSE:
-            case SELECTED_COURSE:
-            case QUERY_GRADE:
-            case COURSE_INFO:
-            case SELECT_COURSE:
-            case DROP_COURSE:
-            case TEACHERS_STU_INFO:
-            case QUERY_GRADE_POINT:
-                tableView = jTableView.getViewJP(viewType);
-                break;
             case PERSONAL_INFO:
             case TEACHER_INFO:
                 tableView = new PersonalInfoVIew().getPIView();
                 break;
+            default:
+                tableView = jTableView.getViewJP(viewType);
         }
 
         mainJPanel.add(tableView, BorderLayout.CENTER);

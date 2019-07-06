@@ -6,6 +6,13 @@ import java.sql.Date;
 
 public class StudentInfo extends UserInfo {
 
+    public StudentInfo() {
+    }
+
+    public StudentInfo(String UID, String userName, String userSex, Date userBirthday, String password, String birthPlace) {
+        super(UID, userName, userSex, userBirthday, password, null, birthPlace);
+    }
+
     public String getStudentId() {
         return getUID();
     }
@@ -54,9 +61,9 @@ public class StudentInfo extends UserInfo {
         super.setStatus(status);
     }
 
-//    public String[] toStrArray(){
-//        return new String[]{studentID, studentName, studentSex, String.valueOf(studentBirthday)};
-//    }
+    public String[] toArray(){
+        return new String[]{getUID(), getUserName(), getUserSex(), String.valueOf(getUserBirthday()), getBirthPlace()};
+    }
 
     @Override
     public String toString() {

@@ -2,6 +2,7 @@ package Guet.view;
 
 import Guet.controller.LoginController;
 import Guet.dao.LoginMapper;
+import Guet.pojo.AdminInfo;
 import Guet.util.*;
 
 import javax.swing.*;
@@ -46,7 +47,7 @@ public class LoginView extends JFrame {
         passwordJL = new JLabel("口    令");
         usernameJT = new JTextField(10);
         passwordJT = new JTextField(10);
-        usernameJT.setText("1700420201");   //423859
+        usernameJT.setText("59424856");   //423859
         passwordJT.setText("123456");
 
         loginJB = new JButton("登录");
@@ -91,6 +92,8 @@ public class LoginView extends JFrame {
                                 UserManager.setUserInfo(loginController.getTeacherInfo(usernameJT.getText()));
                             else if(usernameJT.getText().length() == 10)
                                 UserManager.setUserInfo(loginController.getStudentInfo(usernameJT.getText()));
+                            else
+                                UserManager.setUserInfo(new AdminInfo(usernameJT.getText(), "管理员"));
                             CenterViewManager.setCenterView(new CenterView());
                             jFrame.dispose();
                         }else {

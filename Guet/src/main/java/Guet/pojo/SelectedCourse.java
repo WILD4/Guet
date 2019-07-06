@@ -15,6 +15,8 @@ public class SelectedCourse {
     private TeacherInfo teacherInfo;
     private float grade;
     private String semester;
+    private int capacity;
+    private int remCapacity;
 
     public int getCourseID() {
         return courseID;
@@ -88,6 +90,22 @@ public class SelectedCourse {
         this.semester = semester;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getRemCapacity() {
+        return remCapacity;
+    }
+
+    public void setRemCapacity(int remCapacity) {
+        this.remCapacity = remCapacity;
+    }
+
     public String[] toStrArray(ViewType typeView){
         String[] content = null;
         switch (typeView){
@@ -105,6 +123,8 @@ public class SelectedCourse {
                     String.valueOf(courseInfo.getCourseCredit()),
                     courseInfo.getCourseDate(),
                     time.toString(),
+                    String.valueOf(remCapacity)+"/"+String.valueOf(capacity),
+
             };
             break;
             case SELECTED_COURSE:

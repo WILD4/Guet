@@ -64,6 +64,10 @@ public class TeacherInfo extends UserInfo {
         this.courseIDs = courseIDs;
     }
 
+    public String[] toArray(){
+        return new String[]{getUID(), getUserName(), getUserSex(), String.valueOf(getUserBirthday()), getBirthPlace(), teacherTitle};
+    }
+
     @Override
     public String toString() {
         return "TeacherInfo{" +

@@ -10,6 +10,19 @@ public class UserInfo {
     private Date userBirthday;
     private String password;
     private String status;
+    private String birthPlace;
+
+    public UserInfo(){}
+
+    public UserInfo(String UID, String userName, String userSex, Date userBirthday, String password, String status, String birthPlace) {
+        this.UID = UID;
+        this.userName = userName;
+        this.userSex = userSex;
+        this.userBirthday = userBirthday;
+        this.password = password;
+        this.status = status;
+        this.birthPlace = birthPlace;
+    }
 
     public String getUID() {
         return UID;
@@ -59,6 +72,14 @@ public class UserInfo {
         this.status = status;
     }
 
+    public String getBirthPlace() {
+        return birthPlace;
+    }
+
+    public void setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
+    }
+
     @Override
     public String toString() {
         return "UserInfo{" +
@@ -68,6 +89,8 @@ public class UserInfo {
                 ", userBirthday=" + userBirthday +
                 ", password='" + password + '\'' +
                 ", status='" + status + '\'' +
+                ", birthPlace='" + birthPlace + '\'' +
                 '}';
     }
+
 }
