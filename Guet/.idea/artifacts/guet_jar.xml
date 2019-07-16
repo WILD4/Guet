@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact name="guet:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/guet_jar</output-path>
+    <root id="root">
+      <element id="archive" name="guet.jar">
+        <element id="module-output" name="guet" />
+      </element>
+      <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+      <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
+      <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.2.8" />
+      <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+      <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.15" />
+      <element id="library" level="project" name="Maven: junit:junit:4.13-beta-3" />
+    </root>
+  </artifact>
+</component>

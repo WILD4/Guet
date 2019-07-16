@@ -6,11 +6,21 @@ import java.sql.Date;
 
 public class StudentInfo extends UserInfo {
 
+    private float sumCredit;
+
     public StudentInfo() {
     }
 
     public StudentInfo(String UID, String userName, String userSex, Date userBirthday, String password, String birthPlace) {
         super(UID, userName, userSex, userBirthday, password, null, birthPlace);
+    }
+
+    public float getSumCredit() {
+        return sumCredit;
+    }
+
+    public void setSumCredit(float sumCredit) {
+        this.sumCredit = sumCredit;
     }
 
     public String getStudentId() {
@@ -62,7 +72,7 @@ public class StudentInfo extends UserInfo {
     }
 
     public String[] toArray(){
-        return new String[]{"",getUID(), getUserName(), getUserSex(), String.valueOf(getUserBirthday()), getBirthPlace()};
+        return new String[]{"",getUID(), getUserName(), getUserSex(), String.valueOf(getUserBirthday()), getBirthPlace(), String.valueOf(sumCredit)};
     }
 
     @Override

@@ -127,7 +127,7 @@ public class JTableView extends JPanel{
                     jComboBoxJP = setJComboBoxJP();
                 if(viewType == ViewType.UPDATE_STU_GRADE)
                     jtvJP.add(setTableStatusJP(), BorderLayout.SOUTH);
-                listContent = courseController.getTeasStuInfo(UserManager.getUserInfo().getUID(), switchTerm(comboBox));
+                listContent = courseController.getTeasStuInfo(UserManager.getUserInfo().getUID(), comboBox);
                 title = new String[]{"学号","姓名","学分","成绩"};
                 if(listContent.size() == 0)
                     return;
@@ -182,17 +182,20 @@ public class JTableView extends JPanel{
                 }
                 break;
             case STUDENT_MANAGER:
-                jComboBoxJP = new JPanel(new FlowLayout());
-                jComboBoxJP.add(setJComboBoxJP());
+                if(jComboBoxJP == null)
+                    jComboBoxJP = setJComboBoxJP();
                 jtvJP.add(setTableStatusJP(), BorderLayout.SOUTH);
-                listContent = new AdminController().getAllStuInfo();
-                title = new String[]{"","学号","姓名","性别","出生年月","籍贯"};
+                listContent = new AdminController().getAllStuSumCredit(comboBox.equals("all")?comboBox: comboBox.substring(2,4)+'%');
+                if(comboBox.equals("all"))
+                    title = new String[]{"序号","学号","姓名","性别","出生年月","籍贯"};
+                title = new String[]{"序号","学号","姓名","性别","出生年月","籍贯","总学分"};
                 if(listContent.size() == 0)
                     return;
                 content = new String[listContent.size()][];
                 for(int i = 0; i < listContent.size(); i++){
                     content[i] = ((StudentInfo)listContent.get(i)).toArray();
                     content[i][0] = String.valueOf(i+1);
+                    content[i][6] = null;
                 }
                 break;
             case TEACHER_MANAGER:
@@ -239,6 +242,8 @@ public class JTableView extends JPanel{
         tableModel = new DefaultTableModel(content, title){
             @Override
             public boolean isCellEditable(int row, int column) {
+                if(viewType == ViewType.STUDENT_MANAGER && column == 6)
+                    return false;
                 if(viewType == ViewType.STUDENT_MANAGER || viewType == ViewType.TEACHER_MANAGER ||viewType == ViewType.COURSE_MANAGER)
                     return column != 1;
                 else return viewType == ViewType.UPDATE_STU_GRADE && column == 3;
@@ -582,7 +587,7 @@ public class JTableView extends JPanel{
                         courseInfos.add(courseInfo);
                         break;
                     case UPDATE_STU_GRADE:
-                        courseController.updateStuGrade(switchTerm(comboBox), String.valueOf(tableModel.getValueAt(key,0)), String.valueOf(tableModel.getValueAt(key, 3)));
+                        courseController.updateStuGrade(comboBox, String.valueOf(tableModel.getValueAt(key,0)), String.valueOf(tableModel.getValueAt(key, 3)));
                         break;
                 }
             }
@@ -685,6 +690,7 @@ public class JTableView extends JPanel{
             if(e.getStateChange() == ItemEvent.SELECTED) {
                 comboBox = (String) jComboBox.getSelectedItem();
                 setContent();
+                System.out.println(comboBox);
             }
         });
         jPanel.add(jLabel);
@@ -705,12 +711,16 @@ public class JTableView extends JPanel{
                 jPanel.add(setJComboBox(title, boxList));
                 break;
             case NO_STU_SELECTE_COURSE:
+            case STUDENT_MANAGER:
                 title = "选择学年";
                 Calendar c = Calendar.getInstance();
                 int beginYear = 1997,i = 0;
                 int nowYear = c.get(Calendar.YEAR);
-
                 boxList = new String[2 * (nowYear - beginYear)];
+                if(viewType == ViewType.STUDENT_MANAGER){
+                    boxList[0] = "all";
+                    i = 1;
+                }
                 for(int year = nowYear; i < boxList.length; i++, year--){
                     boxList[i] = String.valueOf(year);
                 }
@@ -743,7 +753,7 @@ public class JTableView extends JPanel{
                 }
                 jPanel.add(setJComboBox(title, boxList));
                 break;
-            case STUDENT_MANAGER:
+//            case STUDENT_MANAGER:
 //                title = "学院";
 //                jPanel.add(setJComboBox(title,null));
 //                title = "专业";

@@ -4,12 +4,17 @@ import Guet.controller.LoginController;
 import Guet.dao.LoginMapper;
 import Guet.pojo.AdminInfo;
 import Guet.util.*;
+import com.sun.xml.internal.ws.api.ResourceLoader;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class LoginView extends JFrame {
 
@@ -26,6 +31,8 @@ public class LoginView extends JFrame {
     private LoginController loginController;
     private String password;
 
+    private ImageIcon imageIcon;
+
     LoginView(){
         init();
         addActionListener();
@@ -40,6 +47,7 @@ public class LoginView extends JFrame {
         JPanel passwordJP = new JPanel();
         JPanel bottomJP = new JPanel();
 
+        imageIcon = new ImageIcon("src/main/resources/images/guetLogo.jpg");
 
         JLabel topTitle = new JLabel("教务管理系统");
         topTitle.setFont(new Font(Font.SANS_SERIF, Font.PLAIN,50));
@@ -51,7 +59,11 @@ public class LoginView extends JFrame {
         passwordJT.setText("123456");
 
         loginJB = new JButton("登录");
-        clearJB = new JButton("清楚");
+        clearJB = new JButton("清除");
+
+        JPanel flowLayout = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        flowLayout.add(new JLabel(imageIcon));
+//        topTitleJP.add(flowLayout);
 
         topTitleJP.add(topTitle);
         usernameJP.add(usernameJL);
@@ -72,7 +84,7 @@ public class LoginView extends JFrame {
         jFrame.setLayout(new BorderLayout());
         jFrame.setResizable(false);
         jFrame.add(topTitleJP, BorderLayout.NORTH);
-        jFrame.add(loginView, BorderLayout.CENTER);
+        jFrame.add(loginView,BorderLayout.CENTER);
         jFrame.setSize(AppConfig.width, AppConfig.height);
         jFrame.setVisible(true);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,7 +99,7 @@ public class LoginView extends JFrame {
                     loginController = new LoginController();
                     password = loginController.getUserPassword(usernameJT.getText());
                     if(password != null){
-                        if(password.equals(passwordJT.getText())){
+                        if(password.compareTo(String.valueOf(passwordJT.getPassword())) == 0){
                             if(usernameJT.getText().length() == 6)
                                 UserManager.setUserInfo(loginController.getTeacherInfo(usernameJT.getText()));
                             else if(usernameJT.getText().length() == 10)
@@ -97,8 +109,10 @@ public class LoginView extends JFrame {
                             CenterViewManager.setCenterView(new CenterView());
                             jFrame.dispose();
                         }else {
-                            JOptionPane.showMessageDialog(null, "不存在该用户");
+                            JOptionPane.showMessageDialog(null, "密码错误");
                         }
+                    }else {
+                        JOptionPane.showMessageDialog(null, "不存在该用户");
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();

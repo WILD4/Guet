@@ -30,4 +30,6 @@ public interface ManagerMapper {
 
     public void updateOrInsertCourseInfo(@Param("couInfoList")List<CourseInfo> list);
 
+    public List<StudentInfo> queryStuSumCredit(@Param("semester")String semester);
+
 }

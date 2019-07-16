@@ -29,7 +29,4 @@ public class ServerSqlSession {
             sqlSession.close();
     }
 
-//    public void getSqlSession(){
-//    }
-
 }

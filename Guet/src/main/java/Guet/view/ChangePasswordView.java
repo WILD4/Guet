@@ -43,8 +43,8 @@ public class ChangePasswordView extends JFrame {
         newPasswordJL1 = new JLabel("新密码", SwingConstants.CENTER);
         newPasswordJL2 = new JLabel("确认密码", SwingConstants.CENTER);
         oldPasswordJT = new JTextField(10);
-        newPasswordJT1 = new JTextField(10);
-        newPasswordJT2 = new JTextField(10);
+        newPasswordJT1 = new JPasswordField(10);
+        newPasswordJT2 = new JPasswordField(10);
         clearButton = new JButton("清除");
         confirmButton = new JButton("确认");
 
@@ -75,18 +75,22 @@ public class ChangePasswordView extends JFrame {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                if(!oldPasswordJT.getText().equals(loginController.getUserPassword(UserManager.getUserInfo().getUID())))
-                    JOptionPane.showMessageDialog(jFrame, "密码不正确", "确认", JOptionPane.INFORMATION_MESSAGE);
-                else {
-                    if(newPasswordJT1.getText().equals(newPasswordJT2.getText())){
-                        loginController.changePassword(UserManager.getUserInfo().getUID(), newPasswordJT1.getText());
-                        JOptionPane.showMessageDialog(jFrame, "修改成功", "确认", JOptionPane.INFORMATION_MESSAGE);
-                        jFrame.dispose();
-                    }else {
-                        JOptionPane.showMessageDialog(jFrame, "两次密码不一致", "确认", JOptionPane.INFORMATION_MESSAGE);
+                if(!(oldPasswordJT.getText().equals("") || newPasswordJT1.getText().equals("")|| newPasswordJT2.getText().equals(""))){
+                    if(!oldPasswordJT.getText().equals(loginController.getUserPassword(UserManager.getUserInfo().getUID())))
+                        JOptionPane.showMessageDialog(jFrame, "密码不正确", "确认", JOptionPane.INFORMATION_MESSAGE);
+                    else {
+                        if(newPasswordJT1.getText().equals(newPasswordJT2.getText())){
+                            loginController.changePassword(UserManager.getUserInfo().getUID(), newPasswordJT1.getText());
+                            JOptionPane.showMessageDialog(jFrame, "修改成功", "确认", JOptionPane.INFORMATION_MESSAGE);
+                            jFrame.dispose();
+                        }else {
+                            JOptionPane.showMessageDialog(jFrame, "两次密码不一致", "确认", JOptionPane.INFORMATION_MESSAGE);
+                        }
                     }
+                    clearJText();
+                }else {
+                    JOptionPane.showMessageDialog(jFrame, "请输入正确信息", "确认", JOptionPane.INFORMATION_MESSAGE);
                 }
-                clearJText();
             }
         });
 

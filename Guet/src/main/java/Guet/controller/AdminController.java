@@ -64,5 +64,9 @@ public class AdminController {
         managerMapper.removeCourseInfo(CID);
     }
 
-
+    public List<StudentInfo> getAllStuSumCredit(String semester){
+        if(semester.equals("all"))
+            return managerMapper.queryAllStu();
+        return managerMapper.queryStuSumCredit(semester);
+    }
 }

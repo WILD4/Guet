@@ -114,6 +114,17 @@
         SELECT * FROM student;
     </select>
 
+    <select id="queryStuSumCredit" resultType="Guet.pojo.StudentInfo">
+        		SELECT * FROM student,(SELECT student_id,sum(course_credit)sum_credit FROM course,tea_course,teacher,stu_course
+		WHERE course.course_code IN(SELECT course_code FROM tea_course
+				WHERE course_id IN(SELECT course_id FROM stu_course
+						WHERE semester like #{semester}))
+		AND stu_course.course_id = tea_course.course_id
+		AND course.course_code = tea_course.course_code
+		AND teacher.teacher_id = tea_course.teacher_id
+		AND stu_course.grade >= 60 GROUP BY student_id)A WHERE A.student_id = student.student_id;
+    </select>
+
     <select id="queryAllTea" resultType="Guet.pojo.TeacherInfo">
         SELECT * FROM teacher;
     </select>

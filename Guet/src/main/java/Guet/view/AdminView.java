@@ -17,7 +17,8 @@ public class AdminView extends NavBarView {
         STUDENT_MANAGER,
         TEACHER_MANAGER,
         COURSE_MANAGER,
-        NO_SELECTED_COURSE
+        NO_SELECTED_COURSE,
+        SUM_CREDIT,
     }
 
     AdminView(){
@@ -26,6 +27,7 @@ public class AdminView extends NavBarView {
                 "教师管理",
                 "课程管理",
                 "未被选修课程",
+                "学生总学分",
         });
         addActionListener();
     }
@@ -66,6 +68,14 @@ public class AdminView extends NavBarView {
                 views[n] = new FuncView("未被选修课程", ViewType.NO_STU_SELECTE_COURSE);
                 CenterViewManager.setFuncViw(views[n]);
                 status = ButtonStatus.NO_SELECTED_COURSE;
+            }
+        });
+        jButtons[4].addActionListener(e -> {
+            int n = ButtonStatus.SUM_CREDIT.ordinal();
+            if(status != ButtonStatus.SUM_CREDIT){
+                views[n] = new FuncView("学生总学分", ViewType.SUM_CREDIT);
+                CenterViewManager.setFuncViw(views[n]);
+                status = ButtonStatus.SUM_CREDIT;
             }
         });
     }

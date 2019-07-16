@@ -49,7 +49,8 @@ public class CenterView extends JFrame {
         TEACHER_MANAGER,
         COURSE_MANAGER,
         NO_STU_SELECTE_COURSE,
-        UPDATE_STU_GRADE
+        UPDATE_STU_GRADE,
+        SUM_CREDIT,
     }
 
     private void init() {
